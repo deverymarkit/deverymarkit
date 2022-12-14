@@ -1,14 +1,14 @@
-import React from 'react'
-import CommentInput from '../../components/comment/commentinput/CommentInput'
-import CommentList from '../../components/comment/commentlist/CommentList'
-import HomePost from '../../components/hompost/HomePost'
+import React from "react";
+import CommentInput from "../../components/comment/CommentInput";
+import CommentList from "../../components/comment/CommentList";
+import HomePost from "../../components/hompost/HomePost";
 
 export default function Post() {
     return (
         <div>
-        <HomePost/>
-        <CommentList/>
-        <CommentInput/>
+            <HomePost />
+            <CommentList />
+            <CommentInput />
         </div>
-    )
-    }
+    );
+}
