@@ -1,10 +1,10 @@
 import React from "react";
-import BagicProfileImg from "../common/BagicProfileImg";
+import BasicProfileImg from "../common/BasicProfileImg";
 
 export default function CommentInput() {
     return (
         <div>
-            <BagicProfileImg />
+            <BasicProfileImg />
             <input type="text" />
             <button>개시</button>
         </div>

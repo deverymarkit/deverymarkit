@@ -6,8 +6,8 @@ import PostList from "../../components/common/post/PostList";
 export default function Post() {
     return (
         <div>
-            {/* <BagicHeader/> */}
-            <PostList />
+            {/* <BasicHeader/> */}
+            <PostList/>
             <CommentList />
             <CommentInput />
         </div>
