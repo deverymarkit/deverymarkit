@@ -1,13 +1,11 @@
-import './App.css';
-import Login from './pages/login/Login';
-import Loginemail from './pages/login/Loginemail';
+import "./App.css";
+import Profile from "./pages/profile/Profile";
 
 function App() {
-  return (
-    <div className="App">
-      <Loginemail></Loginemail>
-    </div>
-  );
-}
+	return (
+		<div className="App">
+			<Profile />
+		</div>
+	);
 
 export default App;
