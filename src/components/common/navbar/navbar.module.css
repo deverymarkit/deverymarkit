@@ -1,0 +1,28 @@
+.cont_icons {
+    width: 100vw;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    justify-content: space-around;
+}
+
+.div_icon {
+    margin: 10px auto;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.txt_icon {
+    margin: 10px auto 0px;
+    font-size: 10px;
+    color: #767676;
+}

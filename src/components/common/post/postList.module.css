@@ -1,0 +1,59 @@
+.wrap {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    /* width값 아직 미정 */
+    width: min-content;
+    padding: 4 0;
+}
+
+.cont_post {
+    padding-left: 12px;
+    margin: 4px 0 4px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.p_nickname {
+    display: inline;
+    margin-bottom: 2px;
+}
+
+.p_content {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 16px 0;
+}
+
+span {
+    font-size: 12px;
+    color: #767676;
+}
+
+.btn_plus {
+    position: absolute;
+    right: 0;
+}
+
+.box_img {
+    width: 304px;
+    height: 228px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.cont_btn {
+    margin-bottom: 16px;
+    font-size: 18px;
+}
+
+.span_count {
+    /* 글자 크기가 작은 듯..? */
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0 16px 0 6px;
+}
