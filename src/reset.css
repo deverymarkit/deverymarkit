@@ -53,3 +53,12 @@ html {
   *, *::before, *::after {
     box-sizing: inherit;
 }
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+	border: 0;
+	outline: 0;
+}
