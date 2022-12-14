@@ -1,0 +1,48 @@
+.main_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0F0B19;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    height: 90vh;
+}
+
+.logo_login {
+    width: 100vw;
+    text-align: center;
+    padding-top: 180px;
+    flex-grow: 1;
+}
+
+.cont_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.ul_login {
+    display: flex;
+}
+
+.email {
+    color: red;
+}
+
+.btn_login {
+    color: #c4c4c4
+}
+
+.btn_login::after {
+    display: inline-block;
+    margin-left: 12px;
+    content: "";
+    width: 1px;
+    height: 10px;
+    background-color: #c4c4c4;
+}
+
+.btn_join {
+    color: #c4c4c4
+}

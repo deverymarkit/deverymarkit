@@ -1,15 +1,15 @@
-.cont_login {
+.cont_signup {
     text-align: center;
     width: 390px;
     margin: 0 auto;
 }
 
-.tit_login {
+.tit_signup {
     padding-top: 60px;
     font-size: 24px;
 }
 
-.label_login {
+.label_signup {
     display: block;
     color: #767676;
     text-align: left;
@@ -17,11 +17,11 @@
     margin: 0 auto;
 }
 
-.form_login {
+.form_signup {
     margin-top: 50px;
 }
 
-.input_login {
+.input_signup {
     width: 322px;
     border-left-width:0;
     border-right-width:0;
@@ -30,21 +30,12 @@
     margin: 10px 0 30px 0;
 }
 
-.btn_login {
+.btn_signup {
     display: block;
     margin: 10px auto 20px;
     width: 322px;
     border: 1px solid #0f0b19;
     border-radius: 25px;
     padding: 10px 0px;
-    cursor: pointer;
-}
-
-.btn_join {
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    font-size: 14px;
-    color: #767676;
     cursor: pointer;
 }
