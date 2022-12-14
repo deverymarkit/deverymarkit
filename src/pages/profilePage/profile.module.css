@@ -1,12 +1,11 @@
 .wrap_profile {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+    min-width: 390px;
     width: 100%;
-    text-align: center;
+    margin: 0 auto;
 }
 
 .main_profile {
+    min-width: 390px;
+    width: 100%;
     margin: 0 auto;
-    width: 390px;
 }

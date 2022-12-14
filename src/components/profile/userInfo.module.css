@@ -1,13 +1,20 @@
-.cont_user_info {
+.wrap_user_info {
     --userinfo-accent-color: #000000;
     --userinfo-solid-color: #DBDBDB;
     --userinfo-color: #767676;
 }
 
+.wrap_user_info {
+    display: flex;
+    justify-content: center;
+}
+
 .cont_user_info {
     display: flex;
     flex-direction: column;
+    min-width: 390px;
     padding: 30px 16px 26px;
+    text-align: center;
 }
 
 .cont_follow {
@@ -90,4 +97,6 @@
 .btn_product_add {
     width: 100px;
     margin-left: 12px;
+    background-color: #0F0B19;
+    color: #FFFFFF;
 }
