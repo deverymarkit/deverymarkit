@@ -5,6 +5,7 @@ import Signup from "./pages/loginPage/Signup";
 import ProfileSetting from "./pages/loginPage/ProfileSetting";
 import Splash from "./pages/splashPage/Splash";
 import Navbar from "./components/common/navbar/Navbar";
+import Profile from "./pages/profilePage/Profile";
 
 function App() {
 	return (
