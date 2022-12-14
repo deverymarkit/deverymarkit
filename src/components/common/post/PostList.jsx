@@ -1,7 +1,7 @@
 import React from 'react'
 import BagicProfileImg from '../common/BagicProfileImg'
 
-export default function HomePost() {
+export default function PostList() {
     return (
         <>
             <BagicProfileImg/>
