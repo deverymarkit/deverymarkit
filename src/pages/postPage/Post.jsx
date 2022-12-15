@@ -1,15 +1,13 @@
 import React from "react";
-import CommentInput from "../../components/comment/CommentInput";
-import CommentList from "../../components/comment/CommentList";
-import PostList from "../../components/common/post/PostList";
+import CommentInput from "../../components/comment/Comment";
+import PostList from "../../components/common/post/Card";
 
 export default function Post() {
     return (
         <div>
             {/* <BasicHeader/> */}
-            <PostList/>
-            <CommentList />
-            <CommentInput />
+            <Card/>
+            <Comment/>
         </div>
     );
 }
