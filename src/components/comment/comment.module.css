@@ -1,0 +1,49 @@
+/* commentList 
+ * 하트, 댓글 이미지 가져오고 글자 크기 조절해야함
+ * 댓글 내용 해야함
+ */
+.wrap_comment {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: relative;
+    width: 390px;
+}
+
+.cont_comment {
+    margin-left: 16px;
+}
+
+.cont_tit {
+    display: flex;
+    margin: 6px 0 16px;
+}
+
+.p_comment_name {
+    margin-right: 6px;
+}
+
+.btn_plus {
+    position: absolute;
+    right: 0;
+}
+
+/* commentInput
+ * 개시버튼 해야함
+ */
+.wrap_commentInput {
+    display: flex;
+    margin: 13px 20px 12px 16px; 
+    width: 390px;
+}
+
+.inp_comment {
+    border:0;
+    margin-left: 16px;
+    flex-grow: 1;
+}
+
+.btn_commentInput {
+    flex-grow: 0;
+
+}
