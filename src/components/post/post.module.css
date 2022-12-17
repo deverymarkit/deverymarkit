@@ -16,6 +16,11 @@
     background-color: #FFF;
 }
 
+.btn_list,
+.btn_album {
+    cursor: pointer;
+}
+
 .btn_list.on {
     width: 26px;
     height: 26px;
