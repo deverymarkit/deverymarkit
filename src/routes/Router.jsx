@@ -5,6 +5,7 @@ import Login from "../pages/loginPage/Login"
 import LoginEmail from "../pages/loginPage/LoginEmail"
 import Signup from "../pages/loginPage/Signup"
 import Upload from "../pages/uploadPage/Upload"
+import ProfileSetting from "../pages/loginPage/ProfileSetting"
 
 export default function Router() {
     return (
@@ -13,8 +14,10 @@ export default function Router() {
             <Route path="/" element={<Splash />} />
             <Route path="/login" element={<Login />} />
             <Route path="/loginemail" element={<LoginEmail />} />
-            <Route path="signup" element={<Signup />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/upload" element={<Upload type = "upload"/>} />            
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profilesetting" element={<ProfileSetting />} />
         </Routes>
       </BrowserRouter>
     )
