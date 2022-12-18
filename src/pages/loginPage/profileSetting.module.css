@@ -16,6 +16,7 @@
     border-radius: 50%;
     width: 134px;
     height: 134px;
+    object-fit: cover;
 }
 
 .div_uploadImg {
@@ -71,4 +72,8 @@
     border-radius: 25px;
     padding: 10px 0px;
     cursor: pointer;
+}
+
+.inp_file {
+    display: none;
 }
