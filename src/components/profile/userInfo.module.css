@@ -1,12 +1,17 @@
 .wrap_user_info {
-    --userinfo-accent-color: #000000;
-    --userinfo-solid-color: #DBDBDB;
-    --userinfo-color: #767676;
+    --text-accent-color: #000000;
+    --solid-color: #DBDBDB;
+    --devery-main-color: #0F0B19;
+    --text-default-color: #767676;
 }
 
 .wrap_user_info {
     display: flex;
     justify-content: center;
+    margin-bottom: 6px;
+    background-color: #FFF;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
 }
 
 .cont_user_info {
@@ -29,7 +34,7 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 23px;
-    color: var(--userinfo-accent-color);
+    color: var(--text-accent-color);
 }
 
 .cont_follow .p_followers span, 
@@ -38,14 +43,14 @@
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
-    color: var(--userinfo-color);
+    color: var(--text-default-color);
 }
 
 .cont_follow .img_profile {
     width: 110px;
     height: 110px;
     margin-bottom: 16px;
-    border: 1px solid var(--userinfo-solid-color);
+    border: 1px solid var(--solid-color);
     border-radius: 50%;
 }
 
@@ -54,7 +59,7 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
-    color: var(--userinfo-accent-color);
+    color: var(--text-accent-color);
 }
 
 .span_user_id {
@@ -62,7 +67,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: var(--userinfo-color);
+    color: var(--text-default-color);
 }
 
 .span_user_intro {
@@ -70,7 +75,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
-    color: var(--userinfo-color);
+    color: var(--text-default-color);
 }
 
 .box_btn {
@@ -84,9 +89,9 @@
     font-size: 14px;
     line-height: 18px;
     border-radius: 30px;
-    border: 1px solid var(--userinfo-solid-color);
+    border: 1px solid var(--solid-color);
     border-radius: 30px;
-    color: var(--userinfo-color);
+    color: var(--text-default-color);
     cursor: pointer;
 }
 
@@ -97,6 +102,6 @@
 .btn_product_add {
     width: 100px;
     margin-left: 12px;
-    background-color: #0F0B19;
+    background-color: var(--devery-main-color);
     color: #FFFFFF;
 }
