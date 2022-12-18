@@ -3,20 +3,21 @@ import style from "./signup.module.css"
 import axios from 'axios';
 
 export default function Signup() {
-    const [isInputEmail, setIsInputEmail] = useState("");
-    const [isInputPassword, setIsInputPassword] = useState("");
-    const [isDisabled, setIsDisabled] = useState(true);
-    const [btnColor, setButtonColor] = useState("white");
-    const [btnTxtColor, setBtnTxtColor] = useState("gray");
+    const [inputEmail, setInputEmail] = useState("");
+    const [inputPassword, setInputPassword] = useState("");
+    const [pwdMsg, setPwdMsg] = useState("");
+    const [btnValid, setBtnValid] = useState("btn_invalid")
 
-    const emailRef = useRef("");
-    const passwordRef = useRef("");
+    // 다음 버튼을 누를 시 서버에 데이터를 전송해서 유효성 인증 검사를 진행함.
+    const emailValidation = async (emailValue) => {
+        if (inputPassword.length < 6) {
+            setPwdMsg("*비밀번호는 6자 이상이어야 합니다.")
+            return
+        }
 
-    // axios
-    const 액시오스 = async (emailValue) => {
         const url = 'https://mandarin.api.weniv.co.kr'
         try {
-            const 대답 = axios.post(`${url}/user/emailvalid`, {
+            const resEmailValid = axios.post(`${url}/user/emailvalid`, {
                 "user": {
                     "email": emailValue,
                 },
@@ -24,33 +25,30 @@ export default function Signup() {
                     "Content-Type": "application/json"
                 }
             })
-            console.log((await 대답).data.message)
+            console.log((await resEmailValid).data.message)
         } catch(err) {
-            console.log("에러입니다. 휴먼.")
+            const error = err;
+            console.log(error.response.data.message);
         }
     }
 
     // 유효성 검사를 진행합니다.
     useEffect(() => {
-        const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-        if (emailRegex.test(isInputEmail) === true && isInputPassword.length > 5) {
-            setBtnTxtColor("white")
-            setButtonColor("#0F0B19");
-            setIsDisabled(false);
-        } else {
-           setBtnTxtColor("gray")
-           setButtonColor("white");
-           setIsDisabled(true);
-        };
-    }, [isInputEmail, isInputPassword])    
+        // 비밀번호 길이가 6개 이상일 경우, 6글자 이상 메세지를 삭제함.
+        if (inputPassword.length >= 6) setPwdMsg("");
 
-    // input 엘리먼트에 이벤트가 일어나는 것을 감지합니다.
+        // 이메일과 비밀번호가 정상적으로 입력되었을 경우 버튼을 활성화시킴. 
+        const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        if (emailRegex.test(inputEmail) && inputPassword.length >= 6) setBtnValid("btn_valid");
+        else setBtnValid("btn_invalid");
+    }, [inputEmail, inputPassword])    
+
+    // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
     const checkInput = (event) => {
-        if (event.target.name === "email") setIsInputEmail(event.target.value); 
-        else if (event.target.name === "password") setIsInputPassword(event.target.value);
+        if (event.target.name === "email") setInputEmail(event.target.value); 
+        else if (event.target.name === "password") setInputPassword(event.target.value);
     }
     
-
     return (
         <section className={style.cont_signup}>
             <h1 className={style.tit_signup}>
@@ -68,7 +66,6 @@ export default function Signup() {
                 type="email" 
                 id="emailInput"
                 name="email"
-                ref={emailRef}
                 className={style.input_signup}
                 onChange={checkInput} 
                 placeholder="이메일 주소를 적어주세요.">
@@ -84,26 +81,21 @@ export default function Signup() {
                 type="password" 
                 id="passwordInput"
                 name="password"
-                ref={passwordRef}
                 className={style.input_signup}  
                 onChange={checkInput}
                 placeholder="비밀번호를 입력하세요.">
                 </input>
+            </form>
+            <p className={style.p_pwdMsg}>{pwdMsg}</p>
 
-                <button 
-                className={style.btn_signup}
-                disabled={isDisabled}
-                style={{backgroundColor: btnColor, color: btnTxtColor}}
+            <button 
+                className={style[btnValid]}
                 onClick={(e) => {
                     e.preventDefault();
-                    액시오스(emailRef.current.value)
-                    console.log(emailRef.current.value)
-                    console.log(passwordRef.current.value)
+                    emailValidation(inputEmail)
                 }}>
                 다음
-                </button>
-
-            </form>
+            </button>
         </section>
     )
 }
