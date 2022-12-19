@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import style from "./profileSetting.module.css"
-import profileImg from "../../assets/imgs/profile_none.png"
+import profileImg from "../../assets/imgs/profile-none.png"
 import uploadImg from "../../assets/imgs/upload-img.png"
 import axios from 'axios'
 
