@@ -1,0 +1,51 @@
+.wrap_upload {
+    text-align: center;
+    width: 390px;
+
+    margin: 0 auto;
+    padding: 20px 16px 16px;
+    position: relative;
+}
+
+.cont_content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.cont_upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.cont_img {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.text_upload {
+    flex-grow: 1;
+    border: none;
+    resize: none;
+    margin-top: 12px;
+    margin-left: 13px;
+}
+
+.text_upload:focus {
+    outline: none;
+}
+
+.img_preview {
+    width: 304px;
+    height: 228px;
+}
+
+.btn_upload {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 0px;
+    bottom: 0;
+    right: 0;
+    margin: 0 16px 16px 0;
+    cursor: pointer;
+}
