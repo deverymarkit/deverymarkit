@@ -77,3 +77,11 @@
 .inp_file {
     display: none;
 }
+
+.p_warning {
+    font-size: 12px;
+    width: 322px;
+    margin: -25px auto 15px;
+    text-align: left;
+    color: #EB5757;
+}

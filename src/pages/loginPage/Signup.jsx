@@ -1,18 +1,29 @@
-import React, { useEffect, useState, useRef } from "react"
-import style from "./signup.module.css"
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
+import style from "./signup.module.css";
+import axios from "axios";
 
 export default function Signup() {
     const [inputEmail, setInputEmail] = useState("");
     const [inputPassword, setInputPassword] = useState("");
     const [pwdMsg, setPwdMsg] = useState("");
     const [btnValid, setBtnValid] = useState("btn_invalid")
+    const navigate = useNavigate();
 
     // 다음 버튼을 누를 시 서버에 데이터를 전송해서 유효성 인증 검사를 진행함.
-    const emailValidation = async (emailValue) => {
+    const emailValidation = async (emailValue, passwordValue) => {
         if (inputPassword.length < 6) {
             setPwdMsg("*비밀번호는 6자 이상이어야 합니다.")
             return
+        }
+
+        const move = (email, password) => {
+            navigate('/profilesetting', {
+                state: {
+                    email: email,
+                    password: password,
+                }
+            })
         }
 
         const url = 'https://mandarin.api.weniv.co.kr'
@@ -25,7 +36,9 @@ export default function Signup() {
                     "Content-Type": "application/json"
                 }
             })
-            console.log((await resEmailValid).data.message)
+            const message = (await resEmailValid).data;
+            move(emailValue, passwordValue)
+
         } catch(err) {
             const error = err;
             console.log(error.response.data.message);
@@ -36,12 +49,12 @@ export default function Signup() {
     useEffect(() => {
         // 비밀번호 길이가 6개 이상일 경우, 6글자 이상 메세지를 삭제함.
         if (inputPassword.length >= 6) setPwdMsg("");
-
-        // 이메일과 비밀번호가 정상적으로 입력되었을 경우 버튼을 활성화시킴. 
         const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
         if (emailRegex.test(inputEmail) && inputPassword.length >= 6) setBtnValid("btn_valid");
         else setBtnValid("btn_invalid");
-    }, [inputEmail, inputPassword])    
+
+    }, [inputEmail, inputPassword])
 
     // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
     const checkInput = (event) => {
@@ -67,7 +80,7 @@ export default function Signup() {
                 id="emailInput"
                 name="email"
                 className={style.input_signup}
-                onChange={checkInput} 
+                onChange={checkInput}
                 placeholder="이메일 주소를 적어주세요.">
                 </input>
 
@@ -86,13 +99,13 @@ export default function Signup() {
                 placeholder="비밀번호를 입력하세요.">
                 </input>
             </form>
-            <p className={style.p_pwdMsg}>{pwdMsg}</p>
+            <p className={style.p_warning}>{pwdMsg}</p>
 
             <button 
                 className={style[btnValid]}
                 onClick={(e) => {
                     e.preventDefault();
-                    emailValidation(inputEmail)
+                    emailValidation(inputEmail, inputPassword)
                 }}>
                 다음
             </button>

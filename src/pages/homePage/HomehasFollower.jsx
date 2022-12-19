@@ -1,5 +1,5 @@
 import React from "react";
-import profileNone from "../../assets/imgs/profile_none.png";
+import profileNone from "../../assets/imgs/profile-none.png";
 import style from "./HomehasFollower.module.css";
 import Card from "../../components/common/post/Card";
 
