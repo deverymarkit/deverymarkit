@@ -30,7 +30,11 @@
     margin: 10px 0 30px 0;
 }
 
-.btn_signup {
+.input_signup:last-child {
+    margin: 10px 0 0 0;
+}
+
+/* .btn_signup {
     display: block;
     margin: 10px auto 20px;
     width: 322px;
@@ -38,4 +42,36 @@
     border-radius: 25px;
     padding: 10px 0px;
     cursor: pointer;
+} */
+
+.btn_valid {
+    display: block;
+    margin: 20px auto 20px;
+    width: 322px;
+    border: 1px solid #0f0b19;
+    border-radius: 25px;
+    padding: 10px 0px;
+    cursor: pointer;
+    background-color: #0F0B19;
+    color: #FFFFFF;
+} 
+
+.btn_invalid {
+    display: block;
+    margin: 20px auto 20px;
+    width: 322px;
+    border: 1px solid #0f0b19;
+    border-radius: 25px;
+    padding: 10px 0px;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    color: #0F0B19;
+}
+
+.p_pwdMsg {
+    font-size: 12px;
+    width: 322px;
+    margin: 10px auto;
+    text-align: left;
+    color: #EB5757;
 }

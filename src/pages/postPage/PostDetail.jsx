@@ -1,6 +1,6 @@
 import React from "react";
-import CommentInput from "../../components/comment/Comment";
-import PostList from "../../components/common/post/Card";
+import Comment from "../../components/comment/Comment";
+import Card from "../../components/common/post/Card";
 
 export default function Post() {
     return (

@@ -1,9 +1,42 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import style from "./profileSetting.module.css"
 import profileImg from "../../assets/imgs/profile_none.png"
 import uploadImg from "../../assets/imgs/upload-img.png"
+import axios from 'axios'
 
 export default function ProfileSetting() {
+    const [그림, set그림] = useState(profileImg)
+
+    const inputRef = useRef()
+    const clickTest = () => {
+        inputRef.current.click()
+    }
+
+    const changeTest = (event) => {
+        const image = event.target.files[0]
+        액시오스(image)
+    }
+
+    // axios
+    const 액시오스 = async (image) => {
+        const url = 'https://mandarin.api.weniv.co.kr'
+        const formData = new FormData()
+        formData.append('image', image)
+        try {
+            const 대답 = axios.post(`${url}/image/uploadfile`, formData,
+            {
+                "headers": {
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            const bb = await 대답
+            console.log(bb.data.filename)
+            set그림(`https://mandarin.api.weniv.co.kr/${bb.data.filename}`)
+        } catch(err) {
+            console.log("에러입니다. 휴먼.")
+        }
+    }
+
     return (
         <section className={style.cont_profileSetting}>
             <h1 className={style.tit_profileSetting}>
@@ -15,8 +48,17 @@ export default function ProfileSetting() {
             </p>
 
             <div className={style.cont_profileImg}>
-                <img src={profileImg} className={style.img_profileImg}></img>
-                <div className={style.div_uploadImg} style={{backgroundImage: `url(${uploadImg})`}} >
+                <img src={그림} className={style.img_profileImg}></img>
+                
+                <input type="file" 
+                className={style.inp_file} 
+                ref={inputRef}
+                accept="image/*" 
+                onChange={changeTest}/>
+
+                <div className={style.div_uploadImg} 
+                style={{backgroundImage: `url(${uploadImg})`}} 
+                onClick={clickTest}>
                     {/* <img src={uploadImg} className={style.img_uploadImg}></img> */}
                 </div>
             </div>
