@@ -11,7 +11,7 @@ export default function UserInfo() {
     return (
         <section className={style.wrap_user_info}>
             <div className={style.cont_user_info}>
-                {/*<h2>프로필 정보 섹션(ir처리)</h2>*/}
+                <h2 className="ir">프로필 정보 섹션</h2>
                 <div className={style.cont_follow}>
                     <p className={style.p_followers}>
                         2950

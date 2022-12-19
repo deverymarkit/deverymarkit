@@ -110,7 +110,8 @@ export default function ProfileSetting() {
             <p className={style.txt_profileSetting}>나중에 언제든지 변경할 수 있습니다.</p>
 
             <div className={style.cont_profileImg}>
-                <img src={profileImg} className={style.img_profileImg}></img> 
+                <img src={profileImg} className={style.img_profileImg}></img>
+
                 <input type="file" 
                 className={style.inp_file} 
                 ref={inputRef}
@@ -121,6 +122,7 @@ export default function ProfileSetting() {
                 style={{backgroundImage: `url(${uploadImg})`}} 
                 onClick={clickImgBtn}>
                 </div>
+                
             </div>
 
 

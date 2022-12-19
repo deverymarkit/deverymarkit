@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import style from "./signup.module.css";
 import axios from "axios";
 
@@ -80,7 +80,7 @@ export default function Signup() {
                 id="emailInput"
                 name="email"
                 className={style.input_signup}
-                onChange={checkInput} 
+                onChange={checkInput}
                 placeholder="이메일 주소를 적어주세요.">
                 </input>
 

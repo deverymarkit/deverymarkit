@@ -1,11 +1,19 @@
-import React from 'react'
-import basicImg from '../../assets/imgs/profile-none.png';
-import style from './basicProfileImg.module.css'
+import React from "react";
+import style from "./basicProfileImg.module.css";
 
-export default function BasicProfileImg({type}) {
+export default function BasicProfileImg({ type, profileImg }) {
+
+    let imgType = "";
+
+    if (type === "post") {
+        imgType = "box_profile_post";
+    } else if (type === "list") {
+        imgType = "box_profile_list";
+    }
+
     return (
-        // type === ("post" || "upload") ? <img className= {style.img_basic}  src={basicImg} alt="프로필 이미지" /> :
-        // <img src={basicImg} alt="프로필 이미지" />
-        <img src={basicImg}  className= {style.img_basic} alt="프로필 이미지" />
-        )
+        <div className={style[imgType]}>
+            <img className={style.profile_img} src={profileImg} alt="프로필 이미지" />
+        </div>
+    )
 }

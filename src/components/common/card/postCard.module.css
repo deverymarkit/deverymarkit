@@ -1,40 +1,20 @@
-.article_card {
+.article_post_card {
     --text-accent-color: #000000;
     --solid-color: #DBDBDB;
     --devery-main-color: #0F0B19;
     --text-default-color: #767676;
 }
 
-.article_card {
-    border: 1px solid red;
+.article_post_card {
     position: relative;
     margin-bottom: 20px;
 }
 
-.post_author {
+.cont_profile_card {
     display: flex;
 }
 
-.tit_user_name {
-    margin-top: 4px;
-    margin-left: 12px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-}
-
-.tit_user_id {
-    display: block;
-    margin-top: 2px;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: var(--text-default-color);
-}
-
-
-.post_info {
-    margin-top: 16px;
+.cont_post_card {
     padding-left: 54px;
 }
 
