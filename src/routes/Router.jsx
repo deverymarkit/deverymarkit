@@ -8,6 +8,7 @@ import Upload from "../pages/uploadPage/Upload";
 import ProfileSetting from "../pages/loginPage/ProfileSetting";
 import Profile from "../pages/profilePage/Profile";
 import Page404 from "../pages/Page404";
+import Signup from "../pages/loginPage/Signup";
 
 
 export default function Router() {
