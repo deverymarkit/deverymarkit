@@ -1,10 +1,10 @@
-import React from 'react'
-import BlankDiv from '../components/common/BlankDiv'
+import React from "react";
+import BlankComponent from "../components/blankComponent/BlankComponent";
 
 export default function Page404() {
-    return ( 
+    return (
         <>
-            <BlankDiv/>
+            <BlankComponent type="page404" />
         </>
-    )
-    }
+    );
+}
