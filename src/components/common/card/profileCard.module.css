@@ -1,0 +1,42 @@
+:root {
+    --text-accent-color: #000000;
+    --solid-color: #DBDBDB;
+    --devery-main-color: #0F0B19;
+    --text-default-color: #767676;
+}
+
+.cont_profile_card {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+/* 공통스타일 따로빼기 필요함. */
+.post_user_name,
+.search_user_name,
+.follow_user_name {
+    margin-top: 4px;
+    margin-left: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+
+}
+.post_user_id {
+    display: block;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--text-default-color);
+}
+
+.search_user_id,
+.follow_user_desc {
+    display: block;
+    margin-top: 6px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--text-default-color);
+}
+
