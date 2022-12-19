@@ -2,7 +2,7 @@ import React from "react"
 
 import BasicProfileImg from "../BasicProfileImg"
 import style from "./card.module.css"
-import moreIcon from "../../../assets/imgs/more-vertical.png"
+import moreIcon from "../../../assets/imgs/icon-more-vertical.png"
 
 export default function Card() {
     
