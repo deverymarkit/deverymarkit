@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react"
 import style from "./loginEmail.module.css"
 
 export default function Login() {
@@ -11,12 +11,10 @@ export default function Login() {
     // 유효성 검사를 진행합니다.
     useEffect(() => {
         if (isInputEmail !== "" && isInputPassword.length > 5) {
-            console.log("펄스아니지롱");
             setBtnTxtColor("white")
             setButtonColor("#0F0B19");
             setIsDisabled(false);
         } else {
-           console.log("펄스지롱");
            setBtnTxtColor("gray")
            setButtonColor("white");
            setIsDisabled(true);

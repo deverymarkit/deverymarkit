@@ -1,0 +1,50 @@
+.wrap_posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF;
+    border-top: 1px solid #E0E0E0;
+}
+
+.cont_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 390px;
+    width: 100%;
+    padding: 20px 16px 30px 16px;
+    background-color: #FFF;
+}
+
+.btn_list,
+.btn_album {
+    cursor: pointer;
+}
+
+.btn_list.on {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-list-on.svg);
+    background-position: center;
+}
+
+.btn_album.on {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-album-on.svg);
+    background-position: center;
+}
+
+.btn_list.off {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-list-off.svg);
+    background-position: center;
+}
+
+.btn_album.off {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-album-off.svg);
+    background-position: center;
+}
