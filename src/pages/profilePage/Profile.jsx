@@ -1,28 +1,22 @@
 import React from "react";
 
+import BasicHeader from "../../components/common/header/BasicHeader";
+import Navbar from "../../components/common/navbar/Navbar";
 import UserInfo from "../../components/profile/UserInfo";
 import Product from "../../components/product/Product";
-import Card from "../../components/common/post/Card";
+import Post from "../../components/post/Post";
 import style from "./profile.module.css";
 
 export default function Profile() {
   return (
+    <>
+        <BasicHeader/>
         <main className={style.main_profile}>
             <UserInfo />
             <Product />
-            <section className={style.wrap_posts}>
-              {/*<h2 className="ir">포스트</h2>*/}
-              <div className={style.cont_display_btn}>
-                  리스트형 갤러리형
-              </div>
-              <div className={style.cont_card}>
-                {
-                    [1, 2, 3].map(() =>
-                        <Card />
-                    )
-                }
-              </div>
-            </section>
+            <Post />
         </main>
+		<Navbar/>
+    </>
   )
 }
