@@ -4,7 +4,7 @@ import style from "./blankComponent.module.css"
 import bulbBlackImg from "../../assets/imgs/bulb_black.png";
 import page404WhiteImg from "../../assets/imgs/page404-black.png";
 
-export default function BlankDiv({type}) {
+export default function BlankComponent({type}) {
     const navigate = useNavigate();
     const pages = {
         "home":{
