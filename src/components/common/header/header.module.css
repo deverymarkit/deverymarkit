@@ -1,13 +1,14 @@
 .cont_header {
     display: flex;
+    position: fixed;
     align-items: center;
-    width: 390px;
+    width: 100vw;
     height: 48px;
-    margin: 0 auto;
     padding: 0 16px;
     border-bottom: 1px solid #C4C4C4;
     background-color: white;
     justify-content: space-between;
+    z-index: 999;
 }
 
 .cont_header.ff {
