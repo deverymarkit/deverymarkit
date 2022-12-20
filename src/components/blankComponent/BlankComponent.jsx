@@ -27,11 +27,11 @@ export default function BlankComponent({type}) {
 
 
     return (
-        <section className={style.cont_home}>
+        <section className={style.cont_blank}>
             <main className="homeContent_nonFeed">
-                <img src={pages[type].src} className={style.img_bulbBlack} alt=""></img>
-                <p className={style.txt_user}>{pages[type].txt}</p>
-                <button type="button" className={style.searchBtn}  onClick={pages[type].onClick}>
+                <img src={pages[type].src} className={style.img_blank} alt=""></img>
+                <p className={style.p_blank}>{pages[type].txt}</p>
+                <button type="button" className={style.btn_blank}  onClick={pages[type].onClick}>
                     {pages[type].btn}
                 </button>
             </main>
