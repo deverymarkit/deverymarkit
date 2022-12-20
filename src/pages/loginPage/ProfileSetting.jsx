@@ -17,31 +17,30 @@ export default function ProfileSetting() {
     const {email, password} = {...location.state};
     
     const checkInput = (event) => {
+        // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "username") setUserName(event.target.value); 
         else if (event.target.name === "accountname") setAccountName(event.target.value);
     }
 
     useEffect(() => {
+        // 유효성검사를 체크하는 useEffect
         const 정규표현식 = /^[_A-Za-z0-9+]*$/;
         if (username.length >= 2 && username.length <= 10) setUsernameWarning("")
         if (정규표현식.test(accountname) && accountname.length >= 4) setAccountWarning("")
     }, [username, accountname])
 
-    const test2 = (e) => {
+    const loginButton = (e) => {
         const 정규표현식 = /^[_A-Za-z0-9+]*$/;
         e.preventDefault();
         if (username.length < 2 || username.length > 10) {
             setUsernameWarning('사용자 이름은 2~10자 이내여야 합니다.')
-
             return
         }
         if (accountname.length < 4) {
             setAccountWarning('계정ID는 4글자 이상이어야 합니다.')
-
             return
         }  else if (!정규표현식.test(accountname)) {
             setAccountWarning('영문, 밑줄 및 마침표만 사용해야 합니다.')
-
             return
         }
 
@@ -53,6 +52,7 @@ export default function ProfileSetting() {
             "accountname": accountname,
             "intro": intro.current.value
         }
+    
         signUp(userData)
     }
 
@@ -71,7 +71,8 @@ export default function ProfileSetting() {
             const 대답 = (await signUpRes).data
             console.log(대답);
         } catch(err) { 
-            console.log(err)
+            const error = err.response.data
+            setAccountWarning(error.message);
         }
     }
 
@@ -155,7 +156,7 @@ export default function ProfileSetting() {
                 type="text" 
                 id="accountname"
                 name="accountname"
-                className={style.input_profileSetting} 
+                className={style.input_profileSetting}
                 placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
                 value={accountname}
                 onChange={checkInput}>
@@ -178,7 +179,7 @@ export default function ProfileSetting() {
 
                 <button 
                 className={style.btn_profileSetting}
-                onClick={test2}>
+                onClick={loginButton}>
                 감귤마켓 시작하기
                 </button>
             </form>
