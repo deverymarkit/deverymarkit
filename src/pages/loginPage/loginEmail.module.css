@@ -40,6 +40,16 @@
     cursor: pointer;
 }
 
+.btn_login.valid {
+    color: white;
+    background-color: #0F0B19;
+}
+
+.btn_login.invalid {
+    color: #0F0B19;
+    background-color: white;
+}
+
 .btn_join {
     display: block;
     margin: 20px auto;
@@ -47,4 +57,12 @@
     font-size: 14px;
     color: #767676;
     cursor: pointer;
+}
+
+.p_warning {
+    font-size: 12px;
+    width: 322px;
+    margin: -25px auto 15px;
+    text-align: left;
+    color: #EB5757;
 }

@@ -21,7 +21,7 @@ export default function Signup() {
     }
 
     // 다음 버튼을 누를 시 서버에 데이터를 전송해서 유효성 인증 검사를 진행함.
-    const emailValidation = async (emailValue, passwordValue) => {
+    const handleEmailValid = async (emailValue, passwordValue) => {
         if (inputPassword.length < 6) {
             setPwdWarning("*비밀번호는 6자 이상이어야 합니다.")
             return
@@ -64,7 +64,7 @@ export default function Signup() {
     }, [inputEmail, inputPassword])
 
     // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
-    const checkInput = (event) => {
+    const handleCheckInput = (event) => {
         if (event.target.name === "email") setInputEmail(event.target.value); 
         else if (event.target.name === "password") setInputPassword(event.target.value);
     }
@@ -87,7 +87,7 @@ export default function Signup() {
                 id="emailInput"
                 name="email"
                 className={style.input_signup}
-                onChange={checkInput}
+                onChange={handleCheckInput}
                 placeholder="이메일 주소를 적어주세요.">
                 </input>
                 <p className={style.p_warning}>{emailWarning}</p>
@@ -103,7 +103,7 @@ export default function Signup() {
                 id="passwordInput"
                 name="password"
                 className={style.input_signup}  
-                onChange={checkInput}
+                onChange={handleCheckInput}
                 placeholder="비밀번호를 입력하세요.">
                 </input>
             </form>
@@ -113,7 +113,7 @@ export default function Signup() {
                 className={style[btnValid]}
                 onClick={(e) => {
                     e.preventDefault();
-                    emailValidation(inputEmail, inputPassword)
+                    handleEmailValid(inputEmail, inputPassword)
                 }}>
                 다음
             </button>

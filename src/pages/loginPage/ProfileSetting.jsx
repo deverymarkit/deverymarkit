@@ -16,7 +16,7 @@ export default function ProfileSetting() {
     const intro = useRef();
     const {email, password} = {...location.state};
     
-    const checkInput = (event) => {
+    const handleCheckInput = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "username") setUserName(event.target.value); 
         else if (event.target.name === "accountname") setAccountName(event.target.value);
@@ -76,12 +76,12 @@ export default function ProfileSetting() {
         }
     }
 
-    const clickImgBtn = (e) => {
+    const handleInputRef = (e) => {
         e.preventDefault()
         inputRef.current.click()
     }
 
-    const getProfileImg = (event) => {
+    const handleGetImgUrl = (event) => {
         const image = event.target.files[0]
         getImgUrl(image)
     }
@@ -92,16 +92,16 @@ export default function ProfileSetting() {
         const formData = new FormData();
         formData.append('image', image);
         try {
-            const 대답 = axios.post(`${url}image/uploadfile`, formData,
+            const imgRes = axios.post(`${url}image/uploadfile`, formData,
             {
                 "headers": {
                     "Content-Type": "multipart/form-data"
                 }
             })
-            const bb = await 대답
-            setProfileImg(url + `${bb.data.filename}`)
+            const imgUrl = (await imgRes).data.filename
+            setProfileImg(url + `${imgUrl}`)
         } catch(err) {
-            console.log("에러입니다. 휴먼.")
+            console.log(err)
         }
     }
 
@@ -111,17 +111,17 @@ export default function ProfileSetting() {
             <p className={style.txt_profileSetting}>나중에 언제든지 변경할 수 있습니다.</p>
 
             <div className={style.cont_profileImg}>
-                <img src={profileImg} className={style.img_profileImg}></img>
+                <img src={profileImg} className={style.img_profileImg} alt="프로필 사진"></img>
 
                 <input type="file" 
                 className={style.inp_file} 
                 ref={inputRef}
                 accept="image/*" 
-                onChange={getProfileImg}/>
+                onChange={handleGetImgUrl}/>
                 <div 
                 className={style.div_uploadImg} 
                 style={{backgroundImage: `url(${uploadImg})`}} 
-                onClick={clickImgBtn}>
+                onClick={handleInputRef}>
                 </div>
                 
             </div>
@@ -142,7 +142,7 @@ export default function ProfileSetting() {
                 className={style.input_profileSetting} 
                 placeholder="2~10자 이내여야 합니다."
                 value={username}
-                onChange={checkInput}>
+                onChange={handleCheckInput}>
                 </input>
                 <p className={style.p_warning}>{usernameWarning}</p>
 
@@ -159,7 +159,7 @@ export default function ProfileSetting() {
                 className={style.input_profileSetting}
                 placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
                 value={accountname}
-                onChange={checkInput}>
+                onChange={handleCheckInput}>
                 </input>
                 <p className={style.p_warning}>{accountWarning}</p>
 
