@@ -5,7 +5,7 @@ export default function BasicProfileImg({ type, profileImg }) {
 
     let imgType = "";
 
-    if (type === "post") {
+    if (type === "post" || type === "upload") {
         imgType = "box_profile_post";
     } else if (type === "list") {
         imgType = "box_profile_list";

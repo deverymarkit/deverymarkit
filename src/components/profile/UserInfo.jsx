@@ -4,9 +4,9 @@ import MyProfileBtn from "../button/MyProfileBtn";
 import YourProfileBtn from "../button/YourProfileBtn";
 import style from "./userInfo.module.css";
 
-export default function UserInfo() {
+export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
 
-    const userType = "my";
+    const { username, accountname, intro, image, isfollow, followerCount, followingCount } = profileInfo;
 
     return (
         <section className={style.wrap_user_info}>
@@ -14,21 +14,22 @@ export default function UserInfo() {
                 <h2 className="ir">프로필 정보 섹션</h2>
                 <div className={style.cont_follow}>
                     <p className={style.p_followers}>
-                        2950
+                        {followerCount}
                         <span>followers</span>
                     </p>
-                    {/* 이미지가 있으면 경로, 없으면 기본이미지 경로 */}
-                    <img src="" className={style.img_profile} alt="00님의 프로필사진" />
+                    <div className={style.img_profile}>
+                        <img src={image} alt={`${username}님의 프로필 사진`} />
+                    </div>
                     <p className={style.p_followings}>
-                        165
+                        {followingCount}
                         <span>followings</span>
                     </p>
                 </div>
-                <span className={style.span_user_name}>굉장한 개발자</span>
-                <span className={style.span_user_id}>@jinyjiny</span>
-                <span className={style.span_user_intro}>개발 편하게 하고싶어요</span>
+                <span className={style.span_user_name}>{username}</span>
+                <span className={style.span_user_id}>@{accountname}</span>
+                <span className={style.span_user_intro}>{intro}</span>
                 <div className={style.box_btn}>
-                    { userType === 'your' ? <YourProfileBtn /> : <MyProfileBtn /> }
+                    { profileType === "yourProfile" ? <YourProfileBtn isfollow={isfollow ? "팔로잉" : "팔로우"} setProfileInfo={setProfileInfo}/> : <MyProfileBtn />}
                 </div>
             </div>
         </section>

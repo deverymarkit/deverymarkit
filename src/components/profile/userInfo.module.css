@@ -1,11 +1,4 @@
 .wrap_user_info {
-    --text-accent-color: #000000;
-    --solid-color: #DBDBDB;
-    --devery-main-color: #0F0B19;
-    --text-default-color: #767676;
-}
-
-.wrap_user_info {
     display: flex;
     justify-content: center;
     margin-bottom: 6px;
@@ -52,6 +45,13 @@
     margin-bottom: 16px;
     border: 1px solid var(--solid-color);
     border-radius: 50%;
+}
+
+.cont_follow .img_profile img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
 }
 
 .span_user_name {
