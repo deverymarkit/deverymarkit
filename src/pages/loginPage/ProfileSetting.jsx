@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { loginUpdate } from "../../store.js"
 import style from "./profileSetting.module.css"
-import defaultImg from "../../assets/imgs/profile-none.png"
 import uploadImg from "../../assets/imgs/upload-img.png"
 import axios from 'axios'
 
 export default function ProfileSetting() {
-    const [profileImg, setProfileImg] = useState(defaultImg);
+    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png"
+    const [profileImg, setProfileImg] = useState(defalutImg);
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
     const [username, setUserName] = useState('')
@@ -14,34 +16,34 @@ export default function ProfileSetting() {
     const location = useLocation();
     const inputRef = useRef();
     const intro = useRef();
+    const dispatch = useDispatch()
     const {email, password} = {...location.state};
-    
-    const checkInput = (event) => {
+
+    const handleCheckInput = (event) => {
+        // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "username") setUserName(event.target.value); 
         else if (event.target.name === "accountname") setAccountName(event.target.value);
     }
 
     useEffect(() => {
+        // 유효성검사를 체크하는 useEffect
         const 정규표현식 = /^[_A-Za-z0-9+]*$/;
         if (username.length >= 2 && username.length <= 10) setUsernameWarning("")
         if (정규표현식.test(accountname) && accountname.length >= 4) setAccountWarning("")
     }, [username, accountname])
 
-    const test2 = (e) => {
+    const loginButton = (e) => {
         const 정규표현식 = /^[_A-Za-z0-9+]*$/;
         e.preventDefault();
         if (username.length < 2 || username.length > 10) {
             setUsernameWarning('사용자 이름은 2~10자 이내여야 합니다.')
-
             return
         }
         if (accountname.length < 4) {
             setAccountWarning('계정ID는 4글자 이상이어야 합니다.')
-
             return
         }  else if (!정규표현식.test(accountname)) {
             setAccountWarning('영문, 밑줄 및 마침표만 사용해야 합니다.')
-
             return
         }
 
@@ -53,6 +55,7 @@ export default function ProfileSetting() {
             "accountname": accountname,
             "intro": intro.current.value
         }
+        console.log(profileImg);
         signUp(userData)
     }
 
@@ -68,19 +71,58 @@ export default function ProfileSetting() {
                     "Content-Type": "application/json"
                 }
             })
-            const 대답 = (await signUpRes).data
-            console.log(대답);
+            const signUpdata = (await signUpRes).data
+            console.log(signUpdata);
+            getLogin(email, password)
+
         } catch(err) { 
-            console.log(err)
+            const error = err.response.data
+            setAccountWarning(error.message);
         }
     }
 
-    const clickImgBtn = (e) => {
+    const getLogin = async (email, password) => {
+        const url = 'https://mandarin.api.weniv.co.kr/';
+        const userdata = {
+            "email": email,
+            "password": password
+        }
+        try {
+            const loginRes = axios.post(`${url}user/login`, {
+                "user": {
+                    ...userdata
+                },
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const loginUserData = (await loginRes).data.user
+            console.log(loginUserData);
+            // if (loginData.data.status === 422) {
+            //     setLoginWarning(loginData.data.message)
+            //     return
+            // };
+
+            if (loginUserData) {
+                dispatch(loginUpdate(loginUserData));
+                if (localStorage.getItem("loginStorage")) {
+                    localStorage.removeItem("loginStorage")
+                }
+                localStorage.setItem("loginStorage", JSON.stringify({...loginUserData}))
+            };
+
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const handleInputRef = (e) => {
         e.preventDefault()
         inputRef.current.click()
     }
 
-    const getProfileImg = (event) => {
+    const handleGetImgUrl = (event) => {
         const image = event.target.files[0]
         getImgUrl(image)
     }
@@ -91,16 +133,16 @@ export default function ProfileSetting() {
         const formData = new FormData();
         formData.append('image', image);
         try {
-            const 대답 = axios.post(`${url}image/uploadfile`, formData,
+            const imgRes = axios.post(`${url}image/uploadfile`, formData,
             {
                 "headers": {
                     "Content-Type": "multipart/form-data"
                 }
             })
-            const bb = await 대답
-            setProfileImg(url + `${bb.data.filename}`)
+            const imgUrl = (await imgRes).data.filename
+            setProfileImg(url + `${imgUrl}`)
         } catch(err) {
-            console.log("에러입니다. 휴먼.")
+            console.log(err)
         }
     }
 
@@ -110,17 +152,17 @@ export default function ProfileSetting() {
             <p className={style.txt_profileSetting}>나중에 언제든지 변경할 수 있습니다.</p>
 
             <div className={style.cont_profileImg}>
-                <img src={profileImg} className={style.img_profileImg}></img>
+                <img src={profileImg} className={style.img_profileImg} alt="프로필 사진"></img>
 
                 <input type="file" 
                 className={style.inp_file} 
                 ref={inputRef}
                 accept="image/*" 
-                onChange={getProfileImg}/>
+                onChange={handleGetImgUrl}/>
                 <div 
                 className={style.div_uploadImg} 
                 style={{backgroundImage: `url(${uploadImg})`}} 
-                onClick={clickImgBtn}>
+                onClick={handleInputRef}>
                 </div>
                 
             </div>
@@ -141,7 +183,7 @@ export default function ProfileSetting() {
                 className={style.input_profileSetting} 
                 placeholder="2~10자 이내여야 합니다."
                 value={username}
-                onChange={checkInput}>
+                onChange={handleCheckInput}>
                 </input>
                 <p className={style.p_warning}>{usernameWarning}</p>
 
@@ -155,10 +197,10 @@ export default function ProfileSetting() {
                 type="text" 
                 id="accountname"
                 name="accountname"
-                className={style.input_profileSetting} 
+                className={style.input_profileSetting}
                 placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
                 value={accountname}
-                onChange={checkInput}>
+                onChange={handleCheckInput}>
                 </input>
                 <p className={style.p_warning}>{accountWarning}</p>
 
@@ -178,7 +220,7 @@ export default function ProfileSetting() {
 
                 <button 
                 className={style.btn_profileSetting}
-                onClick={test2}>
+                onClick={loginButton}>
                 감귤마켓 시작하기
                 </button>
             </form>
