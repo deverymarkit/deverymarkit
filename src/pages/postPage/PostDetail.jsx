@@ -1,13 +1,22 @@
-import React from "react";
-import Comment from "../../components/comment/Comment";
-import Card from "../../components/common/post/Card";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 
-export default function Post() {
+import Comment from "../../components/comment/Comment";
+import PostCard from "../../components/common/card/PostCard";
+import BaseURL from "../../components/common/BaseURL";
+import style from "./postDetail.module.css";
+
+export default function PostDetail() {
+
     return (
-        <div>
+        <>
             {/* <BasicHeader/> */}
-            <Card/>
-            <Comment/>
-        </div>
-    );
+            <main>
+                <div className="">
+                    {/*<PostCard/>*/}
+                    <Comment/>
+                </div>
+            </main>
+        </>
+    )
 }

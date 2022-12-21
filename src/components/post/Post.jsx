@@ -53,7 +53,7 @@ export default function Post({ profileInfo, profileType }) {
                         </div>
                         <ol className={`${toggle ? style.ol_listview : style.ol_albumview}`}>
                         {
-                            toggle ? <PostList profileInfo={profileInfo} postList={postList} state="post"/> : <PostAlbum profileInfo={profileInfo} postList={postList}/>
+                            toggle ? <PostList postList={postList}/> : <PostAlbum postList={postList}/>
                         }
                         </ol>
                     </section>

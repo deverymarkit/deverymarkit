@@ -1,7 +1,7 @@
 import React from "react";
 import BasicProfileImg from "../common/BasicProfileImg";
 import style from "./comment.module.css";
-import moreIcon from "../../assets/imgs/more-vertical.png";
+import moreIcon from "../../assets/imgs/icon-more-vertical.png";
 
 export default function CommentList() {
     return (
