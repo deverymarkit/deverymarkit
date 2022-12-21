@@ -52,7 +52,7 @@ export default function Signup() {
 
     // 유효성 검사를 진행합니다.
     useEffect(() => {
-        setEmailWarning("")
+        setEmailWarning("");
 
         // 비밀번호 길이가 6개 이상일 경우, 6글자 이상 메세지를 삭제함.
         if (inputPassword.length >= 6) setPwdWarning("");
@@ -61,11 +61,11 @@ export default function Signup() {
         if (emailRegex.test(inputEmail) && inputPassword.length >= 6) setBtnValid("btn_valid");
         else setBtnValid("btn_invalid");
 
-    }, [inputEmail, inputPassword])
+    }, [inputEmail, inputPassword]);
 
     // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
     const handleCheckInput = (event) => {
-        if (event.target.name === "email") setInputEmail(event.target.value); 
+        if (event.target.name === "email") setInputEmail(event.target.value);
         else if (event.target.name === "password") setInputPassword(event.target.value);
     }
     
