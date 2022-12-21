@@ -1,28 +1,33 @@
-import React, { useRef, useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { loginUpdate } from "../../store.js"
-import style from "./profileSetting.module.css"
-import uploadImg from "../../assets/imgs/upload-img.png"
-import axios from 'axios'
+import React, { useRef, useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUpdate } from "../../store.js";
+import style from "./profileSetting.module.css";
+import uploadImg from "../../assets/imgs/upload-img.png";
+import axios from 'axios';
 
 export default function ProfileSetting() {
-    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png"
+    const navigate = useNavigate();
+    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png";
     const [profileImg, setProfileImg] = useState(defalutImg);
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
-    const [username, setUserName] = useState('')
-    const [accountname, setAccountName] = useState('')
+    const [username, setUserName] = useState('');
+    const [accountname, setAccountName] = useState('');
     const location = useLocation();
     const inputRef = useRef();
     const intro = useRef();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const {email, password} = {...location.state};
 
     const handleCheckInput = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "username") setUserName(event.target.value); 
         else if (event.target.name === "accountname") setAccountName(event.target.value);
+    }
+
+    const routeTo = (route) => {
+        navigate(route)
     }
 
     useEffect(() => {
@@ -98,18 +103,13 @@ export default function ProfileSetting() {
             });
 
             const loginUserData = (await loginRes).data.user
-            console.log(loginUserData);
-            // if (loginData.data.status === 422) {
-            //     setLoginWarning(loginData.data.message)
-            //     return
-            // };
-
             if (loginUserData) {
                 dispatch(loginUpdate(loginUserData));
                 if (localStorage.getItem("loginStorage")) {
                     localStorage.removeItem("loginStorage")
                 }
                 localStorage.setItem("loginStorage", JSON.stringify({...loginUserData}))
+                routeTo("/")
             };
 
         } catch(err) {

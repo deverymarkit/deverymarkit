@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import style from "./loginEmail.module.css"
+import { useDispatch } from "react-redux";
+import { loginUpdate } from "../../store";
 
 export default function Login() {
     const [inputEmail, setInputEmail] = useState("");
@@ -8,7 +11,11 @@ export default function Login() {
     const [loginWarning, setLoginWarning] = useState("")
     const [isDisabled, setIsDisabled] = useState(true);
     const [btnValid, isBtnValid] = useState(false);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const routeTo = (route) => {
+        navigate(route)
+    }
     // 유효성 검사를 진행합니다.
     useEffect(() => {
         if (inputEmail !== "" && inputPassword.length > 5) {
@@ -48,16 +55,22 @@ export default function Login() {
                     "Content-Type": "application/json"
                 }
             });
+            
+            const loginUserData = (await loginRes)
 
-            const loginData = (await loginRes)
-            if (loginData.data.status === 422) {
-                setLoginWarning(loginData.data.message)
+            if (loginUserData.data.status === 422) {
+                setLoginWarning(loginUserData.data.message)
                 return
             };
-
-            if (loginData.data.user) {
-                console.log(loginData.data.user.accountname);
-            };
+            
+            if (loginUserData.data.user) {
+                dispatch(loginUpdate(loginUserData.data.user));
+                if (localStorage.getItem("loginStorage")) {
+                    localStorage.removeItem("loginStorage")
+                }
+                localStorage.setItem("loginStorage", JSON.stringify(loginUserData.data.user))
+                routeTo('/home')
+            }
 
         } catch(err) {
             console.log(err);
@@ -114,7 +127,8 @@ export default function Login() {
 
             <button
             type="button" 
-            className={style.btn_join}>
+            className={style.btn_join}
+            onClick={() => routeTo("/signup")}>
             이메일로 회원가입
             </button>
         </section>
