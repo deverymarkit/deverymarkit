@@ -10,7 +10,7 @@
 .cont_product {
     display: flex;
     flex-direction: column;
-    max-width: 390px;
+    width: 390px;
     padding: 20px 0 20px 16px;
 }
 
@@ -24,7 +24,7 @@
 .ol_product_list {
     display: flex;
     gap: 10px;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
 }
 

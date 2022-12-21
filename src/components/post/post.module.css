@@ -6,14 +6,17 @@
     border-top: 1px solid #E0E0E0;
 }
 
-.cont_card {
+
+.cont_display_btn {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 390px;
-    width: 100%;
-    padding: 20px 16px 30px 16px;
-    background-color: #FFF;
+    justify-content: flex-end;
+    width: 390px;
+    padding: 9px;
+    border-bottom : 0.5px solid var(--solid-color);
+}
+
+.btn_album {
+    margin-left: 16px;
 }
 
 .btn_list,
@@ -47,4 +50,50 @@
     height: 26px;
     background-image: url(../../assets/imgs/icon-post-album-off.svg);
     background-position: center;
+}
+
+.ol_listview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 390px;
+    width: 100%;
+    padding: 20px 16px 30px 16px;
+    background-color: #FFF;
+}
+
+.ol_albumview {
+    display: flex;
+    gap: 8px;
+    max-width: 390px;
+    width: 100%;
+    padding: 16px 16px 30px 16px;
+    background-color: #FFF;
+}
+
+.box_post {
+    width: 304px;
+    height: 228px;
+    margin-top: 16px;
+    border-radius: 10px;
+}
+
+.box_post img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.box_album_post {
+    width: 114px;
+    height: 114px;
+    border-radius: 5px;
+}
+
+.box_album_post img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
 }

@@ -1,11 +1,4 @@
 .article_post_card {
-    --text-accent-color: #000000;
-    --solid-color: #DBDBDB;
-    --devery-main-color: #0F0B19;
-    --text-default-color: #767676;
-}
-
-.article_post_card {
     position: relative;
     margin-bottom: 20px;
 }
@@ -29,12 +22,18 @@
     width: 304px;
     height: 228px;
     margin-top: 16px;
-    margin-bottom: 12px;
-    border: 0.5px solid var(--solid-color);
     border-radius: 10px;
 }
 
+.box_post img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
 .box_btn {
+    margin-top: 12px;
     margin-bottom: 16px;
     font-size: 18px;
 }

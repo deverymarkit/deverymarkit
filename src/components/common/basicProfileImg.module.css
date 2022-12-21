@@ -1,20 +1,21 @@
+.box_profile_post,
+.box_profile_list {
+    border-radius: 50%;
+}
+
 .box_profile_post {
-    position: relative;
     width: 42px;
     height: 42px;
 }
 
 .box_profile_list {
-    position: relative;
     width: 50px;
     height: 50px;
 }
 
 .profile_img {
-    position: absolute; 
-    top:0; 
-    left: 0;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
 }
 

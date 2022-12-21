@@ -1,16 +1,13 @@
 import React from "react";
 
 import PostCard from "../common/card/PostCard";
-import style from "../../components/post/post.module.css";
 
-export default function PostList() {
+export default function PostList({ profileInfo, postList, state }) {
     return (
-        <>
-            {
-                [1, 2, 3].map(() =>
-                    <PostCard />
-                )
-            }
-        </>
+        postList.map((post, id) =>
+            <li>
+                <PostCard key={id} profileInfo={profileInfo} post={post} state={state}/>
+            </li>
+        )
     )
 }

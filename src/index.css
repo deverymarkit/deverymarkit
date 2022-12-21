@@ -1,3 +1,10 @@
+:root {
+    --text-accent-color: #000000;
+    --solid-color: #DBDBDB;
+    --devery-main-color: #0F0B19;
+    --text-default-color: #767676;
+}
+
 .ir {
     width: 0;
     height: 0;
