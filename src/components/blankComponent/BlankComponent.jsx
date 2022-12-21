@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import { useNavigate } from 'react-router-dom';
-import style from "./blankComponent.module.css"
+import style from "./blankComponent.module.css";
 import bulbBlackImg from "../../assets/imgs/bulb_black.png";
 import page404WhiteImg from "../../assets/imgs/page404-black.png";
 
-export default function BlankDiv({type}) {
+export default function BlankComponent({type}) {
     const navigate = useNavigate();
     const pages = {
         "home":{
@@ -27,11 +27,11 @@ export default function BlankDiv({type}) {
 
 
     return (
-        <section className={style.cont_home}>
+        <section className={style.cont_blank}>
             <main className="homeContent_nonFeed">
-                <img src={pages[type].src} className={style.img_bulbBlack} alt=""></img>
-                <p className={style.txt_user}>{pages[type].txt}</p>
-                <button type="button" className={style.searchBtn}  onClick={pages[type].onClick}>
+                <img src={pages[type].src} className={style.img_blank} alt=""></img>
+                <p className={style.p_blank}>{pages[type].txt}</p>
+                <button type="button" className={style.btn_blank}  onClick={pages[type].onClick}>
                     {pages[type].btn}
                 </button>
             </main>

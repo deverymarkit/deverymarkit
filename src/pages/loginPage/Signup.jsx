@@ -6,24 +6,25 @@ import axios from "axios";
 export default function Signup() {
     const [inputEmail, setInputEmail] = useState("");
     const [inputPassword, setInputPassword] = useState("");
-    const [pwdMsg, setPwdMsg] = useState("");
+    const [emailWarning, setEmailWarning] = useState("");
+    const [pwdWarning, setPwdWarning] = useState("");
     const [btnValid, setBtnValid] = useState("btn_invalid")
     const navigate = useNavigate();
 
-    // 다음 버튼을 누를 시 서버에 데이터를 전송해서 유효성 인증 검사를 진행함.
-    const emailValidation = async (emailValue, passwordValue) => {
-        if (inputPassword.length < 6) {
-            setPwdMsg("*비밀번호는 6자 이상이어야 합니다.")
-            return
-        }
+    const changeRoute = (email, password) => {
+        navigate('/profilesetting', {
+            state: {
+                email: email,
+                password: password,
+            }
+        })
+    }
 
-        const move = (email, password) => {
-            navigate('/profilesetting', {
-                state: {
-                    email: email,
-                    password: password,
-                }
-            })
+    // 다음 버튼을 누를 시 서버에 데이터를 전송해서 유효성 인증 검사를 진행함.
+    const handleEmailValid = async (emailValue, passwordValue) => {
+        if (inputPassword.length < 6) {
+            setPwdWarning("*비밀번호는 6자 이상이어야 합니다.")
+            return
         }
 
         const url = 'https://mandarin.api.weniv.co.kr'
@@ -36,28 +37,34 @@ export default function Signup() {
                     "Content-Type": "application/json"
                 }
             })
-            const message = (await resEmailValid).data;
-            move(emailValue, passwordValue)
+            const emailRes = (await resEmailValid).data;
+            if (emailRes.message === "이미 가입된 이메일 주소 입니다.") {
+                setEmailWarning(emailRes.message)
+                return
+            }
+            changeRoute(emailValue, passwordValue)
 
         } catch(err) {
-            const error = err;
-            console.log(error.response.data.message);
+            const error = err.response.data.message;
+            setEmailWarning(error);
         }
     }
 
     // 유효성 검사를 진행합니다.
     useEffect(() => {
-        // 비밀번호 길이가 6개 이상일 경우, 6글자 이상 메세지를 삭제함.
-        if (inputPassword.length >= 6) setPwdMsg("");
-        const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        setEmailWarning("")
 
+        // 비밀번호 길이가 6개 이상일 경우, 6글자 이상 메세지를 삭제함.
+        if (inputPassword.length >= 6) setPwdWarning("");
+        const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        
         if (emailRegex.test(inputEmail) && inputPassword.length >= 6) setBtnValid("btn_valid");
         else setBtnValid("btn_invalid");
 
     }, [inputEmail, inputPassword])
 
     // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
-    const checkInput = (event) => {
+    const handleCheckInput = (event) => {
         if (event.target.name === "email") setInputEmail(event.target.value); 
         else if (event.target.name === "password") setInputPassword(event.target.value);
     }
@@ -80,9 +87,10 @@ export default function Signup() {
                 id="emailInput"
                 name="email"
                 className={style.input_signup}
-                onChange={checkInput}
+                onChange={handleCheckInput}
                 placeholder="이메일 주소를 적어주세요.">
                 </input>
+                <p className={style.p_warning}>{emailWarning}</p>
 
                 <label 
                 htmlFor="passwordInput" 
@@ -95,17 +103,17 @@ export default function Signup() {
                 id="passwordInput"
                 name="password"
                 className={style.input_signup}  
-                onChange={checkInput}
+                onChange={handleCheckInput}
                 placeholder="비밀번호를 입력하세요.">
                 </input>
             </form>
-            <p className={style.p_warning}>{pwdMsg}</p>
+            <p className={style.p_warning}>{pwdWarning}</p>
 
             <button 
                 className={style[btnValid]}
                 onClick={(e) => {
                     e.preventDefault();
-                    emailValidation(inputEmail, inputPassword)
+                    handleEmailValid(inputEmail, inputPassword)
                 }}>
                 다음
             </button>
