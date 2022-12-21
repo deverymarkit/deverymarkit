@@ -1,10 +1,10 @@
 
-import { React } from 'react'
+import React from "react";
 import RemoveImg from "../../assets/imgs/x.png";
 import style from "./uploadPhoto.module.css";
 
 
-export default function UploadPhoto({imageFileList, handleRemoveImg}) {
+export default function UploadPhoto({ imageFileList, handleRemoveImg }) {
     return (
         <div>  
             {/* 민약 이미지 리스트를 전달받으면 맵으로 이미지 리스트를 가로 스크롤로 출력합니다. */}
