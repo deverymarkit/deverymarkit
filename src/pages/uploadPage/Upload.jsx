@@ -1,26 +1,31 @@
 import { React, useState, useRef } from "react";
-import BasicProfileImg from "../../components/common/BasicProfileImg";
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
 import Header from "../../components/common/header/Header";
+import ProfileCard from "../../components/common/card/ProfileCard";
 
 export default function Upload() {
-    const [imageFileList, setImageFileList] = useState([]);
+    const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
+    const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
     const textarea = useRef();
 
     const handleResizeHeight = () => {
         textarea.current.style.height = "auto";
         textarea.current.style.height = `${textarea.current.scrollHeight}px`;
+        
+        textarea.current.value? setIsValue(true) : setIsValue(false);
     };
 
-    const onRemove = (e) =>{
+    const handleRemoveImg = (e) =>{
         // URL.revokeObjectURL(imageFileList[e.target.id]);
         setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
     };
 
     const handleSaveBtn = (e) =>{
-        console.log("hi");
+        if(IsValue){
+            console.log("hi");
+        }
     };
 
     const storeImage = ({ target }) => {
@@ -44,10 +49,10 @@ export default function Upload() {
     };
     return (
         <>
-                <Header type="upload" handleHeaderBtn = {handleSaveBtn}/>
+                <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
                 <div className={style.wrap_upload}>
                     <div className={style.cont_content}>
-                        <BasicProfileImg />
+                        <ProfileCard profileState="upload"/>
                         <textarea
                             className={style.text_upload}
                             type="text"
@@ -57,7 +62,7 @@ export default function Upload() {
                             required
                         />
                     </div>
-                    {imageFileList? <UploadPhoto imageFileList={imageFileList} onRemove={onRemove}/>:""}
+                    <UploadPhoto imageFileList={imageFileList} onRemove={handleRemoveImg}/>
                     {/* <div className={style.cont_img}>
                         {imageFileList.map((x, i) => (
                             <img
