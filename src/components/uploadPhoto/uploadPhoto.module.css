@@ -10,6 +10,9 @@
     overflow-x: scroll;
 }
 
+.scroll_img {
+    overflow: hidden;
+}
 
 .cont_img {
     position: relative;
@@ -20,7 +23,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: "22px";
-    height: "22px";
-    cursor: "pointer";
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
 }
