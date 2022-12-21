@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { loginUpdate } from "../../store.js"
 import style from "./profileSetting.module.css"
-import defaultImg from "../../assets/imgs/profile-none.png"
 import uploadImg from "../../assets/imgs/upload-img.png"
 import axios from 'axios'
 
 export default function ProfileSetting() {
-    const [profileImg, setProfileImg] = useState(defaultImg);
+    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png"
+    const [profileImg, setProfileImg] = useState(defalutImg);
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
     const [username, setUserName] = useState('')
@@ -14,8 +16,9 @@ export default function ProfileSetting() {
     const location = useLocation();
     const inputRef = useRef();
     const intro = useRef();
+    const dispatch = useDispatch()
     const {email, password} = {...location.state};
-    
+
     const handleCheckInput = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "username") setUserName(event.target.value); 
@@ -52,7 +55,7 @@ export default function ProfileSetting() {
             "accountname": accountname,
             "intro": intro.current.value
         }
-    
+        console.log(profileImg);
         signUp(userData)
     }
 
@@ -68,11 +71,49 @@ export default function ProfileSetting() {
                     "Content-Type": "application/json"
                 }
             })
-            const 대답 = (await signUpRes).data
-            console.log(대답);
+            const signUpdata = (await signUpRes).data
+            console.log(signUpdata);
+            getLogin(email, password)
+
         } catch(err) { 
             const error = err.response.data
             setAccountWarning(error.message);
+        }
+    }
+
+    const getLogin = async (email, password) => {
+        const url = 'https://mandarin.api.weniv.co.kr/';
+        const userdata = {
+            "email": email,
+            "password": password
+        }
+        try {
+            const loginRes = axios.post(`${url}user/login`, {
+                "user": {
+                    ...userdata
+                },
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const loginUserData = (await loginRes).data.user
+            console.log(loginUserData);
+            // if (loginData.data.status === 422) {
+            //     setLoginWarning(loginData.data.message)
+            //     return
+            // };
+
+            if (loginUserData) {
+                dispatch(loginUpdate(loginUserData));
+                if (localStorage.getItem("loginStorage")) {
+                    localStorage.removeItem("loginStorage")
+                }
+                localStorage.setItem("loginStorage", JSON.stringify({...loginUserData}))
+            };
+
+        } catch(err) {
+            console.log(err);
         }
     }
 
