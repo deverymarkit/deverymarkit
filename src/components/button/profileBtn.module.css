@@ -1,0 +1,55 @@
+.btn_user_update, 
+.btn_product_add,
+.btn_isfollow {
+    height: 34px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    border-radius: 30px;
+    border: 1px solid var(--solid-color);
+    border-radius: 30px;
+    color: var(--text-default-color);
+    cursor: pointer;
+}
+
+.btn_user_update {
+    width: 120px;
+}
+
+.btn_product_add {
+    width: 100px;
+    margin-left: 12px;
+    background-color: var(--devery-main-color);
+    color: #FFFFFF;
+}
+
+.box_chat_btn,
+.box_share_btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 30px;
+    border: 1px solid var(--solid-color);
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.box_chat_btn {
+    cursor: pointer;
+    background-image: url("../../assets/imgs/icon-message-small.svg");
+}
+
+.box_share_btn {
+    cursor: pointer;
+    background-image: url("../../assets/imgs/icon-share.png");
+}
+
+.btn_isfollow {
+    width: 120px;
+    margin: 0 10px;
+}
+
+.btn_isfollow.un {
+    background-color: var(--devery-main-color);
+    color: #FFFFFF;
+}

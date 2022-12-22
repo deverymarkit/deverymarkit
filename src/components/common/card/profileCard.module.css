@@ -1,6 +1,7 @@
 .cont_profile_card {
     display: flex;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 /* 공통스타일 따로빼기 필요함. */

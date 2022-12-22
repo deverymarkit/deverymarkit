@@ -14,11 +14,15 @@ export default function PostCard({ id, post }) {
         navigate(`/post/${post.id}`)
     }
 
+    const handleProfile = () => {
+        navigate(`/profile/${post.author.accountname}`)
+    }
+
     return (
         <article key={id} className={style.article_post_card}>
-            <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname}/>
+            <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname} handleBtn={handleProfile}/>
             <div className={style.cont_post_card}>
-                <div onClick={handlePostDetail}>
+                <div className={style.box_post_author} onClick={handlePostDetail}>
                     <p className={style.post_contents}>{post.content}</p>
                     {
                         post.image ? (

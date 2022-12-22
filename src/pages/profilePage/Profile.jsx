@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import BasicHeader from "../../components/common/header/BasicHeader";
+import Header from "../../components/common/header/Header";
 import Navbar from "../../components/common/navbar/Navbar";
-import UserInfo from "../../components/profile/UserInfo";
+import UserInfo from "../../components/profile/ProfileInfo";
 import Product from "../../components/product/Product";
 import Post from "../../components/post/Post";
 import BaseURL from "../../components/common/BaseURL";
@@ -11,13 +12,19 @@ import style from "./profile.module.css";
 
 export default function Profile() {
 
-    // 가짜 데이터
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTk2MjYwMTdhZTY2NjU4MWM1ZDA4NCIsImV4cCI6MTY3NjczNzQ1NCwiaWF0IjoxNjcxNTUzNDU0fQ.El8mR-8KPTWI8_kZ7zDgdXmSNpFTslLDAM2ILXLMrKo"
-    //const accountname = "jinyjiny";
-    const accountname = "heehee";
-    //const profileType = "myProfile";
-    const profileType = "yourProfile";
-    // 가짜 데이터
+    //console.log(localStorage.getItem("loginStorage"));
+    const { accountname } = useParams();
+    
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const loginAccountName = loginInfo.accountname;
+    const token = loginInfo.token;
+    let profileType = "";
+
+    if (loginAccountName === accountname) {
+        profileType = "my";
+    } else {
+        profileType = "your";
+    }
 
     const [isLoading, setIsLoading] = useState(true);
     const [profileInfo, setProfileInfo] = useState("");
@@ -45,6 +52,11 @@ export default function Profile() {
         getProfileInfo();
     }, [accountname])
 
+    /**
+     * 1. undefined방지를 위한 loading, error state관리 필요
+     * 2. localstorage정보가 없으면 접근할 수 없는 페이지 입니다. 필요
+     */
+
     //if(isLoading) {
     //    return <></>
     //} else if(error) {
@@ -53,7 +65,7 @@ export default function Profile() {
 
     return (
         <>
-            <BasicHeader/>
+            <Header type="profile"/>
             <main className={style.main_profile}>
                 {
                     isLoading ? "loading" : (

@@ -21,7 +21,7 @@ export default function Router() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/upload" element={<Upload type = "upload"/>} />            
-                <Route path="/profile" element={<Profile />} />           
+                <Route path="/profile/:accountname" element={<Profile />} />           
                 <Route path="/profilesetting" element={<ProfileSetting />} />
                 <Route path="/post/:postid" element={<PostDetail />} />           
                 <Route path="*" element={<Page404 />} />

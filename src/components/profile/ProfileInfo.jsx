@@ -2,7 +2,7 @@ import React from "react";
 
 import MyProfileBtn from "../button/MyProfileBtn";
 import YourProfileBtn from "../button/YourProfileBtn";
-import style from "./userInfo.module.css";
+import style from "./profileInfo.module.css";
 
 export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
 
@@ -29,7 +29,9 @@ export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
                 <span className={style.span_user_id}>@{accountname}</span>
                 <span className={style.span_user_intro}>{intro}</span>
                 <div className={style.box_btn}>
-                    { profileType === "yourProfile" ? <YourProfileBtn isfollow={isfollow ? "팔로잉" : "팔로우"} setProfileInfo={setProfileInfo}/> : <MyProfileBtn />}
+                    { 
+                        profileType === "your" ? <YourProfileBtn isfollow={isfollow} setProfileInfo={setProfileInfo}/> : <MyProfileBtn />
+                    }
                 </div>
             </div>
         </section>

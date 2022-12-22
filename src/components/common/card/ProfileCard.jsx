@@ -3,12 +3,12 @@ import React from "react";
 import BasicProfileImg from "../BasicProfileImg"
 import style from "./profileCard.module.css"
 
-export default function ProfileCard({ profileImg, profileState, profileName, profileCont }) {
+export default function ProfileCard({ profileImg, profileState, profileName, profileCont, handleBtn }) {
 
     const state = profileState;
 
     return (
-        <div className={style.cont_profile_card}>
+        <div className={style.cont_profile_card} onClick={handleBtn}>
             {
                 {
                     post: 
