@@ -26,7 +26,7 @@ export default function Header({ type, IsValue, handleHeaderBtn }) {
             {(type === "profile" || type === "post") && <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />}
             {type === "home" && (
                 <>
-                    <p>감귤마켓</p>
+                    <p>데브리마킷</p>
                     <img src={searchIcon} alt="검색버튼" onClick={handleHeaderBtn} />            
                 </>
             )
