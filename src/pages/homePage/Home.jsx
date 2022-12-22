@@ -49,26 +49,26 @@ export default function Home() {
         else navigate('/')
     }, [])
 
-    return (
-        <>
-            <Header type="home"/>
+    if (isLoading) {
+        return "로딩중"
+    } else {
+        return (
+            <>
+            <Header type="home" />
             <section className={style.wrap_posts}>
-            <h2 className="ir">피드 화면</h2>
-                <ol>
+                <h2 className="ir">피드 화면</h2>
                 {
-                    isLoading ? "로딩중" : 
-                    feedInfo.length === 0 ? <BlankComponent type="home" /> : 
-                    (
-                        feedInfo.map((post, id) => 
+                    feedInfo.length === 0 ? <BlankComponent type="home" /> :
+                    <ol> 
+                        {feedInfo.map((post, id) => 
                             <li>
                                 <PostCard id={id} post={post} />
                             </li>
-                        )
-                    )
+                        )}
+                    </ol>
                 }
-                </ol>
             </section>
-            {/* 네비바 */}
-        </>
-    );
+            </>
+        )
+    }
 }
