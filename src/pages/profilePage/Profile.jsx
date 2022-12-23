@@ -77,7 +77,7 @@ export default function Profile() {
                     )
                 }
             </main>
-            <Navbar/>
+            <Navbar type="profile" />
         </>
     )
 }
