@@ -6,7 +6,7 @@ import BaseURL from "../../components/common/BaseURL"
 import axios from "axios";
 import PostCard from "../../components/common/card/PostCard";
 import { useNavigate } from "react-router-dom";
-
+import Navbar from "../../components/common/navbar/Navbar";
 
 export default function Home() {
     // 로딩하는 것을 이용해서 일단 자료를 먼저 불러옴.
@@ -59,7 +59,7 @@ export default function Home() {
                 <h2 className="ir">피드 화면</h2>
                 {
                     feedInfo.length === 0 ? <BlankComponent type="home" /> :
-                    <ol> 
+                    <ol className={style.ol_post}> 
                         {feedInfo.map((post, id) => 
                             <li>
                                 <PostCard id={id} post={post} />
@@ -68,6 +68,7 @@ export default function Home() {
                     </ol>
                 }
             </section>
+            <Navbar type={"home"}/>
             </>
         )
     }

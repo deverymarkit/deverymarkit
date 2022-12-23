@@ -1,14 +1,18 @@
 .cont_icons {
+    border-top: 1px solid rgba(76, 76, 76, 0.2);
     width: 100vw;
     bottom: 0;
     display: flex;
     position: fixed;
+    height: 60px;
+    background-color: #ffffff;
     justify-content: space-around;
+    z-index: 999;
 }
 
 .div_icon {
-    margin: 10px auto;
-    padding: 5px 15px;
+    padding: 8px 15px 8px;
+    flex-grow: 1;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -17,12 +21,12 @@
 }
 
 .img_icon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .txt_icon {
-    margin: 10px auto 0px;
+    margin: 5px auto 0px;
     font-size: 10px;
     color: #767676;
 }
