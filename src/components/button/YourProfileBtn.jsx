@@ -3,7 +3,6 @@ import React from "react";
 import style from "./profileBtn.module.css";
 
 export default function YourProfileBtn({ isfollow, setProfileInfo }) {
-    console.log(isfollow);
     return (
         <>
             <button className={style.box_chat_btn}></button>

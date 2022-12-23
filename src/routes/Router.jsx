@@ -10,6 +10,7 @@ import Profile from "../pages/profilePage/Profile";
 import Page404 from "../pages/Page404";
 import Signup from "../pages/loginPage/Signup";
 import PostDetail from "../pages/postPage/PostDetail";
+import FollowersFollowing from "../pages/followListPage/FollowersFollowing";
 
 export default function Router() {
     return (
@@ -23,7 +24,8 @@ export default function Router() {
                 <Route path="/upload" element={<Upload type = "upload"/>} />            
                 <Route path="/profile/:accountname" element={<Profile />} />           
                 <Route path="/profilesetting" element={<ProfileSetting />} />
-                <Route path="/post/:postid" element={<PostDetail />} />           
+                <Route path="/profile/:accountname/:followtype" element={<FollowersFollowing />} />        
+                <Route path="/post/:postid" element={<PostDetail />} />     
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>

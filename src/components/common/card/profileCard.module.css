@@ -34,3 +34,6 @@
     color: var(--text-default-color);
 }
 
+.item_follow {
+    display: flex;
+}

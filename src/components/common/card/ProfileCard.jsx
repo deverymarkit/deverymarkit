@@ -1,43 +1,50 @@
 import React from "react";
 
-import BasicProfileImg from "../BasicProfileImg"
-import style from "./profileCard.module.css"
+import FollowBtn from "../../button/FollowBtn";
+import BasicProfileImg from "../BasicProfileImg";
+import style from "./profileCard.module.css";
 
-export default function ProfileCard({ profileImg, profileState, profileName, profileCont, handleBtn }) {
+export default function ProfileCard({ profileImg, profileState, profileName, profileCont, profileAccount, isfollow, handleBtn }) {
 
     const state = profileState;
 
     return (
-        <div className={style.cont_profile_card} onClick={handleBtn}>
+        <>
             {
                 {
                     post: 
-                        <>
+                        <div className={style.cont_profile_card} onClick={handleBtn}>
                             <BasicProfileImg type="post" profileImg={profileImg}/>
-                            <p className={style.post_user_name}>{profileName}
+                            <p className={style.post_user_name}>
+                                {profileName}
                                 <span className={style.post_user_id}>@ {profileCont}</span>
                             </p>
-                        </>,
+                        </div>,
                     search:
-                        <>
+                        <div className={style.cont_profile_card} onClick={handleBtn}>
                             <BasicProfileImg type="list" profileImg={profileImg}/>
-                            <p className={style.search_user_name}>{profileName}
+                            <p className={style.search_user_name}>
+                                {profileName}
                                 <span className={style.search_user_id}>@ {profileCont}</span>
                             </p>
-                        </>,
+                        </div>,
                     follow:
-                        <>
-                            <BasicProfileImg type="list" profileImg={profileImg}/>
-                            <p className={style.follow_user_name}>{profileName}
-                                <span className={style.follow_user_desc}>{profileCont}</span>
-                            </p>
-                        </>,
+                        <li className={style.item_follow}>
+                            <div className={style.cont_profile_card} onClick={handleBtn}>
+                                <BasicProfileImg type="list" profileImg={profileImg}/>
+                                <p className={style.follow_user_name}>
+                                    {profileName}
+                                    <span className={style.follow_user_desc}>{profileCont}</span>
+                                </p>
+                            </div>
+                            <FollowBtn isfollow={isfollow} accountname={profileAccount}/>
+                        </li>,
                     upload:
-                        <>
+                        <div className={style.cont_profile_card} onClick={handleBtn}>
                             <BasicProfileImg type="upload" profileImg={profileImg}/>
-                        </>
+                        </div>
                 }[state]
             }
-        </div>
+        </>
     )
 }
