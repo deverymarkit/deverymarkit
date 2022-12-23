@@ -14,8 +14,7 @@ export default function Product({ accountname, profileType }) {
 
     const getProductList = async () => {
         const url = BaseURL + `/product/${accountname}`;
-        
-        console.log(url);
+
         try {
             const productRes = axios.get(url, {
                 "headers": {

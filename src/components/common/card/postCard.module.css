@@ -18,6 +18,10 @@
     color: var(--text-accent-color);
 }
 
+.box_post_author {
+    cursor: pointer;
+}
+
 .box_post {
     width: 304px;
     height: 228px;

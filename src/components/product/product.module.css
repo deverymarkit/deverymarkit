@@ -46,8 +46,8 @@
     display: inline-block;
     width: 140px;
     height: 90px;
+    object-fit: cover;
     margin-bottom: 6px;
-    border: 0.5px solid #DBDBDB;
     border-radius: 8px;
 }
 

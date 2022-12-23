@@ -1,6 +1,7 @@
 .cont_profile_card {
     display: flex;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 /* 공통스타일 따로빼기 필요함. */
@@ -33,3 +34,6 @@
     color: var(--text-default-color);
 }
 
+.item_follow {
+    display: flex;
+}

@@ -12,6 +12,7 @@
     flex-direction: column;
     min-width: 390px;
     padding: 30px 16px 26px;
+    margin-top: 48px;
     text-align: center;
 }
 
@@ -22,7 +23,7 @@
 }
 
 .cont_follow .p_followers, 
-.cont_follow .p_followings {
+.cont_follow .p_following {
     width: 43px;
     font-weight: 700;
     font-size: 18px;
@@ -31,7 +32,7 @@
 }
 
 .cont_follow .p_followers span, 
-.cont_follow .p_followings span {
+.cont_follow .p_following span {
     display: block;
     font-weight: 400;
     font-size: 10px;
@@ -79,29 +80,8 @@
 }
 
 .box_btn {
+    display: flex;
+    justify-content: center;
     width: 232px;
     margin: 0 auto;
-}
-
-.btn_user_update, .btn_product_add {
-    height: 34px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    border-radius: 30px;
-    border: 1px solid var(--solid-color);
-    border-radius: 30px;
-    color: var(--text-default-color);
-    cursor: pointer;
-}
-
-.btn_user_update {
-    width: 120px;
-}
-
-.btn_product_add {
-    width: 100px;
-    margin-left: 12px;
-    background-color: var(--devery-main-color);
-    color: #FFFFFF;
 }

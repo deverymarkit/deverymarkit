@@ -34,7 +34,7 @@ export default function Upload() {
     if (image.length === 0) {
         let imageList = [...imageFileList];
         setImageFileList(imageList);
-    } else if(image.length <= 3){
+    } else if (image.length <= 3){
         // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
         let imageList = [];
         // imgae 배열의 길이만큼 for문을 돌려주고 배열에 요소를 imageList에 push해준다.

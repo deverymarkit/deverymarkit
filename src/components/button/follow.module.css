@@ -1,0 +1,12 @@
+.btn_follow {
+    width: 56px;
+    height: 28px;
+    margin-left: auto;
+    margin-top: 11px;
+    background: var(--devery-main-color);
+    border-radius: 26px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #FFFFFF;
+}

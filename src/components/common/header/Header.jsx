@@ -31,7 +31,8 @@ export default function Header({ type, IsValue, handleHeaderBtn }) {
                 </>
             )
             }
-            {type === "followers" && <p>followers</p>}
+            {type === "follower" && <p>follower</p>}
+            {type === "following" && <p>following</p>}
             {type === "search" && <input className={style.input_header} type="text" placeholder="계정 검색" />}
         </section>
     )
