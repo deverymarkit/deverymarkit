@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfileNone from "../../components/common/BasicProfileImg";
+import ProfileCard from "../../components/common/card/ProfileCard";
+import Header from "../../components/common/header/Header";
 import style from "./search.module.css";
+import Navbar from "../../components/common/navbar/Navbar";
+import axios from "axios";
+import BaseURL from "../../components/common/BaseURL"
 
 export default function Search() {
+    const loginInfo = JSON.parse(localStorage.getItem('loginStorage'))
+    const [keyword, setKeyword] = useState("")
+    const [데이터, set데이터] = useState([])
+
+    const searchAxios = async () => {
+        const token = loginInfo.token
+        if (keyword === "") return
+
+        try {
+            const searchRes = axios.get(BaseURL + `/user/searchuser/?keyword=${keyword}`, {
+                "headers": {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            })
+
+            const searchData = await searchRes;
+            console.log(searchData.data);
+            set데이터(searchData.data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    useEffect(() => {
+        searchAxios()
+    }, [keyword])
+
     return (
-        <div className={style.cont_search}>
-            <section className={style.cont_profile}>
-                <ProfileNone type="userList" />
-                <p className={style.tit_user_name}>
-                    애월읍 위니브 감귤농장
-                    <span className={style.tit_user_id}>@weniv_electronic</span>
-                </p>
-            </section>
-        </div>
+        <>
+        <Header type="search" setKeyword={setKeyword}/>
+        {/* {데이터.map((data, i) => 
+            <ProfileCard profileInfo={data} key={i} profileImg={데이터.image} />
+        )} */}
+        <Navbar type="search" />
+        </>
     );
 }

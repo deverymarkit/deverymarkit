@@ -31,7 +31,7 @@ export default function Navbar({ type }) {
         <section className={style.cont_icons}>
             <div className={style.div_icon} onClick={handleHome}>
                 <img 
-                src={type === "home" ? activeHomeIcon : homeIcon } 
+                src={type === "home" || type === "search" ? activeHomeIcon : homeIcon } 
                 className={style.img_icon}>
                 </img>
                 <span 
