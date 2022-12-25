@@ -6,7 +6,7 @@ import style from "./post.module.css";
 export default function PostAlbum({ postList }) {
     return (
         postList.map((post, id) =>
-            <PostAlbumCard key={id} post={post}/>
+            post.image ? <PostAlbumCard id={post.id} post={post}/> : null
         )
     )
 }

@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
+import { customAuthAxios } from "../../api/customAxios";
 import Header from "../../components/common/header/Header";
 import Navbar from "../../components/common/navbar/Navbar";
 import UserInfo from "../../components/profile/ProfileInfo";
 import Product from "../../components/product/Product";
 import Post from "../../components/post/Post";
-import BASE_URL from "../../components/common/BaseURL";
 import style from "./profile.module.css";
 
 export default function Profile() {
 
-    //console.log(localStorage.getItem("loginStorage"));
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const loginAccountName = loginInfo.accountname;
-    const token = loginInfo.token;
     const { accountname } = useParams();
     
     const [isLoading, setIsLoading] = useState(true);
@@ -29,28 +26,40 @@ export default function Profile() {
         profileType = "your";
     }
 
+
     const getProfileInfo = async () => {
-        const url = BASE_URL + `/profile/${accountname}`;
-        
         try {
-            const profileRes = axios.get(url, {
-                "headers": {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-type": "application/json"
-                }
-            })
-            const result = await profileRes;
+            const result = await customAuthAxios.get(`/profile/${accountname}`);
             setProfileInfo(result.data.profile);
             setIsLoading(false);
-        } catch(err) {
+        } catch (err) {
             console.error(err);
             setIsLoading(false);
         }
     }
+
+    //const getProfileInfo = async () => {
+    //    const url = BASE_URL + `/profile/${accountname}`;
+        
+    //    try {
+    //        const profileRes = axios.get(url, {
+    //            "headers": {
+    //                "Authorization": `Bearer ${token}`,
+    //                "Content-type": "application/json"
+    //            }
+    //        })
+    //        const result = await profileRes;
+    //        setProfileInfo(result.data.profile);
+    //        setIsLoading(false);
+    //    } catch(err) {
+    //        console.error(err);
+    //        setIsLoading(false);
+    //    }
+    //}
     
     useEffect(() => {
         getProfileInfo();
-    }, [accountname])
+    }, [accountname, profileInfo])
 
     /**
      * 1. undefined방지를 위한 loading, error state관리 필요
