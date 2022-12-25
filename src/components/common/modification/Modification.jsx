@@ -33,7 +33,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
             placeholder : ["2~15자 이내여야 합니다.", "숫자만 입력 가능합니다.", "URL을 입력해 주세요."]
             // usernameWarning : "2~15자 이내여야 합니다.",
             // accountWarning : ["계정ID는 4글자 이상이어야 합니다.", "숫자만 입력 가능합니다."],
-            // accountWarning : "계정ID는 4글자 이상이어야 합니다.", "숫자만 입력 가능합니다."
+        
             }
     }
 

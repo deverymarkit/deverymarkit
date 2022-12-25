@@ -4,6 +4,7 @@ import { customAuthAxios } from "../../api/customAxios";
 import style from "./product.module.css";
 
 export default function Product({ accountname, profileType }) {
+    const navigate = useNavigate();
 
     const [productList, setProductList] = useState([]);
 
@@ -21,6 +22,12 @@ export default function Product({ accountname, profileType }) {
         getProductList();
     }, [])
 
+    
+    
+    const handleProductDetail = (e) => {
+    navigate(`/productmodify/${e.target.name}`)
+    }
+    
     return (
         <>
             {
@@ -34,9 +41,9 @@ export default function Product({ accountname, profileType }) {
                                 // 내 프로필이면 모달, 남의 프로필이면 판매링크 넣기
                                 // 가격 단위 콤마 넣기
                                 productList.map((product, id) => 
-                                    <li key={id}>
+                                    <li key={id}  onClick={handleProductDetail}>
                                         <figure>
-                                            <img src={product.itemImage} className={style.img_product} alt="" />
+                                            <img name={product.id} src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
                                         </figure>
                                         <strong className={style.strong_product_price}>{product.price}</strong>
