@@ -80,6 +80,7 @@ export default function PostCard({ id, post }) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        arrows: false
         //autoplay: true,s
     }
 
@@ -96,7 +97,6 @@ export default function PostCard({ id, post }) {
             </div>
             {
                 post.image ? (
-                    //<div className={style.cont_post_img} >
                     <Slider {...settings}>
                     {
                         post.image.split(",").map((imgsrc, index) => 
@@ -104,7 +104,6 @@ export default function PostCard({ id, post }) {
                         )
                     }
                     </Slider>
-                    //</div>
                 ) : null
             }
             <div className={style.cont_post_content}>

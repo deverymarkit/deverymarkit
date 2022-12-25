@@ -11,10 +11,8 @@ import style from "./profile.module.css";
 
 export default function Profile() {
 
-    //console.log(localStorage.getItem("loginStorage"));
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const loginAccountName = loginInfo.accountname;
-    //const token = loginInfo.token;
     const { accountname } = useParams();
     
     const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +37,7 @@ export default function Profile() {
             setIsLoading(false);
         }
     }
+
     //const getProfileInfo = async () => {
     //    const url = BASE_URL + `/profile/${accountname}`;
         

@@ -125,7 +125,7 @@
 
     width: 20px;
     height: 20px;
-    margin: 0 5px;
+    margin: 0 3px;
     padding: 0;
 
     cursor: pointer;
@@ -161,8 +161,8 @@
 .slick-dots li button:before
 {
     font-family: 'slick';
-    font-size: 40px;
-    line-height: 20px;
+    font-size: 30px;
+    line-height: 10px;
 
     position: absolute;
     top: 0;
