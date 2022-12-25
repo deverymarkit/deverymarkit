@@ -17,7 +17,7 @@ export default function Search() {
         if (keyword === "") return
 
         try {
-            const searchRes = axios.get(BaseURL + `/user/searchuser/?keyword=${keyword}`, {
+            const searchRes = axios.get(BaseURL + `/user/searchuser/?keyword=${keyword}&limit=20&skip=0`, {
                 "headers": {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
@@ -25,7 +25,7 @@ export default function Search() {
             })
 
             const searchData = await searchRes;
-            console.log(searchData.data);
+            console.log(searchData);
             set데이터(searchData.data)
         } catch (err) {
             console.error(err)
