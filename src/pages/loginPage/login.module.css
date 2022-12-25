@@ -1,3 +1,12 @@
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .main_login {
     display: flex;
     flex-direction: column;
@@ -7,6 +16,14 @@
     border-bottom-right-radius: 50px;
     height: 90vh;
 }
+
+.img_login {
+    border: 2px solid white;
+    animation: fadein 2s;
+}
+
+
+
 
 .logo_login {
     width: 100vw;
@@ -42,6 +59,7 @@
     width: 1px;
     height: 10px;
     background-color: #c4c4c4;
+
 }
 
 .btn_join {
