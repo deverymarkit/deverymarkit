@@ -32,7 +32,7 @@ export default function Header({ type, IsValue, handleHeaderBtn, setKeyword}) {
             {type === "home" && (
                 <>
                     <p>데브리마킷</p>
-                    <img src={searchIcon} alt="검색버튼" onClick={handleHeaderBtn} />            
+                    <img src={searchIcon} alt="검색버튼" onClick={() => {navigate('/search')}} />
                 </>
             )
             }

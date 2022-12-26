@@ -1,48 +1,89 @@
-import React, { useEffect, useState } from "react";
-import ProfileNone from "../../components/common/BasicProfileImg";
+import React, { useEffect, useRef, useState } from "react";
 import ProfileCard from "../../components/common/card/ProfileCard";
 import Header from "../../components/common/header/Header";
 import style from "./search.module.css";
 import Navbar from "../../components/common/navbar/Navbar";
 import axios from "axios";
-import BaseURL from "../../components/common/BaseURL"
+import BaseURL from "../../components/common/BaseURL";
 
 export default function Search() {
-    const loginInfo = JSON.parse(localStorage.getItem('loginStorage'))
-    const [keyword, setKeyword] = useState("")
-    const [데이터, set데이터] = useState([])
+    const loginInfo = JSON.parse(localStorage.getItem('loginStorage'));
+    const [keyword, setKeyword] = useState("");
+    const [뿌려주기, set뿌려주기] = useState([]);
+    const [데이터, set데이터] = useState([]);
+    const [인덱스, set인덱스] = useState(0);
+    const observeRef = useRef();
+
+    const callbackFunction = (entries) => {
+        const [entry] = entries;
+        if (데이터.length > 인덱스 && entry.isIntersecting) {
+            set인덱스(인덱스 + 20);
+        }
+    }
+
+    const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1.0
+    }
 
     const searchAxios = async () => {
-        const token = loginInfo.token
-        if (keyword === "") return
-
+        const token = loginInfo.token;
+        if (keyword === "") {
+            set뿌려주기([]);
+            set데이터([]);
+            return
+        }
         try {
-            const searchRes = axios.get(BaseURL + `/user/searchuser/?keyword=${keyword}&limit=20&skip=0`, {
+            const searchRes = axios.get(BaseURL + `/user/searchuser/?keyword=${keyword}`, {
                 "headers": {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 }
             })
-
             const searchData = await searchRes;
-            console.log(searchData);
-            set데이터(searchData.data)
+            set인덱스(20);
+            set뿌려주기([]);
+            set데이터(searchData.data);
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
     }
+    
+    useEffect(() => {
+        searchAxios();
+    }, [keyword]);
 
     useEffect(() => {
-        searchAxios()
-    }, [keyword])
+        const observer = new IntersectionObserver(callbackFunction, options);
+        if (observeRef.current) observer.observe(observeRef.current);
+        return () => {
+            if(observeRef.current) observer.unobserve(observeRef.current);
+        }
+    }, [observeRef, options]);
+
+    useEffect(() => {
+        const 사본 = [...뿌려주기];
+        사본.push(...데이터.slice(인덱스 - 20, 인덱스));
+        set뿌려주기(사본);
+    }, [데이터, 인덱스]);
 
     return (
         <>
-        <Header type="search" setKeyword={setKeyword}/>
-        {/* {데이터.map((data, i) => 
-            <ProfileCard profileInfo={data} key={i} profileImg={데이터.image} />
-        )} */}
-        <Navbar type="search" />
+            <Header type="search" setKeyword={setKeyword}/>
+                <ul className={style.ul_search}>
+                    {뿌려주기.map((data, i) => 
+                        <ProfileCard 
+                        profileAccount={data.accountname} 
+                        isfollow={data.isfollow} 
+                        profileImg={data.image} 
+                        profileName={data.username} 
+                        profileState="search"
+                        profileCont={data.intro} />
+                    )}
+                    <li ref={observeRef} className="ir">더보기</li>
+                </ul>
+            <Navbar type="search" />
         </>
     );
 }
