@@ -12,6 +12,7 @@ import BaseURL from "../../components/common/BaseURL";
 export default function Upload() {
     const [profileImg, setProfileImg] = useState(); 
     const [userToken, setUserToken] = useState("");
+    const [userId, setUserId] = useState("");
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
     const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
@@ -24,6 +25,8 @@ export default function Upload() {
         // 프로필 이미지 
         const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
         const userToken = loginInfo.token;
+        const userId = loginInfo.accountname;
+        setUserId(userId);
         setUserToken(userToken);
         const getUserProfile = async () => {
             const url = BaseURL + "/user/myinfo";
@@ -85,42 +88,13 @@ export default function Upload() {
         setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
     };
 
-    // 업로드 기능
-    const handleSaveBtn = async (e) =>{
-        if(IsValue){
-            // const res = await uploadImg();
-            // console.log(res);
-            const url = BaseURL + "/post";
-            try {
-                await axios.post(
-                    url,
-                    {
-                        post: {
-                            content: textarea.current.value,
-                            image: imgUrl,
-                            // image : imageFileList.join()
-                        },
-                    },
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${userToken}`,
-                            'Content-type': 'application/json',
-                        },
-                    }
-                    );
-                    navigate(-1);
-                    
-            }catch(err) {
-                console.log(err)
-            }
-        };
-    }
 
     const uploadImg = async () => {
         let formData = new FormData();
         const url = BaseURL + "/image/uploadfiles";
 
-        const imgFiles = inpRef.current.files;
+        
+        const imgFiles = imageFileList;
         for (let i = 0; i < imgFiles.length; i++) {
             const file = imgFiles[i];
             formData.append('image', file);
@@ -130,32 +104,25 @@ export default function Upload() {
                 url,
                 formData
                 );
-                const PostUpdata = (await postRes).data
-                console.log("🚀 ~ file: Upload.jsx:133 ~ uploadImg ~ PostUpdata", PostUpdata)
-                    
-            console.log(PostUpdata);
-            const imgUrls = PostUpdata
-                .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
-                .join(",");
-            console.log(imgUrls);
-            return imgUrls;
-
+                const PostUpdata = (await postRes).data;
+                const imgUrls = PostUpdata
+                            .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
+                            .join(",");
+            
+                return imgUrls;
             }catch(err) {
                 console.log(err)
             }
-            
     };
 
 
     const storeImage = async ({ target }) => {
         // file 을 "image" 변수에 저장. 이 때 image는 Array!
-    const image = target.files;
-    if (image.length === 0) {
+        const image = target.files;
         let imageList = [...imageFileList];
-        setImageFileList(imageList);
-    } else if (image.length <= 3){
-        // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
-        let imageList = [];
+        
+        if (imageList.length < 3){
+            // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
         // imgae 배열의 길이만큼 for문을 돌려주고 배열에 요소를 imageList에 push해준다.
         for (let i = 0; i < image.length; i++) {
             // imageList.push(URL.createObjectURL(image[i]));
@@ -164,14 +131,43 @@ export default function Upload() {
         }
         // 이렇게 만들어진 imageList 배열을 set!
             setImageFileList(imageList);
+            
         } else{
             alert("사진은 3개 이하로 업로드가능합니다.");
         }
-        const res = await uploadImg();
-        setImgUrl(res);
-        console.log("🚀 ~ file: Upload.jsx:192 ~ storeImage ~ res", res)
-    
+        // uploadImg();
     };
+        // 업로드 기능
+        const handleSaveBtn = async (e) =>{
+            if(IsValue){
+                
+                const imgUrl = await uploadImg();
+                console.log(imgUrl);
+                const url = BaseURL + "/post";
+                try {
+                    await axios.post(
+                        url,
+                        {
+                            post: {
+                                content: textarea.current.value,
+                                image: imgUrl,
+                            },
+                        },
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${userToken}`,
+                                'Content-type': 'application/json',
+                            },
+                        }
+                        );
+                        navigate(`/profile/${userId}`)
+                        
+                }catch(err) {
+                    console.log(err)
+                }
+            };
+        }
+    
     return (
         <>
                 <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
