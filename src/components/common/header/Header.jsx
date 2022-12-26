@@ -5,7 +5,7 @@ import backIcon from "../../../assets/imgs/icon-arrow-left.png";
 import moreIcon from "../../../assets/imgs/icon-more-vertical.png";
 import searchIcon from "../../../assets/imgs/icon-search.png";
 
-export default function Header({ type, IsValue, handleHeaderBtn }) {
+export default function Header({ type, IsValue, handleHeaderBtn, setKeyword}) {
     const navigate = useNavigate();
     const pages = {
         "upload":{
@@ -15,6 +15,11 @@ export default function Header({ type, IsValue, handleHeaderBtn }) {
             btn : "저장"
             }
     }
+
+    const handleSearchKeyword = (event) => {
+        setKeyword(event.target.value)
+    }
+
     const handleBackBtn = () => {
         navigate(-1);
     }
@@ -33,7 +38,7 @@ export default function Header({ type, IsValue, handleHeaderBtn }) {
             }
             {type === "follower" && <p>follower</p>}
             {type === "following" && <p>following</p>}
-            {type === "search" && <input className={style.input_header} type="text" placeholder="계정 검색" />}
+            {type === "search" && <input className={style.input_header} type="text" placeholder="계정 검색" onChange={handleSearchKeyword}/>}
         </section>
     )
 }
