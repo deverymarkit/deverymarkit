@@ -59,7 +59,7 @@ export default function Profile() {
     
     useEffect(() => {
         getProfileInfo();
-    }, [accountname, profileInfo])
+    }, [accountname])
 
     /**
      * 1. undefined방지를 위한 loading, error state관리 필요
@@ -86,7 +86,7 @@ export default function Profile() {
                     )
                 }
             </main>
-            <Navbar type="profile" />
+            <Navbar type={profileType === "my" ? "profile" : ""} />
         </>
     )
 }
