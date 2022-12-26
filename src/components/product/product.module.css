@@ -54,4 +54,5 @@
 .ol_product_list .strong_product_price {
     font-weight: 700;
     font-size: 12px;
+    color: var(--devery-main-color);
 }

@@ -8,7 +8,6 @@ export default function Product({ accountname, profileType }) {
     const [productList, setProductList] = useState([]);
 
     const getProductList = async () => {
-
         try {
             const productRes = await customAuthAxios.get(`/product/${accountname}`)
             setProductList(productRes.data.product);
@@ -39,7 +38,7 @@ export default function Product({ accountname, profileType }) {
                                             <img src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
                                         </figure>
-                                        <strong className={style.strong_product_price}>{product.price}</strong>
+                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()}</strong>
                                     </li>
                                 )
                             }
