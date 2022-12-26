@@ -1,5 +1,6 @@
 import { React, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
@@ -8,17 +9,24 @@ import ProfileCard from "../../components/common/card/ProfileCard";
 import axios from "axios";
 import BaseURL from "../../components/common/BaseURL";
 
-export default function Upload({postId}) {
+export default function Upload() {
     const [profileImg, setProfileImg] = useState(); 
     const [userToken, setUserToken] = useState("");
+    const [userId, setUserId] = useState("");
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
+    const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
     const textarea = useRef();
     const inpRef = useRef();
+    const navigate = useNavigate();
+    const { postId } = useParams();
     
     useEffect(() => {
+        // 프로필 이미지 
         const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
         const userToken = loginInfo.token;
+        const userId = loginInfo.accountname;
+        setUserId(userId);
         setUserToken(userToken);
         const getUserProfile = async () => {
             const url = BaseURL + "/user/myinfo";
@@ -39,31 +47,32 @@ export default function Upload({postId}) {
         getUserProfile();
     }, []);
 
-    useEffect(() => {
-
-        if (postId) {
-            const url = BaseURL + `/post/detail/${postId}`;
+    // useEffect(() => {
+    // 수정 기능
+    //     if (postId) {
+    //         let postId = "63a8e26217ae6665810627fb"
+    //         const url = BaseURL + `/post/detail/${postId}`;
             
-            const getUserPost = async function () {
-            try {
-                const postRes = await axios.get(
-                    url,
-                {
-                    "headers": {
-                    "Authorization": `Bearer ${userToken}`,
-                    "Content-type": "application/json",
-                },
-                },
-            );
-                setImageFileList(postRes.data.post.image.split(","));
-                textarea.current.value=(postRes.data.post.content);
-            } catch (error) {
-                console.log(error);
-            }
-            };
-            getUserPost();
-        }
-    }, [postId, userToken]);
+    //         const getUserPost = async function () {
+    //         try {
+    //             const postRes = await axios.get(
+    //                 url,
+    //             {
+    //                 "headers": {
+    //                 "Authorization": `Bearer ${userToken}`,
+    //                 "Content-type": "application/json",
+    //             },
+    //             },
+    //         );
+    //             setImageFileList(postRes.data.post.image.split(","));
+    //             textarea.current.value=(postRes.data.post.content);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //         };
+    //         getUserPost();
+    //     }
+    // }, [postId, userToken]);
     
 
 
@@ -79,63 +88,41 @@ export default function Upload({postId}) {
         setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
     };
 
-    const handleSaveBtn = async (e) =>{
-        if(IsValue){
-            const res = uploadImg();
-            const url = BaseURL + "/post";
-            try {
-                await axios.post(
-                    url,
-                    {
-                        post: {
-                            content: textarea.current.value,
-                            // image: await res,
-                            image : imageFileList.join()
-                        },
-                    },
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${userToken}`,
-                            'Content-type': 'application/json',
-                        },
-                    }
-                );
-        }catch(err) {
-            console.log(err)
-        }
-    };
-}
 
     const uploadImg = async () => {
         let formData = new FormData();
-        const imgFiles = inpRef.current.files;
-        for (let i = 0; i < imageFileList.length; i++) {
-            const file = imageFileList[i];
+        const url = BaseURL + "/image/uploadfiles";
+
+        
+        const imgFiles = imageFileList;
+        for (let i = 0; i < imgFiles.length; i++) {
+            const file = imgFiles[i];
             formData.append('image', file);
         }
-        const res = await axios({
-            method: 'post',
-            url: 'https://mandarin.api.weniv.co.kr/image/uploadfiles',
-            data: formData,
-        });
-
-        console.log(res.data);
-        const imgUrls = res.data
-            .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
-            .join();
-        console.log(imgUrls);
-        return imgUrls;
+        try {
+            const postRes = await axios.post(
+                url,
+                formData
+                );
+                const PostUpdata = (await postRes).data;
+                const imgUrls = PostUpdata
+                            .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
+                            .join(",");
+            
+                return imgUrls;
+            }catch(err) {
+                console.log(err)
+            }
     };
 
-    const storeImage = ({ target }) => {
+
+    const storeImage = async ({ target }) => {
         // file 을 "image" 변수에 저장. 이 때 image는 Array!
-    const image = target.files;
-    if (image.length === 0) {
+        const image = target.files;
         let imageList = [...imageFileList];
-        setImageFileList(imageList);
-    } else if (image.length <= 3){
-        // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
-        let imageList = [];
+        
+        if (imageList.length < 3){
+            // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
         // imgae 배열의 길이만큼 for문을 돌려주고 배열에 요소를 imageList에 push해준다.
         for (let i = 0; i < image.length; i++) {
             // imageList.push(URL.createObjectURL(image[i]));
@@ -144,10 +131,43 @@ export default function Upload({postId}) {
         }
         // 이렇게 만들어진 imageList 배열을 set!
             setImageFileList(imageList);
+            
         } else{
             alert("사진은 3개 이하로 업로드가능합니다.");
         }
+        // uploadImg();
     };
+        // 업로드 기능
+        const handleSaveBtn = async (e) =>{
+            if(IsValue){
+                
+                const imgUrl = await uploadImg();
+                console.log(imgUrl);
+                const url = BaseURL + "/post";
+                try {
+                    await axios.post(
+                        url,
+                        {
+                            post: {
+                                content: textarea.current.value,
+                                image: imgUrl,
+                            },
+                        },
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${userToken}`,
+                                'Content-type': 'application/json',
+                            },
+                        }
+                        );
+                        navigate(`/profile/${userId}`)
+                        
+                }catch(err) {
+                    console.log(err)
+                }
+            };
+        }
+    
     return (
         <>
                 <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
@@ -164,16 +184,6 @@ export default function Upload({postId}) {
                         />
                     </div>
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
-                    {/* <div className={style.cont_img}>
-                        {imageFileList.map((x, i) => (
-                            <img
-                                alt=""
-                                key={i}
-                                src={x}
-                                className={style.img_preview}
-                            />
-                        ))}
-                    </div> */}
                     <input
                         className="ir"
                         type="file"
