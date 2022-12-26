@@ -1,3 +1,9 @@
+@keyframes cursor {
+    0% {border-right: 1px solid #fff}
+    50% {border-right: 1px solid #000}
+    100% {border-right: 1px solid #fff}
+}
+
 .cont_splash {
     position: relative;
     display: flex;
@@ -30,10 +36,4 @@
     animation-name: cursor;
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
-}
-
-@keyframes cursor {
-    0% {border-right: 1px solid #fff}
-    50% {border-right: 1px solid #000}
-    100% {border-right: 1px solid #fff}
 }
