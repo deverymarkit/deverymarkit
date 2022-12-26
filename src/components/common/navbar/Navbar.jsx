@@ -26,6 +26,10 @@ export default function Navbar({ type }) {
         navigate("/home")
     }
 
+    const handleUpload = () => {
+        navigate("/upload")
+    }
+
 
     return (
         <section className={style.cont_icons}>
@@ -50,7 +54,7 @@ export default function Navbar({ type }) {
                 </span>
             </div>
 
-            <div className={style.div_icon}>
+            <div className={style.div_icon} onClick={handleUpload}>
                 <img 
                 src={editIcon} 
                 className={style.img_icon}>

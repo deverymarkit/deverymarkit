@@ -4,7 +4,7 @@
     align-items: center;
     background-color: #FFF;
     border-top: 1px solid #E0E0E0;
-    padding-bottom: 30px;
+    padding-bottom: 60px;
 }
 
 
@@ -88,14 +88,28 @@
 }
 
 .box_album_post {
+    position: relative;
     width: 114px;
     height: 114px;
-    border-radius: 7px;
+    /*border-radius: 7px;*/
 }
 
 .box_album_post img {
     width: inherit;
     height: inherit;
     object-fit: cover;
-    border-radius: inherit;
+    /*border-radius: inherit;*/
+    cursor: pointer;
+}
+
+.box_album_post.img_multi::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/imgs/icon-img-layers.png);
 }
