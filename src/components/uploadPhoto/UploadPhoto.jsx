@@ -14,7 +14,7 @@ export default function UploadPhoto({ imageFileList, handleRemoveImg }) {
                         <img
                             alt={`${i+1}번째 이미지`}
                             key={i}
-                            src={x}
+                            src={URL.createObjectURL(x)}
                             className={style.img_preview}
                         />
                         <img id= {i} className={style.btn_remove} src={RemoveImg} alt="삭제버튼" onClick={handleRemoveImg}/>
