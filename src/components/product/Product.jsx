@@ -11,7 +11,6 @@ export default function Product({ accountname, profileType }) {
     const [productList, setProductList] = useState([]);
 
     const getProductList = async () => {
-
         try {
             const productRes = await customAuthAxios.get(`/product/${accountname}`)
             setProductList(productRes.data.product);
@@ -25,7 +24,7 @@ export default function Product({ accountname, profileType }) {
     }, [])
 
     
-    
+    //상품등록버튼 클릭 이벤트
     const handleProductDetail = (e) => {
     navigate(`/productmodify/${e.target.name}`)
     }
@@ -44,11 +43,12 @@ export default function Product({ accountname, profileType }) {
                                 // 가격 단위 콤마 넣기
                                 productList.map((product, id) => 
                                     <li key={id} name={product.id} onClick={handleProductDetail}>
+
                                         <figure>
                                             <img name={product.id} src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
                                         </figure>
-                                        <strong className={style.strong_product_price}>{product.price}</strong>
+                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()}</strong>
                                     </li>
                                 )
                             }

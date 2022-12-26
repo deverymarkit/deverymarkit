@@ -52,6 +52,7 @@
     border: none;
     border-radius: 32px;
     background: #F2F2F2;
+    flex-grow: 1;
 }
 
 .input_header {

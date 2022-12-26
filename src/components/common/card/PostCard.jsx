@@ -7,15 +7,15 @@ import "./slick/slick-theme.css"
 
 import { customAuthAxios } from "../../../api/customAxios";
 import ProfileCard from "./ProfileCard";
-
-
 import style from "./postCard.module.css";
+
 import moreIcon from "../../../assets/imgs/icon-more-vertical.png";
 //import messageIcon from  "../../../assets/imgs/icon-message-small.svg";
 import messageIcon from  "../../../assets/imgs/icon-message.svg";
 import heartIcon from  "../../../assets/imgs/icon-heart.svg";
 import heartFillIcon from  "../../../assets/imgs/icon-fill-heart.svg";
 //import heartFillIcon from  "../../../assets/imgs/icon-heart-fill.svg";
+import noImg from "../../../assets/imgs/no-picture.png";
 
 
 export default function PostCard({ id, post }) {
@@ -33,7 +33,7 @@ export default function PostCard({ id, post }) {
 
     const handleLikeToggle = () => {
         if (isLike === false) {
-            const setLike = async () => {
+            const setLike = async() => {
                 try {
                     customAuthAxios.post(`/post/${post.id}/heart`);
                     setLikeCount(likeCount + 1);
@@ -74,6 +74,10 @@ export default function PostCard({ id, post }) {
     //    getPostDetail();
     //}, [isLike])
 
+    const handleImgError = (e) => {
+        e.target.src = noImg;
+    }
+
     const settings = {
         dots: true,
         infinite: true,
@@ -100,7 +104,7 @@ export default function PostCard({ id, post }) {
                     <Slider {...settings}>
                     {
                         post.image.split(",").map((imgsrc, index) => 
-                                <img key={index} src={imgsrc} alt="" onClick={handlePostDetail}/>
+                            <img key={index} src={imgsrc} alt="" onClick={handlePostDetail} onError={handleImgError}/>
                         )
                     }
                     </Slider>

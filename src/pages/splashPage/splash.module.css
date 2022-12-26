@@ -1,5 +1,39 @@
+@keyframes cursor {
+    0% {border-right: 1px solid #fff}
+    50% {border-right: 1px solid #000}
+    100% {border-right: 1px solid #fff}
+}
+
 .cont_splash {
-    margin: 200px auto;
-    width: 390px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f0b19;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     text-align: center;
+}
+
+.tit_splash {
+    display: inline-block;
+    font-size: 40px;
+    text-align: center;
+    margin: 20px auto;
+    font-weight: 700;
+    color: #fff;
+}
+
+.img_splash {
+    width: 50px;
+    border: 2px solid white;
+    transition: all 1s;
+}
+
+.effect_typing {
+    animation-name: cursor;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
 }
