@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import style from "./profileBtn.module.css";
@@ -11,7 +11,7 @@ export default function MyProfileBtn() {
     }
 
     const handleMoveAddProductPage = () => {
-        navigate(``);
+        navigate(`/productmodify`)
     }
 
     return (

@@ -1,5 +1,6 @@
 import { React, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
@@ -8,15 +9,19 @@ import ProfileCard from "../../components/common/card/ProfileCard";
 import axios from "axios";
 import BaseURL from "../../components/common/BaseURL";
 
-export default function Upload({postId}) {
+export default function Upload() {
     const [profileImg, setProfileImg] = useState(); 
     const [userToken, setUserToken] = useState("");
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
+    const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
     const textarea = useRef();
     const inpRef = useRef();
+    const navigate = useNavigate();
+    const { postId } = useParams();
     
     useEffect(() => {
+        // 프로필 이미지 
         const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
         const userToken = loginInfo.token;
         setUserToken(userToken);
@@ -39,31 +44,32 @@ export default function Upload({postId}) {
         getUserProfile();
     }, []);
 
-    useEffect(() => {
-
-        if (postId) {
-            const url = BaseURL + `/post/detail/${postId}`;
+    // useEffect(() => {
+    // 수정 기능
+    //     if (postId) {
+    //         let postId = "63a8e26217ae6665810627fb"
+    //         const url = BaseURL + `/post/detail/${postId}`;
             
-            const getUserPost = async function () {
-            try {
-                const postRes = await axios.get(
-                    url,
-                {
-                    "headers": {
-                    "Authorization": `Bearer ${userToken}`,
-                    "Content-type": "application/json",
-                },
-                },
-            );
-                setImageFileList(postRes.data.post.image.split(","));
-                textarea.current.value=(postRes.data.post.content);
-            } catch (error) {
-                console.log(error);
-            }
-            };
-            getUserPost();
-        }
-    }, [postId, userToken]);
+    //         const getUserPost = async function () {
+    //         try {
+    //             const postRes = await axios.get(
+    //                 url,
+    //             {
+    //                 "headers": {
+    //                 "Authorization": `Bearer ${userToken}`,
+    //                 "Content-type": "application/json",
+    //             },
+    //             },
+    //         );
+    //             setImageFileList(postRes.data.post.image.split(","));
+    //             textarea.current.value=(postRes.data.post.content);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //         };
+    //         getUserPost();
+    //     }
+    // }, [postId, userToken]);
     
 
 
@@ -79,9 +85,11 @@ export default function Upload({postId}) {
         setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
     };
 
+    // 업로드 기능
     const handleSaveBtn = async (e) =>{
         if(IsValue){
-            const res = uploadImg();
+            // const res = await uploadImg();
+            // console.log(res);
             const url = BaseURL + "/post";
             try {
                 await axios.post(
@@ -89,8 +97,8 @@ export default function Upload({postId}) {
                     {
                         post: {
                             content: textarea.current.value,
-                            // image: await res,
-                            image : imageFileList.join()
+                            image: imgUrl,
+                            // image : imageFileList.join()
                         },
                     },
                     {
@@ -99,35 +107,47 @@ export default function Upload({postId}) {
                             'Content-type': 'application/json',
                         },
                     }
-                );
-        }catch(err) {
-            console.log(err)
-        }
-    };
-}
+                    );
+                    navigate(-1);
+                    
+            }catch(err) {
+                console.log(err)
+            }
+        };
+    }
 
     const uploadImg = async () => {
         let formData = new FormData();
+        const url = BaseURL + "/image/uploadfiles";
+
         const imgFiles = inpRef.current.files;
-        for (let i = 0; i < imageFileList.length; i++) {
-            const file = imageFileList[i];
+        for (let i = 0; i < imgFiles.length; i++) {
+            const file = imgFiles[i];
             formData.append('image', file);
         }
-        const res = await axios({
-            method: 'post',
-            url: 'https://mandarin.api.weniv.co.kr/image/uploadfiles',
-            data: formData,
-        });
+        try {
+            const postRes = await axios.post(
+                url,
+                formData
+                );
+                const PostUpdata = (await postRes).data
+                console.log("🚀 ~ file: Upload.jsx:133 ~ uploadImg ~ PostUpdata", PostUpdata)
+                    
+            console.log(PostUpdata);
+            const imgUrls = PostUpdata
+                .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
+                .join(",");
+            console.log(imgUrls);
+            return imgUrls;
 
-        console.log(res.data);
-        const imgUrls = res.data
-            .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
-            .join();
-        console.log(imgUrls);
-        return imgUrls;
+            }catch(err) {
+                console.log(err)
+            }
+            
     };
 
-    const storeImage = ({ target }) => {
+
+    const storeImage = async ({ target }) => {
         // file 을 "image" 변수에 저장. 이 때 image는 Array!
     const image = target.files;
     if (image.length === 0) {
@@ -147,6 +167,10 @@ export default function Upload({postId}) {
         } else{
             alert("사진은 3개 이하로 업로드가능합니다.");
         }
+        const res = await uploadImg();
+        setImgUrl(res);
+        console.log("🚀 ~ file: Upload.jsx:192 ~ storeImage ~ res", res)
+    
     };
     return (
         <>
@@ -164,16 +188,6 @@ export default function Upload({postId}) {
                         />
                     </div>
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
-                    {/* <div className={style.cont_img}>
-                        {imageFileList.map((x, i) => (
-                            <img
-                                alt=""
-                                key={i}
-                                src={x}
-                                className={style.img_preview}
-                            />
-                        ))}
-                    </div> */}
                     <input
                         className="ir"
                         type="file"

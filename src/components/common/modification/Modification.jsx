@@ -52,7 +52,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
 
     // const loginButton = (e) => {
     //     const 정규표현식 = /^[_A-Za-z0-9+]*$/;
-    //     e.preventDefault();
+    //     e.preventDefault(); 
     //     if (username.length < 2 || username.length > 10) {
     //         setUsernameWarning(pages[type].usernameWarning)
     //         return
