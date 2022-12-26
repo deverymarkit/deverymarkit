@@ -11,6 +11,7 @@ import Page404 from "../pages/Page404";
 import Signup from "../pages/loginPage/Signup";
 import PostDetail from "../pages/postPage/PostDetail";
 import FollowersFollowing from "../pages/followListPage/FollowersFollowing";
+import Search from "../pages/searchPage/Search";
 import ProfileModify from "../pages/profilePage/ProfileModify";
 import ProductModify from "../pages/productPage/ProductModify";
 
@@ -21,8 +22,9 @@ export default function Router() {
                 <Route path="/" element={<Splash />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/loginemail" element={<LoginEmail />} />
-                <Route path="/home" element={<Home />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/upload" element={<Upload type = "upload"/>} />            
                 <Route path="/profile/:accountname" element={<Profile />} />  
                 <Route path="/productmodify" element={<ProductModify/>} />            
