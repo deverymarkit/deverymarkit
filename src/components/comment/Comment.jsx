@@ -62,6 +62,6 @@ export default function Comment({ post }) {
                     <button className={style.btn_commentInput} onClick={handleComment}>게시</button>
                 </div>
             </div>
-        ) : "로딩중입니다"
+         ) : "로딩중입니다"
     );
 }

@@ -17,27 +17,13 @@
     flex-direction: column;
 }
 
-.cont_tit {
-    display: flex;
-    margin: 6px 0 16px;
+.cont_comment li {
+    position: relative;
 }
 
-.p_comment_name {
-    margin-right: 6px;
-}
-
-.btn_plus {
-    position: absolute;
-    right: 0;
-}
-
-/* commentInput
- * 개시버튼 해야함
- */
 .box_commentInput {
     display: flex;
     margin: 13px 0 13px 0; 
-    width: 390px;
 }
 
 .inp_comment {
@@ -47,6 +33,21 @@
 }
 
 .btn_commentInput {
-    flex-grow: 0;
+    cursor: pointer;
+}
+
+.p_now_comment {
+    margin-left: 46px;
+    margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333333;
+}
+
+.btn_comment_plus {
+    position: absolute;
+    top: 10px;
+    right: 0;
     cursor: pointer;
 }
