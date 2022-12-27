@@ -24,3 +24,9 @@
     line-height: 14px;
     color: var(--text-default-color);
 }
+
+.ul_search {
+    padding: 60px 0px 60px;
+    width: 390px;
+    margin: 0px auto;
+}
