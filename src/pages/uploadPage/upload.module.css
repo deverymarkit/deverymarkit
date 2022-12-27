@@ -17,11 +17,16 @@
     border: none;
     resize: none;
     margin-top: 12px;
+    padding: 8px;
     margin-left: 13px;
+    /* 텍스트창 구분을 위해 임시로 넣음 */
+    border-radius: 10px;
+    background-color: rgba(0, 29, 36, 0.1);
 }
 
 .text_upload:focus {
-    outline: none;
+    /* 색깔 미정 */
+    outline-color: grey;
 }
 
 .btn_upload {
