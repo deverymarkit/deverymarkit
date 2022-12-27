@@ -14,6 +14,10 @@ export default function Search() {
     const [인덱스, set인덱스] = useState(0);
     const observeRef = useRef();
 
+    const handleSearchKeyword = (event) => {
+        setKeyword(event.target.value);
+    }
+
     const callbackFunction = (entries) => {
         const [entry] = entries;
         if (데이터.length > 인덱스 && entry.isIntersecting) {
@@ -51,7 +55,10 @@ export default function Search() {
     }
     
     useEffect(() => {
-        searchAxios();
+        const timer = setTimeout(() => {
+            searchAxios();
+        }, 300)
+        return () => clearTimeout(timer)
     }, [keyword]);
 
     useEffect(() => {
@@ -70,7 +77,7 @@ export default function Search() {
 
     return (
         <>
-            <Header type="search" setKeyword={setKeyword}/>
+            <Header type="search" handleHeaderBtn={handleSearchKeyword}/>
                 <ul className={style.ul_search}>
                     {뿌려주기.map((data, i) => 
                         <ProfileCard 
