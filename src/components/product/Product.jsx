@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { customAuthAxios } from "../../api/customAxios";
@@ -43,7 +42,6 @@ export default function Product({ accountname, profileType }) {
                                 // 가격 단위 콤마 넣기
                                 productList.map((product, id) => 
                                     <li key={id} name={product.id} onClick={handleProductDetail}>
-
                                         <figure>
                                             <img name={product.id} src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>

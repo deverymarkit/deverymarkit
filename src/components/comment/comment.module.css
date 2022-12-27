@@ -2,16 +2,19 @@
  * 하트, 댓글 이미지 가져오고 글자 크기 조절해야함
  * 댓글 내용 해야함
  */
-.wrap_comment {
+.box_comment {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    position: relative;
+    flex-direction: column;
     width: 390px;
+    margin: 0 auto;
+    padding: 16px;
+    /*border-radius: 7px;*/
+    /*box-shadow: 0px 0px 5px 1px rgb(76 76 76 / 20%);*/
 }
 
 .cont_comment {
-    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .cont_tit {
@@ -31,9 +34,9 @@
 /* commentInput
  * 개시버튼 해야함
  */
-.wrap_commentInput {
+.box_commentInput {
     display: flex;
-    margin: 13px 20px 12px 16px; 
+    margin: 13px 0 13px 0; 
     width: 390px;
 }
 

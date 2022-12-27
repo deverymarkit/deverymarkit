@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useLocation } from "react-router-dom";
+
 import Comment from "../../components/comment/Comment";
-import PostCard from "../../components/common/card/PostCard";
-import BaseURL from "../../components/common/BaseURL";
-import style from "./postDetail.module.css";
+//import CommentList from "../../components/comment/CommentList";
+
 import Header from "../../components/common/header/Header";
+import PostCard from "../../components/common/card/PostCard";
+import style from "./postDetail.module.css";
 
 export default function PostDetail() {
     const { postid } = useParams();
@@ -51,14 +52,22 @@ export default function PostDetail() {
 
         
 
+    const location = useLocation();
+    const id = location.state.id;
+    const post = location.state.post;
+
     return (
         <>
             <Header type="post"/>
-            <main>
-                <div className="">
-                    <PostCard id={postid} post = {getData()} />
-                    <Comment/>
-                </div>
+            <main className={style.wrap_post_detail}>
+                <section className={style.cont_post_detail}>
+                    <h2 className="ir">게시글 상세보기</h2>
+                    <PostCard id={id} post={post}/>
+                </section>
+                <section className={style.cont_post_comment}>
+                    <h2 className="ir">댓글</h2>
+                    <Comment post={post}/>
+                </section>
             </main>
         </>
     )

@@ -42,7 +42,17 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                     upload:
                         <div className={style.cont_profile_card} onClick={handleBtn}>
                             <BasicProfileImg type="upload" profileImg={profileImg}/>
-                        </div>
+                        </div>,
+                    comment:
+                        <>
+                            <div className={style.cont_profile_card} onClick={handleBtn}>
+                                <BasicProfileImg type="comment_list" profileImg={profileImg}/>
+                                <p className={style.follow_user_name}>
+                                    {profileName}
+                                    <span className={style.follow_user_desc}>{profileCont}</span>
+                                </p>
+                            </div>
+                        </>,
                 }[state]
             }
         </>

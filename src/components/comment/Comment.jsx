@@ -1,29 +1,70 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import { customAuthAxios } from "../../api/customAxios";
+import CommentList from "./CommentList";
 import BasicProfileImg from "../common/BasicProfileImg";
 import style from "./comment.module.css";
-import moreIcon from "../../assets/imgs/icon-more-vertical.png";
 
-export default function CommentList() {
+import noProfileImg from "../../assets/imgs/profile-none.png";
+
+
+export default function Comment({ post }) {
+
+    const [commentList, setCommentList] = useState([]);
+    const [isloading, setIsLoading] = useState(true);
+    const [nowComment, setNowComment] = useState("");
+    const [isValid, setIsValid] = useState(false);
+
+    const getCommentList = async () => {
+        try {
+            const commentRes = await customAuthAxios.get(`/post/${post.id}/comments`);
+            setCommentList(commentRes.data.comments);
+            setIsLoading(false);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        getCommentList();
+    }, [commentList]);
+
+    const handleComment = async () => {
+        if (isValid) {
+            try {
+                const commentRes = await customAuthAxios.post(`/post/${post.id}/comments`, {
+                    comment: {
+                        content: nowComment
+                    }
+                });
+
+                setCommentList(commentRes.data.comment);
+            } catch (err) {
+                console.error(err);
+            }
+        } 
+    }
+
+    const handleTyping = (e) => {
+        setNowComment(e.target.value);
+        //console.log(e.target.value);
+        e.target.value ? setIsValid(true) : setIsValid(false);
+        //console.log("test",isValid);
+    }
+
+
     return (
-        <>
-            {/* commentList */}
-            <div className={style.wrap_comment}>
-                <BasicProfileImg />
-                <div className={style.cont_comment}>
-                    <div className={style.cont_tit}>
-                        <p><strong className={style.p_comment_name}>댓글닉넴</strong></p>
-                        <span className={style.span_time}>1분 전</span>
-                    </div>
-                    <p className={style.p_comment_content}>댓글 내용입니다.</p>
+        !isloading ? (
+            <div className={style.box_comment}>
+                {
+                    commentList.length > 0 && <CommentList commentList={commentList}/>
+                }
+                <div className={style.box_commentInput}>
+                    <BasicProfileImg type="comment_list" profileImg={noProfileImg}/>
+                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." onChange={handleTyping}/>
+                    <button className={style.btn_commentInput} onClick={handleComment}>게시</button>
                 </div>
-                <img src={moreIcon} className={style.btn_plus} alt="더보기 버튼"/>
             </div>
-            {/* commentInput */}
-            <div className={style.wrap_commentInput}>
-                <BasicProfileImg />
-                <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..."/>
-                <button className={style.btn_commentInput}>개시</button>
-            </div>
-        </>
+        ) : null
     );
 }

@@ -24,10 +24,15 @@ export default function PostCard({ id, post }) {
     const [likeCount, setLikeCount] = useState(post.heartCount);
     const navigate = useNavigate();
     const handlePostDetail = () => {
-        navigate(`/post/${post.id}`)
+        navigate(`/post/${post.id}`, {
+            state: {
+                id : post.id,
+                post: post
+            }
+        });
     }
     const handleProfile = () => {
-        navigate(`/profile/${post.author.accountname}`)
+        navigate(`/profile/${post.author.accountname}`);
     }
 
     const handleLikeToggle = () => {
@@ -101,7 +106,7 @@ export default function PostCard({ id, post }) {
     //} 
 
     return (
-        <article key={id} className={style.article_post_card}>
+        <article key={post.id} className={style.article_post_card}>
             <div className={style.cont_post_author}>
                 <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname} handleBtn={handleProfile}/>
             </div>
