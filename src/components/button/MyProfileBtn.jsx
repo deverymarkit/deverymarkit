@@ -7,7 +7,7 @@ export default function MyProfileBtn() {
 
     const navigate = useNavigate();
     const handleMoveProfileUpdatePage = () => {
-        navigate(`profile/`);
+        navigate(`/profilemodify`);
     }
 
     const handleMoveAddProductPage = () => {

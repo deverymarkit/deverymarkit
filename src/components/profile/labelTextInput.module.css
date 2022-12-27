@@ -1,0 +1,16 @@
+.label_profileSetting {
+    display: block;
+    color: #767676;
+    text-align: left;
+    width: 322px;
+    margin: 0 auto;
+}
+
+.input_profileSetting {
+    width: 322px;
+    border-left-width:0;
+    border-right-width:0;
+    border-top-width:0;
+    border-bottom-width:1px;
+    margin: 10px 0 30px 0;
+}
