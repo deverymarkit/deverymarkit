@@ -6,6 +6,8 @@ import axios from "axios";
 import Header from "../../components/common/header/Header.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import BaseURL from "../../components/common/BaseURL";
+import BASE_URL from "../../components/common/BaseURL";
+
 
 export default function ProductModify() {
     const [productImg, setProductImg] = useState(defalutImg);
@@ -29,7 +31,7 @@ export default function ProductModify() {
     
     useEffect(() => {
 
-        if (userToken) {
+        if (productId) {
             const url = BaseURL + `/product/detail/${productId}`;
             
             const getUserProduct = async function () {
@@ -115,7 +117,9 @@ if(productId){
             
         ,)
         navigate(-1);
-        // const productUpdata = (await productRes).data
+
+        const productUpdata = (await productRes).data
+
         // console.log(productUpdata);
     } catch(err) { 
         const error = err.response.data
@@ -124,7 +128,8 @@ if(productId){
     
 }
 else{
-    const url = BaseURL + `/product/detail/product`;
+    const url = BaseURL + `/product`;
+
 
     try {
         const productRes = await axios.post(url, { 
@@ -138,7 +143,8 @@ else{
             
         ,)
         navigate(-1);     
-        // const productUpdata = (await productRes).data
+        const productUpdata = (await productRes).data
+
         // console.log(productUpdata);
 
 
@@ -174,7 +180,11 @@ else{
                 }
             })
             const imgUrl = (await imgRes).data.filename;
-            setProductImg(url + `${imgUrl}`)
+
+            setProductImg(BASE_URL + `/${imgUrl}`)
+
+//            setProductImg(url + `${imgUrl}`)
+
         } catch(err) {
             console.log(err)
         }
@@ -186,7 +196,8 @@ else{
             <section className={style.cont_productModify}>
 
                 <div className={`${style.cont_Img} ${style.product}`}>
-                    <img src={productImg} className={`${style.img_modification} ${style.product}`} alt="프로필 사진"></img>
+
+                    <img src={productImg} className={`${style.img_modification} ${style.product}`} alt="상품 사진"></img>
 
                     <input type="file" 
                     className={style.inp_file} 

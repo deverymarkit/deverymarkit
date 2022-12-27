@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 
-import BASE_URL from "../common/BaseURL";
+import { customAuthAxios } from "../../api/customAxios";
+
 import style from "./follow.module.css";
 
 export default function FollowBtn({ isfollow, accountname }) {
 
-    //const postFollow = async () => {
-    //    const url = BASE_URL + `/profile/${accountname}/follow`;
-        
-    //    try {
-    //        const postRes = axios.post(url, {
-    //            "headers": {
-    //                "Authorization": `Bearer ${token}`,  
-    //                "Content-type": "application/json",
-    //            }
-    //        })
-    //        const result = await postRes;
-    //        setPostList(result.data.post);
-    //    } catch(err) {
-    //        console.error(err);
-    //    }
-    //}
-    
-    //useEffect(()=>{
-    //    postFollow();
-    //}, [])
+    const [follow, setIsFollow] = useState(isfollow);
+
+    const handleFollowToggle = () => {
+        if (follow) {
+            const setUnFollow = async () => {
+                try {
+                    const followRes = await customAuthAxios.delete(`/profile/${accountname}/unfollow`);
+                    setIsFollow(followRes.data.profile.isfollow);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            setUnFollow();
+        } else {
+            const setFollow = async () => {
+                try {
+                    const followRes = await customAuthAxios.post(`/profile/${accountname}/follow`);
+                    setIsFollow(followRes.data.profile.isfollow);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            setFollow();
+        }
+    }
    
 
     return (
         <>
-            <button type="button" className={style.btn_follow}>{isfollow ? "팔로잉" : "팔로우"}</button>
+            <button type="button" className={`${style.btn_isfollow} ${!follow && style.un}`} onClick={handleFollowToggle}>{follow ? "팔로잉" : "팔로우"}</button>
         </>
     )
 }

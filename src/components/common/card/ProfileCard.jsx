@@ -1,11 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import FollowBtn from "../../button/FollowBtn";
 import BasicProfileImg from "../BasicProfileImg";
 import style from "./profileCard.module.css";
 
 export default function ProfileCard({ profileImg, profileState, profileName, profileCont, profileAccount, isfollow, handleBtn }) {
-
+    const navigate = useNavigate()
     const state = profileState;
 
     return (
@@ -21,13 +22,13 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                             </p>
                         </div>,
                     search:
-                        <div className={style.cont_profile_card} onClick={handleBtn}>
+                        <li className={style.cont_profile_card} onClick={() =>{navigate(`/profile/${profileAccount}`)}}>
                             <BasicProfileImg type="list" profileImg={profileImg}/>
                             <p className={style.search_user_name}>
                                 {profileName}
                                 <span className={style.search_user_id}>@ {profileCont}</span>
                             </p>
-                        </div>,
+                        </li>,
                     follow:
                         <li className={style.item_follow}>
                             <div className={style.cont_profile_card} onClick={handleBtn}>
@@ -42,7 +43,17 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                     upload:
                         <div className={style.cont_profile_card} onClick={handleBtn}>
                             <BasicProfileImg type="upload" profileImg={profileImg}/>
-                        </div>
+                        </div>,
+                    comment:
+                        <>
+                            <div className={style.cont_profile_card} onClick={handleBtn}>
+                                <BasicProfileImg type="comment_list" profileImg={profileImg}/>
+                                <p className={style.follow_user_name}>
+                                    {profileName}
+                                    <span className={style.follow_user_desc}>{profileCont}</span>
+                                </p>
+                            </div>
+                        </>,
                 }[state]
             }
         </>
