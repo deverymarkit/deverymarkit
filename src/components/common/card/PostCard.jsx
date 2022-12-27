@@ -65,24 +65,6 @@ export default function PostCard({ id, post }) {
         }
     }
 
-    useEffect(() => {
-        console.log(post.image)
-    }, []);
-    
-
-    //const getPostDetail = async () => {
-    //    try {
-    //        const result = await customAuthAxios.get(`/post/${post.id}`);
-    //        setHeartCount(result.data.heartCount);
-    //    } catch (err) {
-    //        console.error(err);
-    //    }
-    //}
-
-    //useEffect(() => {
-    //    getPostDetail();
-    //}, [isLike])
-
     const handleImgError = (e) => {
         e.target.src = noImg;
     }
@@ -94,16 +76,7 @@ export default function PostCard({ id, post }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false
-        //autoplay: true,s
     }
-
- 
-    // post.image.split(",").map((imgsrc, index) => {console.log(imgsrc);})
-    //let postImgDataList = [];
-    //let a = post.image.includes(",")
-    //if (a) {
-    //    postImgDataList = post.image.split(",");
-    //} 
 
     return (
         <article key={post.id} className={style.article_post_card}>

@@ -48,10 +48,8 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                         <>
                             <div className={style.cont_profile_card} onClick={handleBtn}>
                                 <BasicProfileImg type="comment_list" profileImg={profileImg}/>
-                                <p className={style.follow_user_name}>
-                                    {profileName}
-                                    <span className={style.follow_user_desc}>{profileCont}</span>
-                                </p>
+                                <p className={style.p_comment_name}>{profileName}</p>
+                                <span className={style.span_comment_date}>{profileCont}</span>
                             </div>
                         </>,
                 }[state]

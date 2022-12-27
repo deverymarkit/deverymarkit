@@ -37,3 +37,18 @@
 .item_follow {
     display: flex;
 }
+
+.p_comment_name {
+    margin: 10px 10px 0 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.span_comment_date {
+    margin-top: 11px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+    color: #767676;
+}

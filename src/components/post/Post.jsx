@@ -5,11 +5,9 @@ import PostList from "./PostList";
 import PostAlbum from "./PostAlbum";
 import BASE_URL from "../../components/common/BaseURL";
 import style from "../../components/post/post.module.css";
+import { customAuthAxios } from "../../api/customAxios";
 
-export default function Post({ profileInfo, profileType }) {
-
-    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-    const token = loginInfo.token;
+export default function Post({ profileInfo }) {
 
     const [toggle, setToggle] = useState(true);
     const [postList, setPostList] = useState([]);
@@ -20,17 +18,10 @@ export default function Post({ profileInfo, profileType }) {
     }
 
     const getPostList = async () => {
-        const url = BASE_URL + `/post/${profileInfo.accountname}/userpost`;
-        
+
         try {
-            const postRes = axios.get(url, {
-                "headers": {
-                    "Authorization": `Bearer ${token}`,  
-                    "Content-type": "application/json",
-                }
-            })
-            const result = await postRes;
-            setPostList(result.data.post);
+            const postRes = await customAuthAxios.get(`/post/${profileInfo.accountname}/userpost`);
+            setPostList(postRes.data.post);
         } catch(err) {
             console.error(err);
         }
@@ -38,7 +29,7 @@ export default function Post({ profileInfo, profileType }) {
     
     useEffect(()=>{
         getPostList();
-    }, [])
+    }, [profileInfo.accountname])
    
     return (
         <>

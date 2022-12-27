@@ -13,11 +13,12 @@ export default function Profile() {
 
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const loginAccountName = loginInfo.accountname;
+
     const { accountname } = useParams();
     
     const [isLoading, setIsLoading] = useState(true);
     const [profileInfo, setProfileInfo] = useState("");
-
+    
     let profileType = "";
 
     if (loginAccountName === accountname) {
@@ -26,36 +27,17 @@ export default function Profile() {
         profileType = "your";
     }
 
-
     const getProfileInfo = async () => {
         try {
             const result = await customAuthAxios.get(`/profile/${accountname}`);
             setProfileInfo(result.data.profile);
+            console.log("test", result.data.profile);
             setIsLoading(false);
         } catch (err) {
             console.error(err);
             setIsLoading(false);
         }
     }
-
-    //const getProfileInfo = async () => {
-    //    const url = BASE_URL + `/profile/${accountname}`;
-        
-    //    try {
-    //        const profileRes = axios.get(url, {
-    //            "headers": {
-    //                "Authorization": `Bearer ${token}`,
-    //                "Content-type": "application/json"
-    //            }
-    //        })
-    //        const result = await profileRes;
-    //        setProfileInfo(result.data.profile);
-    //        setIsLoading(false);
-    //    } catch(err) {
-    //        console.error(err);
-    //        setIsLoading(false);
-    //    }
-    //}
     
     useEffect(() => {
         getProfileInfo();
