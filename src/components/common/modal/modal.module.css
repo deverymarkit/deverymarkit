@@ -1,0 +1,48 @@
+.wrap_modal {
+    width: 390px;
+    border: 1px solid black;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    /* box-shadow: 5px 5px 5px 5px gray; */
+    /* background-color: aquamarine; */
+    border-radius: 10px 10px 0 0;
+    line-height: 0;
+    z-index: 999;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cancelBar_modal {
+    width: 100%;
+    height: 36px;
+    border-radius: 10px 10px 0 0;
+    /* background-color: black; */
+}
+
+.cancelBar_modal:hover {
+    cursor: pointer;
+    background-color: beige;
+}
+
+.bar_modal{
+    position: absolute;
+    top: 16px;
+    left: 170px;
+    border: 2px solid #DBDBDB;
+    border-radius: 5px;
+    width: 50px;
+}
+
+.btn_modal {
+    height: 46px;
+    width: 100%;
+    /* background-color: red; */
+
+}
+
+.btn_modal:hover {
+    cursor: pointer;
+    background-color: beige;
+}
