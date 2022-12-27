@@ -23,7 +23,6 @@ export default function PostCard({ id, post }) {
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
     const navigate = useNavigate();
-
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
             state: {
@@ -66,6 +65,11 @@ export default function PostCard({ id, post }) {
         }
     }
 
+    useEffect(() => {
+        console.log(post.image)
+    }, []);
+    
+
     //const getPostDetail = async () => {
     //    try {
     //        const result = await customAuthAxios.get(`/post/${post.id}`);
@@ -93,6 +97,8 @@ export default function PostCard({ id, post }) {
         //autoplay: true,s
     }
 
+ 
+    // post.image.split(",").map((imgsrc, index) => {console.log(imgsrc);})
     //let postImgDataList = [];
     //let a = post.image.includes(",")
     //if (a) {
@@ -111,6 +117,7 @@ export default function PostCard({ id, post }) {
                         post.image.split(",").map((imgsrc, index) => 
                             <img key={index} src={imgsrc} alt="" onClick={handlePostDetail} onError={handleImgError}/>
                         )
+                        
                     }
                     </Slider>
                 ) : null
