@@ -1,21 +1,23 @@
 import axios from "axios";
 
+const BASE_URL = "https://mandarin.api.weniv.co.kr";
+
 export const customAxios = axios.create({
-    baseURL: "https://mandarin.api.weniv.co.kr",
+    baseURL: BASE_URL,
     headers: {
         "Content-type": "application/json"    
     }
 })
 
 export const customAuthAxios = axios.create({
-    baseURL: "https://mandarin.api.weniv.co.kr",
+    baseURL: BASE_URL,
     headers: {
         "Content-type": "application/json"    
     }
 })
 
 export const customImgAxios = axios.create({
-    baseURL: "https://mandarin.api.weniv.co.kr",
+    baseURL: BASE_URL,
     headers: {
         "Content-type": "multipart/form-data"  
     }

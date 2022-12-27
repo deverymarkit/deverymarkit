@@ -12,7 +12,7 @@ export default function CommentList({ commentList }) {
                 {
                     commentList.map((data) => 
                         <li>
-                            <ProfileCard profileState="comment"/>
+                            <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={data.createdAt}/>
                             <p className={style.p_comment_content}>{data.content}</p>            
                             <img src={moreIcon} className={style.btn_plus} alt="더보기 버튼"/>
                         </li>

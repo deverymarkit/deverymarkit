@@ -48,5 +48,5 @@
 
 .btn_commentInput {
     flex-grow: 0;
-
+    cursor: pointer;
 }
