@@ -9,6 +9,8 @@ export default function BasicProfileImg({ type, profileImg }) {
         imgType = "box_profile_post";
     } else if (type === "list") {
         imgType = "box_profile_list";
+    } else if (type === "comment_list") {
+        imgType = "box_profile_comment";
     }
 
     return (
