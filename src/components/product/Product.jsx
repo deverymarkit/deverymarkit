@@ -14,7 +14,6 @@ export default function Product({ accountname }) {
         try {
             const productRes = await customAuthAxios.get(`/product/${accountname}`)
             setProductList(productRes.data.product);
-            console.log(productRes.data.product);
         } catch(err) {
             console.error(err);
         }

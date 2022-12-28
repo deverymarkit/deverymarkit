@@ -31,7 +31,6 @@ export default function Profile() {
         try {
             const result = await customAuthAxios.get(`/profile/${accountname}`);
             setProfileInfo(result.data.profile);
-            console.log("test", result.data.profile);
             setIsLoading(false);
         } catch (err) {
             console.error(err);

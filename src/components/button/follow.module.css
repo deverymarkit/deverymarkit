@@ -3,17 +3,17 @@
     height: 28px;
     margin-left: auto;
     margin-top: 11px;
-    background-color: var(--devery-main-color);
+    background-color: #FFF;
     border-radius: 26px;
     font-size: 12px;
     line-height: 15px;
     text-align: center;
-    color: #FFFFFF;
+    border: 1px solid var(--solid-color);
+    color: var(--text-default-color);
     cursor: pointer;
 }
 
 .btn_isfollow.un {
-    border: 1px solid var(--solid-color);
-    background-color: #FFF;
-    color: var(--text-default-color);
+    background-color: var(--devery-main-color);
+    color: #FFFFFF;
 }
