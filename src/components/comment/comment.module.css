@@ -23,13 +23,30 @@
 
 .box_commentInput {
     display: flex;
-    margin: 13px 0 13px 0; 
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 48px;
+    min-width: 390px;
+    padding: 0 16px;
+    border-top: 1px solid var(--solid-color);
+    background-color: #FFF;
+    z-index: 2;
 }
 
 .inp_comment {
-    border:0;
-    margin-left: 16px;
+    /*border:0;*/
+    margin-left: 9px;
+    margin-right: 9px;
     flex-grow: 1;
+    border: none;
+    resize: none;
+    /*margin-top: 12px;*/
+    padding: 8px;
+    /*margin-left: 13px;*/
+    border-radius: 7px;
+    background-color: rgba(0, 29, 36, 0.1);
 }
 
 .btn_commentInput {

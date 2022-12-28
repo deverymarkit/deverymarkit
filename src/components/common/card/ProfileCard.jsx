@@ -26,7 +26,7 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                             <BasicProfileImg type="list" profileImg={profileImg}/>
                             <p className={style.search_user_name}>
                                 {profileName}
-                                <span className={style.search_user_id}>@ {profileCont}</span>
+                                <span className={style.search_user_id}>{profileCont}</span>
                             </p>
                         </li>,
                     follow:

@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     width: 100vw;
+    padding: 20px;
 }
 
 .cont_follow {
