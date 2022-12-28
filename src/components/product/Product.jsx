@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { customAuthAxios } from "../../api/customAxios";
 import style from "./product.module.css";
 
-export default function Product({ accountname, profileType }) {
+export default function Product({ accountname }) {
+    
     const navigate = useNavigate();
 
     const [productList, setProductList] = useState([]);
@@ -13,6 +14,7 @@ export default function Product({ accountname, profileType }) {
         try {
             const productRes = await customAuthAxios.get(`/product/${accountname}`)
             setProductList(productRes.data.product);
+            console.log(productRes.data.product);
         } catch(err) {
             console.error(err);
         }
@@ -20,9 +22,8 @@ export default function Product({ accountname, profileType }) {
     
     useEffect(()=>{
         getProductList();
-    }, [])
+    }, [accountname])
 
-    
     //상품등록버튼 클릭 이벤트
     const handleProductDetail = (e) => {
     navigate(`/productmodify/${e.target.name}`)

@@ -11,7 +11,6 @@ export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
     const { username, accountname, intro, image, isfollow, followerCount, followingCount } = profileInfo;
 
     const navigate = useNavigate();
-
     const handleFollowersView = () => {
         navigate(`/profile/${accountname}/follower`)
     }

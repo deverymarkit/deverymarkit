@@ -9,7 +9,12 @@ export default function PostAlbumCard({ id, post }) {
 
     const navigate = useNavigate();
     const handlePostDetail = () => {
-        navigate(`/post/${post.id}`)
+        navigate(`/post/${post.id}`, {
+            state: {
+                id : post.id,
+                post: post
+            }
+        })
     }
 
     useEffect(() => {
@@ -22,7 +27,7 @@ export default function PostAlbumCard({ id, post }) {
     //console.log(imgSrc);
 
     return (
-        <li key={post.id} className={`${style.box_album_post} ${isMulti ? style.img_multi : ""}`}>
+        <li key={post.id} className={`${style.box_album_post} ${isMulti && style.img_multi}`}>
             {
                 post.image ? ( <img src={imgSrc} alt="" onClick={handlePostDetail}/> ) : null
             }

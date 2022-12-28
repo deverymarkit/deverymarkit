@@ -27,31 +27,28 @@ export default function Comment({ post }) {
 
     useEffect(() => {
         getCommentList();
-    }, [commentList]);
+    }, []);
+    
+    const handleTyping = (e) => {
+        setNowComment(e.target.value);
+        e.target.value ? setIsValid(true) : setIsValid(false);
+    }
 
     const handleComment = async () => {
         if (isValid) {
             try {
-                const commentRes = await customAuthAxios.post(`/post/${post.id}/comments`, {
+                await customAuthAxios.post(`/post/${post.id}/comments`, {
                     comment: {
                         content: nowComment
                     }
                 });
-
-                setCommentList(commentRes.data.comment);
+                getCommentList();
+                setNowComment("");
             } catch (err) {
                 console.error(err);
             }
         } 
     }
-
-    const handleTyping = (e) => {
-        setNowComment(e.target.value);
-        //console.log(e.target.value);
-        e.target.value ? setIsValid(true) : setIsValid(false);
-        //console.log("test",isValid);
-    }
-
 
     return (
         !isloading ? (
@@ -61,10 +58,10 @@ export default function Comment({ post }) {
                 }
                 <div className={style.box_commentInput}>
                     <BasicProfileImg type="comment_list" profileImg={noProfileImg}/>
-                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." onChange={handleTyping}/>
+                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." value={nowComment} onChange={handleTyping}/>
                     <button className={style.btn_commentInput} onClick={handleComment}>게시</button>
                 </div>
             </div>
-        ) : null
+         ) : "로딩중입니다"
     );
 }
