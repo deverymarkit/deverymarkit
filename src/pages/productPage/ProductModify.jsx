@@ -19,15 +19,12 @@ export default function ProductModify() {
     const [productUrl, setProductUrl] = useState("");
     const inputRef = useRef();
     const { productId } = useParams();
-    const [userToken, setUserToken] = useState("");
     const regex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     const navigate = useNavigate();
+    //토큰 가져오기
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const userToken = loginInfo.token;
     
-    useEffect(() => {
-        const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-        const userToken = loginInfo.token;
-        setUserToken(userToken);
-    }, []);
     
     useEffect(() => {
 
