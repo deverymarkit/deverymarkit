@@ -7,7 +7,7 @@
     height: 60px;
     background-color: #ffffff;
     justify-content: space-around;
-    z-index: 999;
+    z-index: 3;
 }
 
 .div_icon {

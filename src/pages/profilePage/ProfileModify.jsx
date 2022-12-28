@@ -1,238 +1,148 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUpdate } from "../../store.js";
+import React, { useEffect, useState } from "react";
 import style from "./profileModify.module.css";
-import uploadImg from "../../assets/imgs/upload-img.png";
-import axios from 'axios';
 import Header from "../../components/common/header/Header.jsx";
+import ProfilePhoto from "../../components/profile/ProfilePhoto.jsx";
+import LabelTextInput from "../../components/profile/LabelTextInput.jsx";
+import { customAuthAxios } from "../../api/customAxios.js"
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileModify() {
-    const navigate = useNavigate();
-    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png";
-    const [profileImg, setProfileImg] = useState(defalutImg);
+    const navigate = useNavigate()
+    const loginInfo = JSON.parse(localStorage.getItem('loginStorage'));
+    const [profiledata, setProfiledata] = useState({
+        username: loginInfo.username,
+        accountname: loginInfo.accountname,
+        intro: loginInfo.intro,
+        image: loginInfo.image
+    });
+
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
-    const [username, setUserName] = useState('');
-    const [accountname, setAccountName] = useState('');
-    const location = useLocation();
-    const inputRef = useRef();
-    const intro = useRef();
-    const dispatch = useDispatch();
-    const {email, password} = {...location.state};
-    //가짜토큰
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTk2MjYwMTdhZTY2NjU4MWM1ZDA4NCIsImV4cCI6MTY3NjY4NzI5MywiaWF0IjoxNjcxNTAzMjkzfQ.nI5e_IgdnZmTHnLcBKvttP8w3AFQ2rnR6NMxAzdTF40";
 
+    const [IsValue, setIsValue] = useState(true)
+    const [valid, setValid] = useState({
+        usernameValid : true,
+        accountValid : true
+    })
 
-
-    
-    const handleCheckInput = (event) => {
-        // Input을 체크해서 state를 변경하는 함수.
-        if (event.target.name === "username") setUserName(event.target.value); 
-        else if (event.target.name === "accountname") setAccountName(event.target.value);
+    const usernameValidCheck = (username, setUsernameWarning, setValid) => {
+        if (username.length < 2 || username.length > 10) {
+            setUsernameWarning("사용자 이름은 2~10자 이내여야 합니다.");
+            setValid({...valid, usernameValid: false});
+        } else {
+            setUsernameWarning("");
+            setValid({...valid, usernameValid: true});
+        }
     }
 
-    const routeTo = (route) => {
-        navigate(route)
+    const accountValidCheck = (account, setAccountWarning, setValid) => {
+        const 정규표현식 = /^[_A-Za-z0-9+]*$/;
+        if (!정규표현식.test(account)) {
+            setAccountWarning("영문, 밑줄 및 마침표만 사용해야 합니다.");
+            setValid({...valid, accountValid: false});
+        } else if (account.length < 4) {
+            setAccountWarning('계정ID는 4글자 이상이어야 합니다.');
+            setValid({...valid, accountValid: false});
+        } else {
+            setAccountWarning("")
+            setValid({...valid, accountValid: true});
+        }
     }
+
+    const handleInput = (event) => {
+        const inputName = event.target.name
+        if (inputName === "username") setProfiledata({...profiledata, "username": event.target.value});
+        else if (inputName === "accountname") setProfiledata({...profiledata, "accountname": event.target.value});
+        else if (inputName === "intro") setProfiledata({...profiledata, "intro": event.target.value});
+    }
+
+    const handleModifyButton = async (newData, setStorage) => {
+        if (!IsValue) return
+
+        try {
+            const profileRes = customAuthAxios.put("/user", {
+                "user": {
+                    ...newData
+                }
+            })
+            const modifedData = (await profileRes).data.user;
+            setStorage(loginInfo, modifedData);
+            navigate(-1)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const modifyStorage = (oldData, newData) => {
+        const modifyInfo = {...oldData, 
+            "username": newData.username, 
+            "accountname": newData.accountname, 
+            "intro": newData.intro, 
+            "image": newData.image
+        }
+        localStorage.setItem("loginStorage", JSON.stringify({...modifyInfo}));
+    }
+
+    // 유효성 검사 추가 + 버튼 활성화
+    useEffect(() => {
+        const username = profiledata.username;
+        // const accountname = profiledata.accountname
+
+        const timer = setTimeout(() => {
+            usernameValidCheck(username, setUsernameWarning, setValid)
+            // accountValidCheck(accountname, setAccountWarning, setValid)
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [profiledata.username]);
 
     useEffect(() => {
-        // 유효성검사를 체크하는 useEffect
-        const 정규표현식 = /^[_A-Za-z0-9+]*$/;
-        if (username.length >= 2 && username.length <= 10) setUsernameWarning("")
-        if (정규표현식.test(accountname) && accountname.length >= 4) setAccountWarning("")
-    }, [username, accountname])
+        const accountname = profiledata.accountname;
 
-    const loginButton = (e) => {
-        const 정규표현식 = /^[_A-Za-z0-9+]*$/;
-        e.preventDefault();
-        if (username.length < 2 || username.length > 10) {
-            setUsernameWarning('사용자 이름은 2~10자 이내여야 합니다.')
-            return
-        }
-        if (accountname.length < 4) {
-            setAccountWarning('계정ID는 4글자 이상이어야 합니다.')
-            return
-        }  else if (!정규표현식.test(accountname)) {
-            setAccountWarning('영문, 밑줄 및 마침표만 사용해야 합니다.')
-            return
-        }
+        const timer = setTimeout(() => {
+            accountValidCheck(accountname, setAccountWarning, setValid)
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [profiledata.accountname]);
 
-        const userData = {
-            "email": email,
-            "password": password,
-            "image": profileImg,
-            "username": username,
-            "accountname": accountname,
-            "intro": intro.current.value
-        }
-        console.log(profileImg);
-        signUp(userData)
-    }
-
-    // axios
-    const signUp = async (userdata) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
-        try {
-            const signUpRes = axios.post(`${url}user`, {
-                "user": {
-                    ...userdata
-                },
-                "headers": {
-                    "Content-Type": "application/json"
-                }
-            })
-            const signUpdata = (await signUpRes).data
-            console.log(signUpdata);
-            getLogin(email, password)
-
-        } catch(err) { 
-            const error = err.response.data
-            setAccountWarning(error.message);
-        }
-    }
-
-    const getLogin = async (email, password) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
-        const userdata = {
-            "email": email,
-            "password": password
-        }
-        try {
-            const loginRes = axios.post(`${url}user/login`, {
-                "user": {
-                    ...userdata
-                },
-                "headers": {
-                    "Content-Type": "application/json"
-                }
-            });
-
-            const loginUserData = (await loginRes).data.user
-            if (loginUserData) {
-                dispatch(loginUpdate(loginUserData));
-                if (localStorage.getItem("loginStorage")) {
-                    localStorage.removeItem("loginStorage")
-                }
-                localStorage.setItem("loginStorage", JSON.stringify({...loginUserData}))
-                routeTo("/")
-            };
-
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-    const handleInputRef = (e) => {
-        e.preventDefault()
-        inputRef.current.click()
-    }
-
-    const handleGetImgUrl = (event) => {
-        const image = event.target.files[0]
-        getImgUrl(image)
-    }
-
-    // axios
-    const getImgUrl = async (image) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
-        const formData = new FormData();
-        formData.append('image', image);
-        try {
-            const imgRes = axios.post(`${url}image/uploadfile`, formData,
-            {
-                "headers": {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            const imgUrl = (await imgRes).data.filename
-            setProfileImg(url + `${imgUrl}`)
-        } catch(err) {
-            console.log(err)
-        }
-    }
+    useEffect(() => {
+        if (valid.usernameValid === true && valid.accountValid === true) setIsValue(true);
+        else setIsValue(false);
+        console.log(valid);
+    }, [valid]);
 
     return (
         <>
-            <Header type = "modification" handleHeaderBtn={loginButton}/>
-        <section className={style.cont_profileSetting}>
-            <h1 className={style.tit_profileSetting}>프로필 설정</h1>
-            <p className={style.txt_profileSetting}>나중에 언제든지 변경할 수 있습니다.</p>
+            <Header type="modification" IsValue={IsValue} handleHeaderBtn={() => {handleModifyButton(profiledata, modifyStorage)}}/>
+            <section className={style.cont_profile}>
+                <ProfilePhoto 
+                profiledata={profiledata}
+                setProfiledata={setProfiledata}
+                imgUrl={profiledata.image} />
+                <form className={style.form_profileSetting}>
+                    <LabelTextInput 
+                    inputname="username" 
+                    labelname="사용자 이름" 
+                    placeholder="2~10자 이내여야 합니다." 
+                    handleInput={handleInput}
+                    inputValue={profiledata.username}/>
+                    <p className={style.p_warning}>{usernameWarning}</p>
 
-            <div className={style.cont_profileImg}>
-                <img src={profileImg} className={style.img_profileImg} alt="프로필 사진"></img>
-
-                <input type="file" 
-                className={style.inp_file} 
-                ref={inputRef}
-                accept="image/*" 
-                onChange={handleGetImgUrl}/>
-                <div 
-                className={style.div_uploadImg} 
-                style={{backgroundImage: `url(${uploadImg})`}} 
-                onClick={handleInputRef}>
-                </div>
-                
-            </div>
-
-
-            <form className={style.form_profileSetting}>
-                <label 
-                htmlFor='username' 
-                className={style.label_profileSetting}
-                >
-                사용자 이름
-                </label>
-
-                <input 
-                type="text" 
-                id="username"
-                name="username"
-                className={style.input_profileSetting} 
-                placeholder="2~10자 이내여야 합니다."
-                value={username}
-                onChange={handleCheckInput}>
-                </input>
-                <p className={style.p_warning}>{usernameWarning}</p>
-
-                <label 
-                htmlFor='accountname' 
-                className={style.label_profileSetting}>
-                계정 ID
-                </label>
-
-                <input 
-                type="text" 
-                id="accountname"
-                name="accountname"
-                className={style.input_profileSetting}
-                placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-                value={accountname}
-                onChange={handleCheckInput}>
-                </input>
-                <p className={style.p_warning}>{accountWarning}</p>
-
-                <label 
-                htmlFor='introInput' 
-                className={style.label_profileSetting}>
-                소개
-                </label>
-
-                <input 
-                type="text" 
-                id="introInput"
-                className={style.input_profileSetting} 
-                placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
-                ref={intro}>
-                </input>
-
-                <button 
-                className={style.btn_profileSetting}
-                onClick={loginButton}>
-                감귤마켓 시작하기
-                </button>
-            </form>
-        </section>
+                    <LabelTextInput 
+                    inputname="accountname" 
+                    labelname="계정 ID" 
+                    placeholder="영문, 숫자, 특수문자(.), (_)만 사용 가능합니다." 
+                    handleInput={handleInput}
+                    inputValue={profiledata.accountname}/>
+                    <p className={style.p_warning}>{accountWarning}</p>
+                    
+                    <LabelTextInput 
+                    inputname="intro" 
+                    labelname="소개" 
+                    placeholder="자신과 판매할 상품에 대해 소개해 주세요!" 
+                    handleInput={handleInput}
+                    inputValue={profiledata.intro}/>
+                </form>
+            </section>
         </>
     )
 }
