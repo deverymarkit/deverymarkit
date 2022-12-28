@@ -1,0 +1,36 @@
+.wrap_messageModal {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    width: 252px;
+    height: 110px;
+    border-radius: 10px;
+    background-color: beige;
+}
+
+.p_messageModal {
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    width: 100%;
+    height: 64px;
+    border-bottom: 1px solid black;
+}
+
+.cont_messageModal {
+    display: flex;
+    height: 46px;
+    border-radius: 0 0 10px 10px;
+}
+
+.btn_messageModal {
+    width: 50%;
+    /* border: 1px solid black;     */
+}
+
+.btn_messageModal:hover {
+    color: blue;
+    /* border-radius:0 0 0 10px; */
+    cursor: pointer;
+}
+

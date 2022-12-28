@@ -1,12 +1,12 @@
-
 .wrap_modal {
     width: 390px;
+    background-color: white;
     outline: 5px solid beige;
     margin: 0 auto;
-    padding-bottom: 10px;
     border-radius: 10px 10px 0 0;
     line-height: 0;
     z-index: 999;
+    padding-bottom: 10px;
     position: fixed;
     bottom: 0;
     left: calc(50% - 195px);
