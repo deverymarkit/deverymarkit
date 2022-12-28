@@ -14,6 +14,7 @@ import FollowersFollowing from "../pages/followListPage/FollowersFollowing";
 import Search from "../pages/searchPage/Search";
 import ProfileModify from "../pages/profilePage/ProfileModify";
 import ProductModify from "../pages/productPage/ProductModify";
+import ChatList from "../pages/chatPage/ChatList";
 
 export default function Router() {
     return (
@@ -34,6 +35,7 @@ export default function Router() {
                 <Route path="/profilemodify" element={<ProfileModify/>} />  
                 <Route path="/profile/:accountname/:followtype" element={<FollowersFollowing />} />        
                 <Route path="/post/:postid" element={<PostDetail />} />     
+                <Route path="/chat" element={<ChatList />} />     
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>
