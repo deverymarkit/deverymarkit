@@ -3,10 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { customAuthAxios } from "../../api/customAxios";
 import CommentList from "./CommentList";
 import BasicProfileImg from "../common/BasicProfileImg";
+import Loading from "../../pages/Loading";
 import style from "./comment.module.css";
-
-import noProfileImg from "../../assets/imgs/profile-none.png";
-
 
 export default function Comment({ post }) {
 
@@ -16,7 +14,7 @@ export default function Comment({ post }) {
     const [commentList, setCommentList] = useState([]);
     const [nowComment, setNowComment] = useState("");
     const [isValid, setIsValid] = useState(false);
-    const [isloading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [skipNumber, setSkipNumber] = useState(0); 
     const target = useRef();
 
@@ -40,7 +38,7 @@ export default function Comment({ post }) {
     }
 
     useEffect(() => {
-        if (!isloading) {
+        if (!isLoading) {
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
                     loadMore();
@@ -49,7 +47,7 @@ export default function Comment({ post }) {
             // 옵저버 탐색 시작
             observer.observe(target.current)
         }
-    }, [isloading])
+    }, [isLoading])
     
     const handleTyping = (e) => {
         setNowComment(e.target.value);
@@ -74,22 +72,23 @@ export default function Comment({ post }) {
         } 
     }
 
-    return (
-        !isloading ? (
+    if(isLoading) {
+        return <Loading />
+    } else {
+        return (
             <>
                 <div className={style.box_comment}>
                     {
                         commentList.length > 0 && <CommentList commentList={commentList}/>
                     }
-                   
                     <button ref={target}>로딩중</button>
                 </div>
                 <div className={style.box_commentInput}>
-                        <BasicProfileImg type="comment_list" profileImg={loginAccountImage}/>
-                        <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." value={nowComment} onChange={handleTyping}/>
-                        <button className={style.btn_commentInput} onClick={handleComment}>게시</button>
-                    </div>
+                    <BasicProfileImg type="comment_list" profileImg={loginAccountImage}/>
+                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." value={nowComment} onChange={handleTyping}/>
+                    <button className={style.btn_commentInput} onClick={handleComment}>게시</button>
+                </div>
             </>
-         ) : "로딩중입니다"
-    );
+        )
+    }
 }

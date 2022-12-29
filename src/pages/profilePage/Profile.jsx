@@ -7,6 +7,7 @@ import Navbar from "../../components/common/navbar/Navbar";
 import UserInfo from "../../components/profile/ProfileInfo";
 import Product from "../../components/product/Product";
 import Post from "../../components/post/Post";
+import Loading from "../Loading";
 import style from "./profile.module.css";
 
 export default function Profile() {
@@ -47,27 +48,19 @@ export default function Profile() {
      * 2. localstorage정보가 없으면 접근할 수 없는 페이지 입니다. 필요
      */
 
-    //if(isLoading) {
-    //    return <></>
-    //} else if(error) {
-
-    //} else {
-
-    return (
-        <>
-            <Header type="profile"/>
-            <main className={style.main_profile}>
-                {
-                    isLoading ? "loading" : (
-                        <>
-                            <UserInfo profileInfo={profileInfo} setProfileInfo={setProfileInfo} profileType={profileType}/>
-                            <Product accountname={profileInfo.accountname} profileType={profileType}/>
-                            <Post profileInfo={profileInfo} profileType={profileType}/>
-                        </>
-                    )
-                }
-            </main>
-            <Navbar type={profileType === "my" ? "profile" : ""} />
-        </>
-    )
+    if(isLoading) {
+        return <Loading />
+    } else {
+        return (
+            <>
+                <Header type="profile"/>
+                <main className={style.main_profile}>
+                    <UserInfo profileInfo={profileInfo} setProfileInfo={setProfileInfo} profileType={profileType}/>
+                    <Product accountname={profileInfo.accountname} profileType={profileType}/>
+                    <Post profileInfo={profileInfo} profileType={profileType}/>
+                </main>
+                <Navbar type={profileType === "my" && "profile"} />
+            </>
+        )
+    }
 }
