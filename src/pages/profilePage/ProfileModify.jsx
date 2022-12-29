@@ -3,11 +3,11 @@ import style from "./profileModify.module.css";
 import Header from "../../components/common/header/Header.jsx";
 import ProfilePhoto from "../../components/profile/ProfilePhoto.jsx";
 import LabelTextInput from "../../components/profile/LabelTextInput.jsx";
-import { customAuthAxios } from "../../api/customAxios.js"
+import { customAuthAxios } from "../../api/customAxios.js";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileModify() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const loginInfo = JSON.parse(localStorage.getItem('loginStorage'));
     const [profiledata, setProfiledata] = useState({
         username: loginInfo.username,

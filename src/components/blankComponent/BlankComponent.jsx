@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import style from "./blankComponent.module.css";
 import bulbBlackImg from "../../assets/imgs/bulb_black.png";
 import page404WhiteImg from "../../assets/imgs/page404-black.png";
+import loading from "../../assets/imgs/loading.jpg"
 
 export default function BlankComponent({type}) {
     const navigate = useNavigate();
@@ -22,7 +23,11 @@ export default function BlankComponent({type}) {
             onClick : ()=>{
                 navigate(-1);
             }
-            }
+            },
+        "loading":{
+            src : loading,
+            txt : "로딩중입니다. :)"
+        }
     }
 
 
@@ -31,9 +36,9 @@ export default function BlankComponent({type}) {
             <main className="homeContent_nonFeed">
                 <img src={pages[type].src} className={style.img_blank} alt=""></img>
                 <p className={style.p_blank}>{pages[type].txt}</p>
-                <button type="button" className={style.btn_blank}  onClick={pages[type].onClick}>
+                {type !== "loading" ? <button type="button" className={style.btn_blank}  onClick={pages[type].onClick}>
                     {pages[type].btn}
-                </button>
+                </button> : null }
             </main>
         </section>
     )
