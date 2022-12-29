@@ -16,12 +16,22 @@ import heartIcon from  "../../../assets/imgs/icon-heart.svg";
 import heartFillIcon from  "../../../assets/imgs/icon-fill-heart.svg";
 //import heartFillIcon from  "../../../assets/imgs/icon-heart-fill.svg";
 import noImg from "../../../assets/imgs/no-picture.png";
-
+import ModalPortal from "../modal/ModalPortal";
+import Modal from "../modal/Modal";
+import MessageModal from "../modal/MessageModal";
 
 export default function PostCard({ id, post }) {
 
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
+    //토큰 가져오기
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const userId = loginInfo._id;        
+    // 모달 관리 변수
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+    const userType = (post.author._id === userId)? "post" : "your";
+
     const navigate = useNavigate();
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
@@ -78,6 +88,29 @@ export default function PostCard({ id, post }) {
         arrows: false
     }
 
+     // 모달창 노출
+    const showModal = (e) => {
+        console.log(post.id);
+        setModalOpen(true);
+    };
+    const handleProductDetail = (event) => {
+        // Input을 체크해서 state를 변경하는 함수.
+        if (event.target.name === "수정") {console.log("수정");}
+        else if (event.target.name === "삭제") {
+            setModalSecondOpen(true);
+            setModalOpen(false);
+            }
+        else if (event.target.name === "신고하기"){} 
+    }
+    // 포스트 삭제 이벤트
+    const handlePostDelete = async () => {
+            try {
+                const postDeleteRes = await customAuthAxios.delete(`/post/${post.id}`);
+                setModalSecondOpen(false);
+            } catch (err) {
+                console.error(err);
+            }
+    }
     return (
         <article key={post.id} className={style.article_post_card}>
             <div className={style.cont_post_author}>
@@ -109,7 +142,22 @@ export default function PostCard({ id, post }) {
                     }
                 </span>
             </div>
-            <img src={moreIcon} className={style.btn_more} alt="더보기" />
+            <img src={moreIcon} className={style.btn_more} alt="더보기" onClick={showModal}/>
+            <ModalPortal>
+                {modalOpen && 
+                    <Modal  type={userType} 
+                            modalOpen={modalOpen}
+                            setModalOpen={setModalOpen} 
+                            handleHeaderBtn={showModal}
+                            handleModal={handleProductDetail} />}    
+                {modalSecondOpen &&
+                    <MessageModal  
+                            type="post" 
+                            modalOpen={modalSecondOpen}
+                            setModalOpen={setModalSecondOpen} 
+                            handleHeaderBtn={showModal}
+                            handleModal={handlePostDelete} />} 
+            </ModalPortal>    
         </article>
     )
 }
