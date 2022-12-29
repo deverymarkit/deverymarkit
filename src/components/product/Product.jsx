@@ -54,7 +54,7 @@ export default function Product({ accountname }) {
             setModalOpen(false);
             }
         else if (event.target.name === "웹사이트에서 보기"){
-            console.log(productUrl);
+            window.open(productUrl, '_blank'); 
         } 
     }
     // 상품 삭제 이벤트
@@ -78,14 +78,13 @@ export default function Product({ accountname }) {
                         <ol className={style.ol_product_list}>
                             {
                                 // 내 프로필이면 모달, 남의 프로필이면 판매링크 넣기
-                                // 가격 단위 콤마 넣기
                                 productList.map((product, id) => 
                                     <li key={id} data-link={product.link} id={product.id} onClick={showModal}>
                                         <figure>
                                             <img src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
                                         </figure>
-                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()}</strong>
+                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()} 원</strong>
                                     </li>
                                 )
                             }
@@ -107,7 +106,7 @@ export default function Product({ accountname }) {
                             handleModal={handleProductDelete} />} 
             </ModalPortal>    
                 </section>
-                ) : null
+                ) : <></>
             }
         </>
     )
