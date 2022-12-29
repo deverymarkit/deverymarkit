@@ -1,31 +1,45 @@
+.back_modal {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    background-color : rgba(0,0,0,0.2);
+    z-index : 100;
+    box-sizing: border-box;
+    display :flex; 
+    justify-content: center;
+    align-items: center;
+}
+
 .wrap_messageModal {
-    position: absolute;
-    top: 300px;
-    left: 300px;
+    display : grid;
     width: 252px;
     height: 110px;
     border-radius: 10px;
-    background-color: beige;
+    background-color: #DBDBDB;
+    grid-template-columns: 126px 126px;
+    grid-template-rows: 64px 46px;
+    grid-gap: 1px;
+    border-radius: 10px;
+    overflow: hidden;
+
 }
 
 .p_messageModal {
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    width: 100%;
-    height: 64px;
-    border-bottom: 1px solid black;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align : center;
+    padding : 25px 0;
+    background-color: beige;
+
 }
 
-.cont_messageModal {
-    display: flex;
-    height: 46px;
-    border-radius: 0 0 10px 10px;
-}
 
 .btn_messageModal {
-    width: 50%;
-    /* border: 1px solid black;     */
+    background-color: beige;
+
 }
 
 .btn_messageModal:hover {

@@ -26,7 +26,7 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
         "myComment":{
             btn : ["삭제하기"]
             },
-        "youComment":{
+        "your":{
             btn : ["신고하기"]
             },
         "chat": {
@@ -64,15 +64,17 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
     });
 
     return (
-        <div className={`${modalOpen ? style.wrap_modal : style.wrap_modalClose}`} ref={modalRef} >
-            <button className={style.cancelBar_modal} onClick= {closeModal}> 
-                <div  className={style.bar_modal}></div>
-            </button>
-            {   
-                pages[type].btn.map((x)=>
-                    <button name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
-                )
-            }
+        <div className={style.back_modal}l>
+            <div className={`${modalOpen ? style.wrap_modal : style.wrap_modalClose}`} ref={modalRef} >
+                <button className={style.cancelBar_modal} onClick= {closeModal}> 
+                    <div  className={style.bar_modal}></div>
+                </button>
+                {   
+                    pages[type].btn.map((x)=>
+                        <button name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
+                    )
+                }
+            </div>
         </div>
     )
 }
