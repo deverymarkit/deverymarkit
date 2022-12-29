@@ -10,13 +10,14 @@ import BASE_URL from "../../components/common/BaseURL";
 
 
 export default function ProductModify() {
-    const [productImg, setProductImg] = useState(defalutImg);
+    const [productImg, setProductImg] = useState();
     const [nameWarning, setNameWarning] = useState("");
     const [priceWarning, setPriceWarning] = useState("");
     const [urlWarning, setUrlWarning] = useState("");
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [productUrl, setProductUrl] = useState("");
+    const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 인풋벨류있는지 유무
     const inputRef = useRef();
     const { productId } = useParams();
     const regex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
@@ -66,6 +67,7 @@ export default function ProductModify() {
     useEffect(() => {
         // 유효성검사를 체크하는 useEffect
 
+        (productImg && productName && productPrice && productUrl) ? setIsValue(true) : setIsValue(false);
         if (productName.length >= 2 && productName.length <= 15) setNameWarning("")
         if (productPrice >= 1 ) setUrlWarning("")
         if (regex.test(productUrl) ) setUrlWarning("")
@@ -189,12 +191,11 @@ else{
 
     return (
         <>
-            <Header type = "modification" handleHeaderBtn={handleSetProduct}/>
+            <Header type = "modification" handleHeaderBtn={handleSetProduct} IsValue={IsValue}/>
+                <span className={style.span_productModify} >이미지 등록</span>
             <section className={style.cont_productModify}>
-
                 <div className={`${style.cont_Img} ${style.product}`}>
-
-                    <img src={productImg} className={`${style.img_modification} ${style.product}`} alt="상품 사진"></img>
+                    <img src={ productImg? productImg : defalutImg} className={`${style.img_modification} ${style.product}`} alt="상품 사진"></img>
 
                     <input type="file" 
                     className={style.inp_file} 
