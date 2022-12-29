@@ -1,21 +1,37 @@
+.back_modal {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    background-color : rgba(0,0,0,0.2);
+    z-index : 100;
+    box-sizing: border-box;
+    display :flex; 
+    justify-content:center;
+    align-items: flex-end;
+}
+
 .wrap_modal {
     width: 390px;
     background-color: white;
     outline: 5px solid beige;
-    margin: 0 auto;
     border-radius: 10px 10px 0 0;
     line-height: 0;
-    z-index: 999;
     padding-bottom: 10px;
+    /* margin: 0 auto;
+    z-index: 999;
     position: fixed;
     bottom: 0;
-    left: calc(50% - 195px);
+    left: calc(50% - 195px); */
     /* transform: translateX(-50%); */
     animation: fadeInUp 0.5s;
 
 }
 
 .cancelBar_modal {
+    position: relative;
     width: 100%;
     height: 36px;
     border-radius: 10px 10px 0 0;
