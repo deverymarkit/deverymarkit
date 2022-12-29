@@ -26,7 +26,7 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
         "myComment":{
             btn : ["삭제하기"]
             },
-        "youComment":{
+        "your":{
             btn : ["신고하기"]
             },
         "chat": {
