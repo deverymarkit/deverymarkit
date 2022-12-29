@@ -48,11 +48,13 @@ export default function MessageModal({type, modalOpen, setModalOpen, handleModal
     });
 
     return (
-        <div className={style.wrap_messageModal} ref={modalRef} >
-            <p className={style.p_messageModal} >{pages[type].txt}</p>
-            <div  className={style.cont_messageModal}>
-                <button className={`${style.btn_messageModal} ${style.first_btn_messageModal}`} onClick= {closeModal}>{pages[type].btn[0]}</button>
-                <button className={style.btn_messageModal} onClick= {handleModal}>{pages[type].btn[1]}</button>
+        <div className={style.back_modal}l>
+            <div className={style.wrap_messageModal} ref={modalRef} >
+                <p className={style.p_messageModal} >{pages[type].txt}</p>
+                
+                    <button className={`${style.btn_messageModal} ${style.first_btn_messageModal}`} onClick= {closeModal}>{pages[type].btn[0]}</button>
+                    <button className={style.btn_messageModal} onClick= {handleModal}>{pages[type].btn[1]}</button>
+                
             </div>
         </div>
     )
