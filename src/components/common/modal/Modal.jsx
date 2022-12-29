@@ -1,7 +1,17 @@
 import React, {useEffect, useRef} from 'react'
 import style from "./modal.module.css"
 
-export default function Modal({type, setModalOpen, handleModal}) {
+export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
+
+    // 스크롤 막기 기능
+    // useEffect(() => {
+    //     document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`
+    //     return () => {
+    //         const scrollY = document.body.style.top
+    //         document.body.style.cssText = `position: ""; top: "";`
+    //         window.scrollTo(0, parseInt(scrollY || '0') * -1)
+    //     }
+    // }, [])
     
     const pages = {
         "profile":{
@@ -54,7 +64,7 @@ export default function Modal({type, setModalOpen, handleModal}) {
     });
 
     return (
-        <div className={style.wrap_modal} ref={modalRef} >
+        <div className={`${modalOpen ? style.wrap_modal : style.wrap_modalClose}`} ref={modalRef} >
             <button className={style.cancelBar_modal} onClick= {closeModal}> 
                 <div  className={style.bar_modal}></div>
             </button>

@@ -7,6 +7,7 @@ import axios from "axios";
 import PostCard from "../../components/common/card/PostCard";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/common/navbar/Navbar";
+import Loading from "../Loading";
 
 export default function Home() {
     // 로딩하는 것을 이용해서 일단 자료를 먼저 불러옴.
@@ -50,7 +51,7 @@ export default function Home() {
     }, [])
 
     if (isLoading) {
-        return "로딩중"
+        return <Loading type="loading"/>
     } else {
         return (
             <>

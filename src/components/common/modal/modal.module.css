@@ -1,17 +1,18 @@
 .wrap_modal {
     width: 390px;
-    border: 1px solid black;
+    background-color: white;
+    outline: 5px solid beige;
     margin: 0 auto;
-    padding-bottom: 10px;
-    /* box-shadow: 5px 5px 5px 5px gray; */
-    /* background-color: aquamarine; */
     border-radius: 10px 10px 0 0;
     line-height: 0;
     z-index: 999;
-    position: absolute;
+    padding-bottom: 10px;
+    position: fixed;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: calc(50% - 195px);
+    /* transform: translateX(-50%); */
+    animation: fadeInUp 0.5s;
+
 }
 
 .cancelBar_modal {
@@ -24,6 +25,7 @@
 .cancelBar_modal:hover {
     cursor: pointer;
     background-color: beige;
+
 }
 
 .bar_modal{
@@ -38,11 +40,21 @@
 .btn_modal {
     height: 46px;
     width: 100%;
-    /* background-color: red; */
-
 }
 
 .btn_modal:hover {
     cursor: pointer;
+    font-weight: 600;
     background-color: beige;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0);
+    }
 }

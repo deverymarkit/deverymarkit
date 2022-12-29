@@ -21,7 +21,7 @@ export default function Header({ type, IsValue, handleHeaderBtn}) {
     }
 
     return (
-        <section className={`${style.cont_header} ${type === "followers" && style.folloewers}`} >
+        <section className={`${style.cont_header} ${type === "follower" && style.folloewers} ${type === "following" && style.folloewers}`} >
             {type !== "home" && <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>}
             {(type === "upload" || type === "modification") && <button className={`${style.btn_save} ${ IsValue && style.active_btn}`} onClick={handleHeaderBtn} >{pages[type].btn}</button>}
             {(type === "profile" || type === "post") && <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />}
