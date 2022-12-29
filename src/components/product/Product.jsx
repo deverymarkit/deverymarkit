@@ -54,7 +54,7 @@ export default function Product({ accountname }) {
             setModalOpen(false);
             }
         else if (event.target.name === "웹사이트에서 보기"){
-            console.log(productUrl);
+            window.open(productUrl, '_blank'); 
         } 
     }
     // 상품 삭제 이벤트
