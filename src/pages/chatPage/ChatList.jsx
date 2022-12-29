@@ -1,4 +1,5 @@
 import React ,{useState} from 'react'
+import { useNavigate } from "react-router-dom";
 import defalutImg from "../../assets/imgs/profile-none.png";
 import Header from '../../components/common/header/Header';
 import Modal from '../../components/common/modal/Modal';
@@ -7,6 +8,7 @@ import Navbar from '../../components/common/navbar/Navbar';
 import style from './chatList.module.css'
 
 export default function ChatList() {
+    const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     // 모달창 노출
     const showModal = () => {
@@ -20,7 +22,9 @@ export default function ChatList() {
         else console.log(event.target.name);
     }
 
-
+    const moveChatingRoom = (event) =>{
+        navigate("/chatingroom");
+    }
 
     return (
         <div className={style.wrap_top_chatList}>
@@ -30,7 +34,7 @@ export default function ChatList() {
                 {[1,2,3].map(
                     (x)=>
                     
-                    <li className={style.wrap_chat} >
+                    <li className={style.wrap_chat} onClick = {moveChatingRoom} >
                         <img className={style.profile_img} src={defalutImg} alt="프로필 이미지" />
                         <div className={style.icon}></div>
                         <div className={style.cont_chat}>
