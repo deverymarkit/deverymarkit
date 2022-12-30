@@ -3,8 +3,15 @@ import React from "react";
 import ProfileCard from "../common/card/ProfileCard";
 import style from "./comment.module.css";
 import moreIcon from "../../assets/imgs/icon-more-vertical.png";
+import { useNavigate } from "react-router-dom";
 
 export default function CommentList({ commentList }) {
+
+    const navigate = useNavigate();
+
+    const handleProfile = (param) => {
+        navigate(`/profile/${param}`);
+    }
 
     const setCommentDate = (createdAt) => {
         const elapsedTime = new Date() - createdAt;
@@ -34,14 +41,13 @@ export default function CommentList({ commentList }) {
                         const commentCreateDate = setCommentDate(new Date(data.createdAt));
                         return (
                             <li key={data.id}>
-                                <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={commentCreateDate}/>
+                                <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={commentCreateDate}  handleBtn={() => {handleProfile(data.author.accountname)}}/>
                                 <p className={style.p_now_comment}>{data.content}</p>            
                                 <img src={moreIcon} className={style.btn_comment_plus} alt="더보기 버튼"/>
                             </li>
                         )
                     })
                 }
-
             </ol>
         </>
     )

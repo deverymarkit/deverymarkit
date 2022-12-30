@@ -6,6 +6,7 @@ import BasicProfileImg from "../BasicProfileImg";
 import style from "./profileCard.module.css";
 
 export default function ProfileCard({ profileImg, profileState, profileName, profileCont, profileAccount, isfollow, handleBtn }) {
+    
     const navigate = useNavigate()
     const state = profileState;
 
