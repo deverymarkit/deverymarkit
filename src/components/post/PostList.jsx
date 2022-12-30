@@ -4,9 +4,9 @@ import PostCard from "../common/card/PostCard";
 
 export default function PostList({ postList }) {
     return (
-        postList.map((post, id) =>
-            <li>
-                <PostCard id={id} post={post}/>
+        postList.map((post) =>
+            <li key={post.id}>
+                <PostCard post={post}/>
             </li>
         )
     )

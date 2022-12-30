@@ -40,7 +40,10 @@ export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
                 <span className={style.span_user_id}>@{accountname}</span>
                 <span className={style.span_user_intro}>{intro}</span>
                 <div className={style.box_btn}>
-                    { profileType === "your" ? <YourProfileBtn accountname={accountname} isfollow={isfollow} setProfileInfo={setProfileInfo}/> : <MyProfileBtn /> }
+                    { 
+                        profileType === "your" ? ( 
+                        <YourProfileBtn accountname={accountname} isfollow={isfollow} setProfileInfo={setProfileInfo}/> ) : ( <MyProfileBtn /> )
+                    } 
                 </div>
             </div>
         </section>
