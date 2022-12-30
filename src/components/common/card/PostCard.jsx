@@ -20,7 +20,7 @@ import ModalPortal from "../modal/ModalPortal";
 import Modal from "../modal/Modal";
 import MessageModal from "../modal/MessageModal";
 
-export default function PostCard({ id, post }) {
+export default function PostCard({ post }) {
 
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
@@ -112,7 +112,7 @@ export default function PostCard({ id, post }) {
             }
     }
     return (
-        <article key={post.id} className={style.article_post_card}>
+        <article className={style.article_post_card}>
             <div className={style.cont_post_author}>
                 <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname} handleBtn={handleProfile}/>
             </div>

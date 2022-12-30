@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import { customAuthAxios } from "../../api/customAxios";
 
 import style from "./profileBtn.module.css";
 
 export default function YourProfileBtn({ accountname, isfollow, setProfileInfo }) {
+
+    //const copyLinkRef = useRef();
+
+    //const copyUrlLink = () => {
+    //    if (!document.execCommand)
+    //}
 
     const handleFollowToggle = () => {
         if (isfollow) {
