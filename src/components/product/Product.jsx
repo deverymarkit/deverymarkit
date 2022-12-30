@@ -12,6 +12,12 @@ export default function Product({ accountname, profileType }) {
     const [productList, setProductList] = useState([]);
     const [productChoice, setProductChoice ] = useState("");
     const [productUrl, setProductUrl ] = useState("");
+    const [productAuthor, setProductAuthor ] = useState("");
+    
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const userId = loginInfo._id;  
+
+    // const userType = (product.author._id === userId)? "post" : "your";
 
 // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
@@ -39,10 +45,19 @@ export default function Product({ accountname, profileType }) {
     }, [modalSecondOpen])
 
     // 모달창 노출
+    
     const showModal = (e) => {
-        setModalOpen(true);
+
+        setProductAuthor(e.currentTarget.dataset._id);
+        
         setProductChoice(e.currentTarget.id)
         setProductUrl(e.currentTarget.dataset.link)
+        if (e.currentTarget.dataset._id === userId){
+            setModalOpen(true);
+
+        }else{
+            window.open(e.currentTarget.dataset.link,"_blank");
+        }
         console.log(e.currentTarget.dataset.link)
     };
 
@@ -82,7 +97,7 @@ export default function Product({ accountname, profileType }) {
                         <ol className={style.ol_product_list}>
                             {
                                 productList.map((product, id) => 
-                                    <li key={product.id} data-link={product.link} id={product.id} onClick={profileType === "my" ? showModal : showLink}>
+                                    <li key={product.id} data-_id ={product.author._id} data-link={product.link} id={product.id} onClick={profileType === "my" ? showModal : showLink}>
                                         <figure>
                                             <img src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
