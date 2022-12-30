@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import MyProfileBtn from "../button/MyProfileBtn";
 import YourProfileBtn from "../button/YourProfileBtn";
-import BASE_URL from "../common/BaseURL";
 import style from "./profileInfo.module.css";
 
 export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
