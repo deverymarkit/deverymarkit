@@ -15,6 +15,8 @@ import Search from "../pages/searchPage/Search";
 import ProfileModify from "../pages/profilePage/ProfileModify";
 import ProductModify from "../pages/productPage/ProductModify";
 import ChatList from "../pages/chatPage/ChatList";
+import ChatingRoom from "../pages/chatPage/ChatingRoom";
+import PostModify from "../pages/uploadPage/PostModify";
 
 export default function Router() {
     return (
@@ -27,6 +29,7 @@ export default function Router() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/upload" element={<Upload type = "upload"/>} />            
+                <Route path="/postmodify/:postid" element={<PostModify/>} />            
                 <Route path="/profile/:accountname" element={<Profile />} />  
                 <Route path="/productmodify" element={<ProductModify/>} />            
                 <Route path="/productmodify/:productId" element={<ProductModify/>} />            
@@ -35,7 +38,8 @@ export default function Router() {
                 <Route path="/profilemodify" element={<ProfileModify/>} />  
                 <Route path="/profile/:accountname/:followtype" element={<FollowersFollowing />} />        
                 <Route path="/post/:postid" element={<PostDetail />} />     
-                <Route path="/chatList" element={<ChatList />} />    
+                <Route path="/chatlist" element={<ChatList />} />    
+                <Route path="/chatingRoom" element={<ChatingRoom />} />    
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>

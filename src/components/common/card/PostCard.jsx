@@ -95,7 +95,9 @@ export default function PostCard({ id, post }) {
     };
     const handleProductDetail = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
-        if (event.target.name === "수정") {console.log("수정");}
+        if (event.target.name === "수정") {
+            navigate(`/postmodify/${post.id}`);
+        }
         else if (event.target.name === "삭제") {
             setModalSecondOpen(true);
             setModalOpen(false);
