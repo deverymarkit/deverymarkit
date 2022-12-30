@@ -21,7 +21,6 @@ export default function Comment({ post }) {
     const getCommentList = async () => {
         try {
             const commentRes = await customAuthAxios.get(`/post/${post.id}/comments/?limit=10&skip=${skipNumber}`);
-            console.log("여기옴?");
             setCommentList([...commentList, ...commentRes.data.comments]);
             setIsLoading(false);
         } catch (err) {

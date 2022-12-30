@@ -14,9 +14,10 @@ import FollowersFollowing from "../pages/followListPage/FollowersFollowing";
 import Search from "../pages/searchPage/Search";
 import ProfileModify from "../pages/profilePage/ProfileModify";
 import ProductModify from "../pages/productPage/ProductModify";
-import ChatList from "../pages/chatPage/ChatList";
+
 import ChatingRoom from "../pages/chatPage/ChatingRoom";
 import PostModify from "../pages/uploadPage/PostModify";
+import ChatList from "../pages/chatPage/ChatList";
 
 export default function Router() {
     return (
