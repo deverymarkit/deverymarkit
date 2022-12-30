@@ -1,3 +1,4 @@
+
 import { React, useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -10,197 +11,213 @@ import axios from "axios";
 import BaseURL from "../../components/common/BaseURL";
 import { customAuthAxios } from "../../api/customAxios";
 import { customImgAxios } from "../../api/customAxios.js"
+import Loading from "../Loading";
 
 
 export default function PostModify() {
-    const [profileImg, setProfileImg] = useState(); 
-    const [userToken, setUserToken] = useState("");
-    const [userId, setUserId] = useState("");
-    const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
-    const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
+
+    const [isLoading, setIsLoading] = useState(true);
+        
+     //토큰 가져오기
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const token = loginInfo.token;
+    const myAccountname = loginInfo.accountname
+    const [profileImg, setProfileImg] = useState("");
+    const [isActive, setIsActive] = useState(false);
+    const [postText, setPostText] = useState("");
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
-    const textarea = useRef();
-    const inpRef = useRef();
-    const navigate = useNavigate();
-    const { postid } = useParams();
-    
-    useEffect(() => {
-        // 프로필 이미지 
-        const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-        const userToken = loginInfo.token;
-        const userId = loginInfo.accountname;
-        setUserId(userId);
-        setUserToken(userToken);
-        const getUserProfile = async () => {
+
+        const [fileName, setFileName] = useState([]); //api에서 인코딩한 파일이름
+        const [previewImgUrl, setPreviewImgUrl] = useState([]); //미리보기 이미지 src
+        const [view, setView] = useState("pending");
+        const navigate = useNavigate();
+        const {postid} = useParams();
+        const textRef = useRef();
+        const fileRef = useRef();
+            //기존 포스트 데이터 요청
+            useEffect(() => {
+            async function getPost() {
+                try {
+                    const res = await customAuthAxios.get(`/post/${postid}`);
+                setPostText(res.data.post.content);
+                setFileName(res.data.post.image.split(","));
+                setIsLoading(false)
+                if (res.data.post.image == "") {
+                    setPreviewImgUrl([]);
+                } else {
+                    setPreviewImgUrl([...res.data.post.image.split(",")]);
+                }
+                setView("fulfilled");
+                } catch (err) {
+                setView("rejected");
+                }
+            }
+            getPost();
+            }, []);
+            useEffect (()=>{
+        (postText) ? setIsValue(true) : setIsValue(false);
+        
+            },[postText])
+        
+            function handleResizeHeight() {
+            textRef.current.style.height = "auto";
+            textRef.current.style.height = textRef.current.scrollHeight + "px";
+            textRef.current.value? setIsValue(true) : setIsValue(false);
+
+            }
+        
+            function handleText(e) {
+            setPostText(e.target.value);
+            if (e.target.value) {
+                setIsActive(true);
+            } else if (!e.target.value && fileName.length === 0) {
+                setIsActive(false);
+            }
+            }
+        
+            // 작성자 프로필 이미지 로딩
+            useEffect(() => {
+                const getUserProfile = async () => {
+                    try {
+                        const profileRes = await customAuthAxios.get("/user/myinfo")
+                        
+                        setProfileImg(profileRes.data.user.image);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                };
+        
+            myAccountname && getUserProfile();
+            }, [myAccountname]);
+        
+            //이미지 파일 업로드
+            function handleImgInput(e) {
+            const loadImg = e.target.files;
+            const formData = new FormData();
+            formData.append("image", loadImg[0]);
+            if (fileName.length < 3) {
+                getImgUrl(formData, loadImg);
+            } else {
+                alert("3개 이하의 파일을 업로드 해주세요.");
+            }
+            }
+        
+            //이미지 파일 인코딩된 스트링 데이터 얻기
+            async function getImgUrl(formData, loadImg) {
             try {
-                const profileRes = await customAuthAxios.get("/user/myinfo")
+                const res = await customImgAxios.post("/image/uploadfiles", formData
+                );
+
                 
-                setProfileImg(profileRes.data.user.image);
+                setFileName([
+                ...fileName,
+                BaseURL +"/"+ res.data[0].filename,
+                ]);
+                console.log(loadImg);
+                preview(loadImg);
+                
             } catch (err) {
                 console.log(err);
+
             }
-        };
-        
-        const url = BaseURL + `/post/${postid}`;
-    
-        const getUserPost = async function () {
-        try {
-            const postRes = await axios.get(
-                url,
-                {
-                "headers": {
-                "Authorization": `Bearer ${userToken}`,
-                "Content-type": "application/json",
-                    },
-                },
-            );
-
-            console.log(postRes.data);
-                setImageFileList(postRes.data.post.image.split(","));
-                textarea.current.value=(postRes.data.post.content);
-            } catch (error) {
-                console.log(error);
             }
-        };
-            
         
-
-        getUserProfile();
-        getUserPost();
-    }, []);
-
-
-
-    
-
-
-    const handleResizeHeight = () => {
-        textarea.current.style.height = "auto";
-        textarea.current.style.height = `${textarea.current.scrollHeight}px`;
-        
-        textarea.current.value? setIsValue(true) : setIsValue(false);
-    };
-
-    const handleRemoveImg = (e) =>{
-        // URL.revokeObjectURL(imageFileList[e.target.id]);
-        setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
-    };
-
-
-    const uploadImg = async () => {
-        let formData = new FormData();
-        const url = BaseURL + "/image/uploadfiles";
-
-        
-        const imgFiles = imageFileList;
-        for (let i = 0; i < imgFiles.length; i++) {
-            const file = imgFiles[i];
-            formData.append('image', file);
-        }
-        try {
-            const postRes = await axios.post(
-                url,
-                formData
-                );
-                const PostUpdata = (await postRes).data;
-                const imgUrls = PostUpdata
-                            .map((file) => BaseURL + file.filename)
-                            .join(",");
-            
-                return imgUrls;
-            }catch(err) {
-                console.log(err)
-            }
-    };
-
-
-    const storeImage = async ({ target }) => {
-        // file 을 "image" 변수에 저장. 이 때 image는 Array!
-        const image = target.files;
-        let imageList = [...imageFileList];
-        
-        if (imageList.length < 3){
-        // 기존 imageFileList에 저장된 값을 "imageList"에 저장.
-        // imgae 배열의 길이만큼 for문을 돌려주고 배열에 요소를 imageList에 push해준다.
-        for (let i = 0; i < image.length; i++) {
-            // imageList.push(URL.createObjectURL(image[i]));
-            imageList.push(image[i]);
-            
-        }
-        // 이렇게 만들어진 imageList 배열을 set!
-            setImageFileList(imageList);
-            
-        } else{
-            alert("사진은 3개 이하로 업로드가능합니다.");
-        }
-        // uploadImg();
-    };
-        // 업로드 기능
-        const handleSaveBtn = async (e) =>{
-            if(IsValue){
-                
-                const imgUrl = await uploadImg();
-                console.log(imgUrl);
-                const url = BaseURL + "/post";
-                try {
-                    await axios.post(
-                        url,
-                        {
-                            post: {
-                                content: textarea.current.value,
-                                image: imgUrl,
-                            },
-                        },
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${userToken}`,
-                                'Content-type': 'application/json',
-                            },
-                        }
-                        );
-                        navigate(`/profile/${userId}`)
-                        
-                }catch(err) {
-                    console.log(err)
-                }
+            //이미지 파일 미리보기
+            function preview(loadImg) {
+            const reader = new FileReader();
+            console.log( loadImg);
+            reader.readAsDataURL(loadImg[0]);
+            reader.onload = () => {
+                setPreviewImgUrl([...previewImgUrl, reader.result]);
             };
-        }
-    
-    return (
-        <>
-                <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
-                <div className={style.wrap_upload}>
-                    <div className={style.cont_content}>
-                        <ProfileCard profileState="upload" profileImg={profileImg}/>
-                        <textarea
-                            className={style.text_upload}
-                            type="text"
-                            placeholder="게시글 입력하기..."
-                            onChange={handleResizeHeight}
-                            ref={textarea}
-                            required
+            console.log("성공");
+            setIsActive(true);
+            }
+        
+            //이미지 미리보기 및 파일 삭제
+            function deletePreview(e) {
+            setPreviewImgUrl(
+                previewImgUrl.filter((el, idx) => e.target.id !== String(idx))
+            );
+            setFileName(fileName.filter((el, idx) => e.target.id !== String(idx)));
+            if (textRef.current.value.length === 0 && fileName.length <= 1) {
+                setIsActive(false);
+            }
+            fileRef.current.value = "";
+            }
+        
+            //게시글 업로드 버튼 클릭 시 PUT
+            function handleSubmit(e) {
+            e.preventDefault();
+            if(IsValue){
+
+                const postData = {
+                    post: {
+                    content: textRef.current.value,
+                    image: fileName.join(","),
+                    },
+                };
+                async function update() {
+                    try {
+                        const res = await customAuthAxios.put(`/post/${postid}`,
+                        postData)
+                    
+                        
+                    
+                    } catch (err) {
+                    console.error(err);
+                    setView("rejected");
+                    }
+                }
+                postData && update();
+                navigate(`/profile/${myAccountname}`);
+                }
+            }
+        
+            if(isLoading) {
+                return <Loading />
+            } else {
+                return(
+            <>
+                    <Header type="upload"  IsValue={IsValue} handleHeaderBtn = {handleSubmit}/>
+                    {view === "fulfilled" && (
+                    <div className={style.wrap_upload}>
+                        <div className={style.cont_content}>
+                            <ProfileCard profileState="upload" profileImg={profileImg}/>
+                            <textarea
+                                className={style.text_upload}
+                                type="text"
+                                placeholder="게시글 입력하기"
+                                onChange={handleText}
+                                onInput={handleResizeHeight}
+                                value={postText}
+                                ref={textRef}
+                                required
+                            />
+                        </div>
+                        {/* <img src={imgUrl} alt="" /> */}
+                        <UploadPhoto type = "modi" imageFileList={previewImgUrl} handleRemoveImg={deletePreview}/>
+                        <input
+                            className="ir"
+                            type="file"
+                            accept="image/*"
+                            // name="image"
+                            
+                            onChange={handleImgInput}
+                            ref={fileRef}
+                            id="input-file"
                         />
-                    </div>
-                    {/* <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/> */}
-                    <input
-                        className="ir"
-                        type="file"
-                        accept="image/*"
-                        name="image"
-                        onChange={storeImage}
-                        ref={inpRef}
-                        id="input-file"
-                        value=""
-                        multiple
-                    />
-                <label htmlFor="input-file">
-                    <img
-                        className={style.btn_upload}
-                        src={UploadImg}
-                        alt="업로드 버튼"
-                    />
-                </label>
-            </div>
-        </>
-    );
+                    <label htmlFor="input-file">
+                        <img
+                            className={style.btn_upload}
+                            src={UploadImg}
+                            alt="업로드 버튼"
+                        />
+                    </label>
+                </div>
+                )}
+            </>)
+    
+        
+    }
 }
