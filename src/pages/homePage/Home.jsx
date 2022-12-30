@@ -43,8 +43,8 @@ export default function Home() {
                     feedInfo.length === 0 ? <BlankComponent type="home" /> :
                     <ol className={style.ol_post}> 
                         {feedInfo.map((post, id) => 
-                            <li>
-                                <PostCard id={id} post={post} />
+                            <li key={post.id}>
+                                <PostCard id={id} post={post}/>
                             </li>
                         )}
                     </ol>

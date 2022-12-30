@@ -86,7 +86,8 @@ export default function Search() {
                         profileImg={data.image} 
                         profileName={data.username} 
                         profileState="search"
-                        profileCont={data.intro} />
+                        profileCont={data.intro} 
+                        profileId={data.id}/>
                     )}
                     <li ref={observeRef} className="ir">더보기</li>
                 </ul>
