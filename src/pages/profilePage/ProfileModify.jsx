@@ -19,7 +19,7 @@ export default function ProfileModify() {
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
 
-    const [IsValue, setIsValue] = useState(true)
+    const [IsValue, setIsValue] = useState(false)
     const [valid, setValid] = useState({
         usernameValid : true,
         accountValid : true
