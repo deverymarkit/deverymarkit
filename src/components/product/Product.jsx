@@ -6,8 +6,8 @@ import Modal from "../common/modal/Modal";
 import MessageModal from "../common/modal/MessageModal";
 import style from "./product.module.css";
 
-export default function Product({ accountname }) {
-    
+export default function Product({ accountname, profileType }) {
+
     const navigate = useNavigate();
     const [productList, setProductList] = useState([]);
     const [productChoice, setProductChoice ] = useState("");
@@ -60,11 +60,15 @@ export default function Product({ accountname }) {
     // 상품 삭제 이벤트
     const handleProductDelete = async () => {
             try {
-                const productDeleteRes = await customAuthAxios.delete(`/product/${productChoice}`);
+                await customAuthAxios.delete(`/product/${productChoice}`);
                 setModalSecondOpen(false);
             } catch (err) {
                 console.error(err);
             }
+    }
+
+    const showLink = (e) => {
+        window.open(e.currentTarget.dataset.link,"_blank");
     }
 
     return (
@@ -77,14 +81,13 @@ export default function Product({ accountname }) {
                         <h2>판매 중인 상품</h2>
                         <ol className={style.ol_product_list}>
                             {
-                                // 내 프로필이면 모달, 남의 프로필이면 판매링크 넣기
                                 productList.map((product, id) => 
-                                    <li key={id} data-link={product.link} id={product.id} onClick={showModal}>
+                                    <li key={product.id} data-link={product.link} id={product.id} onClick={profileType === "my" ? showModal : showLink}>
                                         <figure>
                                             <img src={product.itemImage} className={style.img_product} alt="" />
                                             <figcaption>{product.itemName}</figcaption>
                                         </figure>
-                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()} 원</strong>
+                                        <strong className={style.strong_product_price}>{product.price.toLocaleString()}원</strong>
                                     </li>
                                 )
                             }

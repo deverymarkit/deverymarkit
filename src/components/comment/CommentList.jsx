@@ -33,7 +33,7 @@ export default function CommentList({ commentList }) {
                     commentList.map((data) => {
                         const commentCreateDate = setCommentDate(new Date(data.createdAt));
                         return (
-                            <li>
+                            <li key={data.id}>
                                 <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={commentCreateDate}/>
                                 <p className={style.p_now_comment}>{data.content}</p>            
                                 <img src={moreIcon} className={style.btn_comment_plus} alt="더보기 버튼"/>

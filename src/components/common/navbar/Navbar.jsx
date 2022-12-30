@@ -3,6 +3,7 @@ import style from "./navbar.module.css"
 import homeIcon from "../../../assets/imgs/icon-home.png"
 import activeHomeIcon from "../../../assets/imgs/icon-home-fill.png"
 import activeProfileIcon from "../../../assets/imgs/icon-user-fill.png"
+import activeChatIcon from "../../../assets/imgs/icon-message-circle-fill.svg"
 import messageIcon from "../../../assets/imgs/icon-message-circle.png"
 import editIcon from "../../../assets/imgs/icon-edit.png"
 import userIcon from "../../../assets/imgs/icon-user.png"
@@ -29,7 +30,10 @@ export default function Navbar({ type }) {
     const handleUpload = () => {
         navigate("/upload")
     }
-
+    
+    const handleChat = () => {
+        navigate("/chatlist")
+    }
 
     return (
         <section className={style.cont_icons}>
@@ -44,9 +48,9 @@ export default function Navbar({ type }) {
                 </span>
             </div>
 
-            <div className={style.div_icon}>
+            <div className={style.div_icon} onClick={handleChat}>
                 <img 
-                src={messageIcon} 
+                src={type === "chat" ? activeChatIcon : messageIcon} 
                 className={style.img_icon}>
                 </img>
                 <span className={style.txt_icon}>

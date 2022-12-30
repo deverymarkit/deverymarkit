@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./slick/slick.css"
@@ -20,7 +20,7 @@ import ModalPortal from "../modal/ModalPortal";
 import Modal from "../modal/Modal";
 import MessageModal from "../modal/MessageModal";
 
-export default function PostCard({ id, post }) {
+export default function PostCard({ post }) {
 
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
@@ -112,7 +112,7 @@ export default function PostCard({ id, post }) {
             }
     }
     return (
-        <article key={post.id} className={style.article_post_card}>
+        <article className={style.article_post_card}>
             <div className={style.cont_post_author}>
                 <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname} handleBtn={handleProfile}/>
             </div>
@@ -132,9 +132,9 @@ export default function PostCard({ id, post }) {
                 <p className={style.post_contents}  onClick={handlePostDetail}>{post.content}</p>
                 <div className={style.box_btn}>
                     <img src={isLike ? heartFillIcon : heartIcon} alt="좋아요" className={style.btn_like} onClick={handleLikeToggle}/>
-                    <span className={style.span_count}>{likeCount}</span>
-                    <img src={messageIcon} alt="댓글" />
-                    <span className={style.span_count}>{post.comments.length}</span>
+                    <span className={style.span_count} >{likeCount}</span>
+                    <img src={messageIcon} alt="댓글" onClick={handlePostDetail}/>
+                    <span className={style.span_count} onClick={handlePostDetail}>{post.comments.length}</span>
                 </div>
                 <span className={style.span_post_date}>
                     {
