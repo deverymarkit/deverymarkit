@@ -43,7 +43,6 @@ export default function PostModify() {
                 setFileName(res.data.post.image.split(","));
                 setIsLoading(false)
                 if (res.data.post.image == "") {
-                    setPreviewImgUrl([]);
                 } else {
                     setPreviewImgUrl([...res.data.post.image.split(",")]);
                 }
@@ -92,6 +91,10 @@ export default function PostModify() {
         
             //이미지 파일 업로드
             function handleImgInput(e) {
+            if(fileName[0]===""){
+                fileName.pop()
+            }
+            console.log(fileName);
             const loadImg = e.target.files;
             const formData = new FormData();
             formData.append("image", loadImg[0]);
@@ -104,15 +107,23 @@ export default function PostModify() {
         
             //이미지 파일 인코딩된 스트링 데이터 얻기
             async function getImgUrl(formData, loadImg) {
+                setView("pending")
             try {
                 const res = await customImgAxios.post("/image/uploadfiles", formData
                 );
 
-                
-                setFileName([
-                ...fileName,
-                BaseURL +"/"+ res.data[0].filename,
-                ]);
+                if(fileName){
+                    setFileName([
+                    ...fileName,
+                    BaseURL +"/"+ res.data[0].filename,
+                    ]);
+                }else{
+                    setFileName([
+                        BaseURL +"/"+ res.data[0].filename,
+                    ]);    
+                }
+                console.log(fileName);
+
                 console.log(loadImg);
                 preview(loadImg);
                 
@@ -124,6 +135,7 @@ export default function PostModify() {
         
             //이미지 파일 미리보기
             function preview(loadImg) {
+            
             const reader = new FileReader();
             console.log( loadImg);
             reader.readAsDataURL(loadImg[0]);
@@ -131,8 +143,10 @@ export default function PostModify() {
                 setPreviewImgUrl([...previewImgUrl, reader.result]);
             };
             console.log("성공");
+            setView("fulfilled")
             setIsActive(true);
             }
+                
         
             //이미지 미리보기 및 파일 삭제
             function deletePreview(e) {
@@ -150,7 +164,7 @@ export default function PostModify() {
             function handleSubmit(e) {
             e.preventDefault();
             if(IsValue){
-
+                
                 const postData = {
                     post: {
                     content: textRef.current.value,
@@ -216,6 +230,9 @@ export default function PostModify() {
                     </label>
                 </div>
                 )}
+                {view === "pending" && 
+                <Loading />
+            } 
             </>)
     
         
