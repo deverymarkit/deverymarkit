@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./ChatingRoom.module.css";
 import profileImg from "../../assets/imgs/chat_profile.jpg";
 import profileImg2 from "../../assets/imgs/profile-none.png";
@@ -25,6 +25,16 @@ export default function ChatingRoom() {
         setModalOpen(true);
         console.log(e.currentTarget.dataset.link)
     };
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen){
+            document.body.style.overflow ="hidden";
+            document.body.style.paddingRight = "15px";
+        }else{
+            document.body.style.overflow ="";
+            document.body.style.paddingRight = "";
+        }
+    }, [modalOpen])
     const chat = [{
         img: profileImg,
         name: "전자제품 농장",
@@ -131,6 +141,7 @@ return (
                 {modalOpen && 
                     <Modal  type="chat" 
                             modalOpen={modalOpen}
+                            setModalOpen={setModalOpen} 
                             handleModal={handleCloseBtn} />}    
             </ModalPortal>    
         </>

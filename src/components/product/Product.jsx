@@ -38,6 +38,17 @@ export default function Product({ accountname, profileType }) {
         }
     }, [modalSecondOpen])
 
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen || modalSecondOpen){
+            document.body.style.overflow ="hidden";
+            document.body.style.paddingRight = "15px";
+        }else{
+            document.body.style.overflow ="";
+            document.body.style.paddingRight = "";
+        }
+    }, [modalOpen, modalSecondOpen])
+
     // 모달창 노출
     const showModal = (e) => {
         setModalOpen(true);

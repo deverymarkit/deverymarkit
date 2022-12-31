@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React ,{ useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import profileImg from "../../assets/imgs/chat_profile.jpg";
 import profileImg2 from "../../assets/imgs/profile-none.png";
@@ -42,6 +42,15 @@ export default function ChatList() {
     const showModal = () => {
         setModalOpen(true);
     };
+    
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen || modalSecondOpen){
+            document.body.style.overflow ="hidden"
+        }else{
+            document.body.style.overflow =""
+        }
+    }, [modalOpen, modalSecondOpen])
 
     const handleProfileDetail = (event) => {
         if (event.target.name === "설정 및 개인정보") setModalOpen(false);

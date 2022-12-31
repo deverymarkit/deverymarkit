@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./slick/slick.css"
@@ -32,6 +32,17 @@ export default function PostCard({ post }) {
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
     const userType = (post.author._id === userId)? "post" : "your";
     const navigate = useNavigate();
+    
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen || modalSecondOpen){
+            document.body.style.overflow ="hidden";
+            document.body.style.paddingRight = "15px";
+        }else{
+            document.body.style.overflow ="";
+            document.body.style.paddingRight = "";
+        }
+    }, [modalOpen, modalSecondOpen])
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
             state: {
