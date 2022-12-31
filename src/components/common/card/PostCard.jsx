@@ -101,7 +101,7 @@ export default function PostCard({ post }) {
             setModalSecondOpen(true);
             setModalOpen(false);
             }
-        else if (event.target.name === "신고하기"){} 
+        else if (event.target.name === "신고하기"){setModalOpen(false)} 
     }
     // 포스트 삭제 이벤트
     const handlePostDelete = async () => {
