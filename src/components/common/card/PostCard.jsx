@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import "./slick/slick.css"
 import "./slick/slick-theme.css"
@@ -24,9 +24,11 @@ export default function PostCard({ post }) {
 
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
+    const location = useLocation();
     //토큰 가져오기
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-    const userId = loginInfo._id;        
+    const userId = loginInfo._id;  
+    const accountname = loginInfo.accountname;   
     // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
@@ -119,6 +121,9 @@ export default function PostCard({ post }) {
             try {
                 const postDeleteRes = await customAuthAxios.delete(`/post/${post.id}`);
                 setModalSecondOpen(false);
+                if(location.pathname.split("/")[1]==="post"){
+                    navigate(`/profile/${accountname}`);
+                }
             } catch (err) {
                 console.error(err);
             }
