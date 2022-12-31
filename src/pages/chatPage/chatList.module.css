@@ -12,16 +12,25 @@
 }
 
 .profile_img {
+
     height: 42px;
     width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cont_img {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .icon {
     position: absolute;
     border: 6px solid black;
     border-radius: 50%;
-    top: 2px;
-    left: 2px;
+
 }
 
 .wrap_chat {

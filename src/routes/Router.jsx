@@ -39,7 +39,7 @@ export default function Router() {
                 <Route path="/profile/:accountname/:followtype" element={<FollowersFollowing />} />        
                 <Route path="/post/:postid" element={<PostDetail />} />     
                 <Route path="/chatlist" element={<ChatList />} />    
-                <Route path="/chatingRoom" element={<ChatingRoom />} />    
+                <Route path="/chatingRoom/:index" element={<ChatingRoom />} />    
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>
