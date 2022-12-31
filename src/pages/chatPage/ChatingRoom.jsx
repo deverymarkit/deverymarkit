@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import style from "./ChatingRoom.module.css";
+import profileImg from "../../assets/imgs/chat_profile.jpg";
+import profileImg2 from "../../assets/imgs/profile-none.png";
+import profileImg3 from "../../assets/imgs/chat_profile3.jpg";
 import ProfileButton from "../../assets/imgs/profile-none.png";
 import imgButton from "../../assets/imgs/img-button.png";
 import ModalPortal from "../../components/common/modal/ModalPortal";
@@ -23,16 +26,19 @@ export default function ChatingRoom() {
         console.log(e.currentTarget.dataset.link)
     };
     const chat = [{
-        name:"전자제품 농장",
+        img: profileImg,
+        name: "전자제품 농장",
         txt: "내가 만든 쿠키~ 너를 위해 구웠지",
         date: "오전 12:20"    
     },
     {
+        img: profileImg2,
         name:"JavaScript 마스터",
         txt: "내 장점이 뭔지 알아 바로 솔직한거야",
         date: "오후 1:37"    
     },
     {
+        img: profileImg3,
         name:"전자상가",
         txt: "치킨 먹고싶당 떡볶이 먹고싶다",
         date: "오전 9:02"    
@@ -68,7 +74,7 @@ return (
             <Header type={"chat"} IsValue = {chat[index].name} handleHeaderBtn={showModal}/>
             <section className={style.chat_wrap}>
                 <div className={style.cont_box}>
-                    <img className={style.profile_none} src={ProfileButton} />
+                    <img className={style.profile_img} src={chat[index].img} />
                     <div className={style.cont_txt}>
                         <p className={style.chat_txt}>{chat[index].txt}</p>
                     </div>

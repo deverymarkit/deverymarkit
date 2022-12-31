@@ -40,9 +40,11 @@
     font-size: 14px;
     white-space: normal;
 }
-.profile_none {
-    width: 42px;
+.profile_img {
     height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-right: 12px;
 }
 .chat_time {
