@@ -21,6 +21,11 @@
     line-height: 22px;
 }
 
+.p_chat {
+    position: absolute;
+    margin-left: 30px;
+}
+
 .cont_header img {
     cursor: pointer;
 }
