@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import style from "./ChatingRoom.module.css";
 import ProfileButton from "../../assets/imgs/profile-none.png";
 import imgButton from "../../assets/imgs/img-button.png";
-import imgArrow from "../../assets/imgs/icon-arrow-left.png";
-import imgVertical from "../../assets/imgs/icon-more-vertical.png";
+import ModalPortal from "../../components/common/modal/ModalPortal";
+import Modal from "../../components/common/modal/Modal";
 import Header from '../../components/common/header/Header';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ChatingRoom() {
     const [msg, setMsg] = useState("");
@@ -14,7 +14,14 @@ export default function ChatingRoom() {
     const {index} = useParams()
     let hour = date.getHours();
     let minute = date.getMinutes();
-    
+    const navigate = useNavigate();
+    // 모달 관리 변수
+    const [modalOpen, setModalOpen] = useState(false);
+    // 모달창 노출
+    const showModal = (e) => {
+        setModalOpen(true);
+        console.log(e.currentTarget.dataset.link)
+    };
     const chat = [{
         name:"전자제품 농장",
         txt: "내가 만든 쿠키~ 너를 위해 구웠지",
@@ -47,16 +54,18 @@ export default function ChatingRoom() {
         minute
     }
 
-
     const inputChat = (e) => {
         setMsg(e.target.value);
     }
-
+    
+    const handleCloseBtn = ()=>{
+        navigate(-1)
+    }
 
 return (
 
         <>
-            <Header type={"chat"} IsValue = {chat[index].name}/>
+            <Header type={"chat"} IsValue = {chat[index].name} handleHeaderBtn={showModal}/>
             <section className={style.chat_wrap}>
                 <div className={style.cont_box}>
                     <img className={style.profile_none} src={ProfileButton} />
@@ -112,6 +121,12 @@ return (
                         전송
                     </button>
                 </div>
+            <ModalPortal>
+                {modalOpen && 
+                    <Modal  type="chat" 
+                            modalOpen={modalOpen}
+                            handleModal={handleCloseBtn} />}    
+            </ModalPortal>    
         </>
     );
 }

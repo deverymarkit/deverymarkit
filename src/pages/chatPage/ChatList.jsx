@@ -3,16 +3,19 @@ import { useNavigate } from "react-router-dom";
 import profileImg from "../../assets/imgs/chat_profile.jpg";
 import profileImg2 from "../../assets/imgs/profile-none.png";
 import profileImg3 from "../../assets/imgs/chat_profile3.jpg";
-
 import Header from '../../components/common/header/Header';
-import Modal from '../../components/common/modal/Modal';
 import ModalPortal from '../../components/common/modal/ModalPortal';
+import Modal from '../../components/common/modal/Modal';
+import MessageModal from "../../components/common/modal/MessageModal";
 import Navbar from '../../components/common/navbar/Navbar';
 import style from './chatList.module.css'
 
 export default function ChatList() {
     const navigate = useNavigate();
+    // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+
     const chat = [{
         name: "전자제품 농장",
         img: profileImg,
@@ -31,19 +34,33 @@ export default function ChatList() {
         txt: "치킨 먹고싶당 떡볶이 먹고싶다",
         date: "2022.8.13"    
     }
-]
+    ]
+    const routeTo = (route) => {
+        navigate(route)
+    }
     // 모달창 노출
     const showModal = () => {
         setModalOpen(true);
     };
 
-    const handleModal = (event) => {
-        // Input을 체크해서 state를 변경하는 함수.
-        if (event.target.name === "수정") console.log(event.target.name); 
-        else if (event.target.name === "삭제") console.log(event.target.name);
-        else console.log(event.target.name);
+    const handleProfileDetail = (event) => {
+        if (event.target.name === "설정 및 개인정보") setModalOpen(false);
+        else if (event.target.name === "로그아웃") {
+            setModalSecondOpen(true);
+            setModalOpen(false);
+            }
     }
 
+     // 로그아웃 이벤트
+    const handleProfileLogout = async () => {
+        try {
+            localStorage.removeItem("loginStorage")
+            routeTo("/");
+            setModalSecondOpen(false);
+        } catch (err) {
+            console.error(err);
+        }
+}
     const moveChatingRoom = (event) =>{
         navigate(`/chatingroom/${event.currentTarget.id}`);
     }   
@@ -71,14 +88,20 @@ export default function ChatList() {
                     
                 )}
                 <ModalPortal>
-                    {modalOpen && 
+                {modalOpen && 
                         <Modal  type="profile" 
-                        modalOpen={modalOpen}
-                        setModalOpen={setModalOpen} 
-                        handleModal={handleModal} />    
-                    }    
-                        
-                </ModalPortal>    
+                                modalOpen={modalOpen}
+                                setModalOpen={setModalOpen} 
+                                handleHeaderBtn={showModal}
+                                handleModal={handleProfileDetail} />}    
+                    {modalSecondOpen &&
+                        <MessageModal  
+                                type="profile" 
+                                modalOpen={modalSecondOpen}
+                                setModalOpen={setModalSecondOpen} 
+                                handleHeaderBtn={showModal}
+                                handleModal={handleProfileLogout} />} 
+                </ModalPortal>     
             </div>
         <Navbar type="chat"/>
         </div>
