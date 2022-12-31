@@ -16,7 +16,7 @@
 .wrap_modal {
     width: 390px;
     background-color: white;
-    outline: 5px solid beige;
+    outline: 2px solid #0F0B19;
     border-radius: 10px 10px 0 0;
     line-height: 0;
     padding-bottom: 10px;
@@ -40,7 +40,7 @@
 
 .cancelBar_modal:hover {
     cursor: pointer;
-    background-color: beige;
+    background-color: #0F0B19;
 
 }
 
@@ -61,7 +61,9 @@
 .btn_modal:hover {
     cursor: pointer;
     font-weight: 600;
-    background-color: beige;
+    color: white;
+    background-color: #0F0B19;
+    transition: 0.5s;
 }
 
 @keyframes fadeInUp {

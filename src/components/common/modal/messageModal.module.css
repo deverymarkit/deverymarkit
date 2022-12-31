@@ -18,7 +18,7 @@
     width: 252px;
     height: 110px;
     border-radius: 10px;
-    background-color: #DBDBDB;
+    background-color: #0F0B19;
     grid-template-columns: 126px 126px;
     grid-template-rows: 64px 46px;
     grid-gap: 1px;
@@ -32,19 +32,22 @@
     grid-column-end: 3;
     text-align : center;
     padding : 25px 0;
-    background-color: beige;
+    background-color: white;
 
 }
 
 
 .btn_messageModal {
-    background-color: beige;
+    background-color: white;
 
 }
 
 .btn_messageModal:hover {
-    color: blue;
-    /* border-radius:0 0 0 10px; */
     cursor: pointer;
+}
+
+.btn_messageModal:last-child:hover  {
+    color: red;
+
 }
 
