@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUpdate } from "../../store.js";
 import style from "./profileSetting.module.css";
 import ProfilePhoto from '../../components/profile/ProfilePhoto.jsx';
@@ -24,7 +24,7 @@ export default function ProfileSetting() {
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
     const [signUpWarning, setSignUpWarning] = useState('');
-    const [IsValue, setIsValue] = useState(false)
+    const [isValid, setIsValid] = useState(false)
     const [valid, setValid] = useState({
         usernameValid : true,
         accountValid : true
@@ -61,14 +61,14 @@ export default function ProfileSetting() {
                     ...userdata
                 }
             })
-            getFirstLogin(userdata)
+            getLogin(userdata)
 
         } catch(err) {
             setSignUpWarning(err.response.data.message);
         }
     }
 
-    const getFirstLogin = async (userdata) => {
+    const getLogin = async (userdata) => {
         try {
             const loginRes = await customAxios.post("/user/login", {
                 "user": {
@@ -80,7 +80,7 @@ export default function ProfileSetting() {
             setStorage(loginData)
             navigate("/")
         } catch(err) {
-
+            console.error(err)
         }
     }
 
@@ -111,8 +111,8 @@ export default function ProfileSetting() {
     }, [profiledata.accountname]);
 
     useEffect(() => {
-        if (valid.usernameValid === true && valid.accountValid === true) setIsValue(true);
-        else setIsValue(false);
+        if (valid.usernameValid === true && valid.accountValid === true) setIsValid(true);
+        else setIsValid(false);
     }, [valid]);
 
     const handleInput = (event) => {
@@ -157,11 +157,12 @@ export default function ProfileSetting() {
 
                 <button 
                 className={style.btn_profileSetting}
+                disabled={isValid ? false : true}
                 onClick={(event) => {
                     event.preventDefault();
                     signUp(profiledata);
-                    }}>
-                감귤마켓 시작하기
+                }}>
+                데브리마킷 시작하기
                 </button>
                 <p className={style.p_warningFinal}>{signUpWarning}</p>
             </form>
