@@ -5,11 +5,9 @@ import FollowBtn from "../../button/FollowBtn";
 import BasicProfileImg from "../BasicProfileImg";
 import style from "./profileCard.module.css";
 
-export default function ProfileCard({ profileImg, profileState, profileName, profileCont, profileAccount, isfollow, handleBtn }) {
-    
+export default function ProfileCard({ profileImg, profileState, profileName, profileCont, profileAccount, isfollow, handleBtn, profileId}) {
     const navigate = useNavigate()
     const state = profileState;
-
     return (
         <>
             {
@@ -23,13 +21,13 @@ export default function ProfileCard({ profileImg, profileState, profileName, pro
                             </p>
                         </div>,
                     search:
-                        <li className={style.cont_profile_card} onClick={() =>{navigate(`/profile/${profileAccount}`)}}>
+                        <div className={style.cont_profile_card} onClick={() =>{navigate(`/profile/${profileAccount}`)}}>
                             <BasicProfileImg type="list" profileImg={profileImg}/>
                             <p className={style.search_user_name}>
                                 {profileName}
                                 <span className={style.search_user_id}>{profileCont}</span>
                             </p>
-                        </li>,
+                        </div>,
                     follow:
                         <li className={style.item_follow}>
                             <div className={style.cont_profile_card} onClick={handleBtn}>

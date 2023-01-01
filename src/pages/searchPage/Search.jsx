@@ -79,15 +79,18 @@ export default function Search() {
         <>
             <Header type="search" handleHeaderBtn={handleSearchKeyword}/>
                 <ul className={style.ul_search}>
-                    {뿌려주기.map((data, i) => 
-                        <ProfileCard 
-                        profileAccount={data.accountname} 
-                        isfollow={data.isfollow} 
-                        profileImg={data.image} 
-                        profileName={data.username} 
-                        profileState="search"
-                        profileCont={data.intro} />
-                    )}
+                    {뿌려주기.map((data, id) =>
+                        <li key={id}>
+                        <ProfileCard
+                            profileAccount={data.accountname} 
+                            isfollow={data.isfollow} 
+                            profileImg={data.image} 
+                            profileName={data.username} 
+                            profileState="search"
+                            profileCont={data.intro} 
+                            profileId={data.id}/>
+                        </li>
+                        )}
                     <li ref={observeRef} className="ir">더보기</li>
                 </ul>
             <Navbar type="search" />

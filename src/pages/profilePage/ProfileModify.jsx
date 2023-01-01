@@ -19,7 +19,7 @@ export default function ProfileModify() {
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
 
-    const [IsValue, setIsValue] = useState(true)
+    const [IsValue, setIsValue] = useState(false)
     const [valid, setValid] = useState({
         usernameValid : true,
         accountValid : true
@@ -67,7 +67,7 @@ export default function ProfileModify() {
             })
             const modifedData = (await profileRes).data.user;
             setStorage(loginInfo, modifedData);
-            navigate(-1)
+            navigate(`/profile/${modifedData.accountname}`)
         } catch (err) {
             console.error(err);
         }
@@ -83,21 +83,16 @@ export default function ProfileModify() {
         localStorage.setItem("loginStorage", JSON.stringify({...modifyInfo}));
     }
 
-    // 유효성 검사 추가 + 버튼 활성화
     useEffect(() => {
         const username = profiledata.username;
-        // const accountname = profiledata.accountname
-
         const timer = setTimeout(() => {
             usernameValidCheck(username, setUsernameWarning, setValid)
-            // accountValidCheck(accountname, setAccountWarning, setValid)
         }, 300);
         return () => clearTimeout(timer);
     }, [profiledata.username]);
 
     useEffect(() => {
         const accountname = profiledata.accountname;
-
         const timer = setTimeout(() => {
             accountValidCheck(accountname, setAccountWarning, setValid)
         }, 300);
@@ -107,7 +102,6 @@ export default function ProfileModify() {
     useEffect(() => {
         if (valid.usernameValid === true && valid.accountValid === true) setIsValue(true);
         else setIsValue(false);
-        console.log(valid);
     }, [valid]);
 
     return (

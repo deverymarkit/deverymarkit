@@ -13,7 +13,7 @@ export default function BlankComponent({type}) {
             txt : "유저를 검색해 팔로우 해보세요!",
             btn : "검색하기",
             onClick : ()=>{
-                // 검색창보이기
+                navigate("/search")
             }
             },
         "page404":{
