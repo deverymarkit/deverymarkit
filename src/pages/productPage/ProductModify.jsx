@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import style from "./productModify.module.css";
-import uploadImg from "../../assets/imgs/upload-img.png";
+import uploadImg from "../../assets/imgs/upload-img.svg";
 import defalutImg from "../../assets/imgs/product-none.png";
 import axios from "axios";
 import Header from "../../components/common/header/Header.jsx";
@@ -16,6 +16,7 @@ export default function ProductModify() {
     const [urlWarning, setUrlWarning] = useState("");
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState("");
+    const [changePrice, setChangePrice] = useState("");
     const [productUrl, setProductUrl] = useState("");
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 인풋벨류있는지 유무
     const inputRef = useRef();
@@ -46,6 +47,7 @@ export default function ProductModify() {
                 setProductImg(productRes.data.product.itemImage);
                 setProductName(productRes.data.product.itemName);
                 setProductPrice(productRes.data.product.price);
+                setChangePrice(productRes.data.product.price)
                 setProductUrl(productRes.data.product.link);
             } catch (error) {
                 console.log(error);
@@ -59,19 +61,36 @@ export default function ProductModify() {
     const handleCheckInput = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "productName") setProductName(event.target.value); 
-        else if (event.target.name === "productPrice") setProductPrice(event.target.value);
+        else if (event.target.name === "productPrice") setProductPrice(inputPriceFormat(event.target.value));
         else if (event.target.name === "productUrl") setProductUrl(event.target.value);
         
     }
 
     useEffect(() => {
         // 유효성검사를 체크하는 useEffect
-
-        (productImg && productName && productPrice && productUrl) ? setIsValue(true) : setIsValue(false);
         if (productName.length >= 2 && productName.length <= 15) setNameWarning("")
-        if (productPrice >= 1 ) setUrlWarning("")
+        if (changePrice >= 1 ) setUrlWarning("")
         if (regex.test(productUrl) ) setUrlWarning("")
-    }, [productName, productPrice, productUrl])
+
+        productImg && (productName.length >= 2 && productName.length <= 15) && (changePrice >= 1 )&& (regex.test(productUrl) ) ? setIsValue(true) : setIsValue(false) 
+
+    }, [productImg, productName, changePrice, productUrl, regex])
+
+    const inputPriceFormat = (str) => {
+        console.log("s", str);
+        setChangePrice(+str.split(",").reduce((curr, acc) => curr + acc, ""));
+        console.log("s", changePrice);
+
+        const comma = (str) => {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+        };
+        const uncomma = (str) => {
+            str = String(str);
+            return str.replace(/[^\d]+/g, "");
+        };
+        return comma(uncomma(str));
+        };
 
     const handleSetProduct = (e) => {
         // const 정규표현식 = /^[_A-Za-z0-9+]*$/;
@@ -80,7 +99,7 @@ export default function ProductModify() {
             setNameWarning("2~15자 이내여야 합니다.");
             return
         }
-        if (productPrice < 1) {
+        if (changePrice < 1) {
             setPriceWarning("1원 이상이어야 합니다.");
             return
         }  
@@ -91,7 +110,7 @@ export default function ProductModify() {
 
         const productData = {
             "itemName": productName,
-            "price": +productPrice,
+            "price": changePrice,
             "link": productUrl,
             "itemImage": productImg
         }
@@ -101,55 +120,56 @@ export default function ProductModify() {
 
     // axios
     const saveData = async (productData) => {
-if(productId){
-    const url = BaseURL + `/product/${productId}`;
+    if(IsValue){
 
-    try {
-        const productRes = await axios.put(url, { 
-            "product": {
-                ...productData
-            }},{
-            "headers": {
-                "Authorization" : `Bearer ${userToken}`,
-                "Content-type" : "application/json"
-            }}
-            
-        ,)
-        navigate(-1);
-
-        const productUpdata = (await productRes).data
-
-        // console.log(productUpdata);
-    } catch(err) { 
-        const error = err.response.data
-        setUrlWarning(error.message);
-    }
+        if(productId){
+            const url = BaseURL + `/product/${productId}`;
+            try {
+                const productRes = await axios.put(url, { 
+                    "product": {
+                        ...productData
+                    }},{
+                    "headers": {
+                        "Authorization" : `Bearer ${userToken}`,
+                        "Content-type" : "application/json"
+                    }}
+                    
+                ,)
+                navigate(-1);
     
-}
-else{
-    const url = BaseURL + `/product`;
-
-
-    try {
-        const productRes = await axios.post(url, { 
-            "product": {
-                ...productData
-            }},{
-            "headers": {
-                "Authorization" : `Bearer ${userToken}`,
-                "Content-type" : "application/json"
-            }}
-            
-        ,)
-        navigate(-1);     
-        const productUpdata = (await productRes).data
-
-        // console.log(productUpdata);
-
-
-    } catch(err) { 
-        const error = err.response.data
-        setUrlWarning(error.message);
+                const productUpdata = (await productRes).data
+    
+                // console.log(productUpdata);
+            } catch(err) { 
+                const error = err.response.data
+                setUrlWarning(error.message);
+            }
+    }
+    else{
+        const url = BaseURL + `/product`;
+    
+    
+        try {
+            const productRes = await axios.post(url, { 
+                "product": {
+                    ...productData
+                }},{
+                "headers": {
+                    "Authorization" : `Bearer ${userToken}`,
+                    "Content-type" : "application/json"
+                }}
+                
+            ,)
+            navigate(-1);     
+            const productUpdata = (await productRes).data
+    
+            // console.log(productUpdata);
+    
+    
+        } catch(err) { 
+            const error = err.response.data
+            setUrlWarning(error.message);
+        }
     }
 
 }
@@ -234,12 +254,12 @@ else{
                     </label>
 
                     <input 
-                    type="number" 
+                    type="text" 
                     id="productPrice"
                     name="productPrice"
                     className={style.input_productModify}
                     placeholder="숫자만 입력 가능합니다."
-                    value={productPrice}
+                    value={productPrice.toLocaleString()}
                     onChange={handleCheckInput}>
                     </input>
                     <p className={style.p_warning}>{priceWarning}</p>
