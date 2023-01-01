@@ -1,18 +1,18 @@
-import { React, useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { customAuthAxios } from "../../api/customAxios";
 
 import style from "./upload.module.css";
-import UploadImg from "../../assets/imgs/upload-img.png";
+import UploadImg from "../../assets/imgs/upload-img.svg";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
 import Header from "../../components/common/header/Header";
 import ProfileCard from "../../components/common/card/ProfileCard";
 import axios from "axios";
+import Loading from "../Loading";
 import BaseURL from "../../components/common/BaseURL";
 
 export default function Upload() {
     const [profileImg, setProfileImg] = useState(); 
-    const [userToken, setUserToken] = useState("");
-    const [userId, setUserId] = useState("");
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
     const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
@@ -20,60 +20,27 @@ export default function Upload() {
     const inpRef = useRef();
     const navigate = useNavigate();
     const { postId } = useParams();
-    
+    const [isLoading, setIsLoading] = useState(true);
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const userToken = loginInfo.token;
+    const userId = loginInfo.accountname;
+
     useEffect(() => {
         // 프로필 이미지 
-        const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-        const userToken = loginInfo.token;
-        const userId = loginInfo.accountname;
-        setUserId(userId);
-        setUserToken(userToken);
+
         const getUserProfile = async () => {
             const url = BaseURL + "/user/myinfo";
 
             try {
-                const res = await axios(url, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${userToken}`,
-                        "Content-type": "application/json",
-                    },
-                });
-                setProfileImg(res.data.user.image);
+                const ProfileRes = await customAuthAxios.get(`/user/myinfo`);
+                setProfileImg(ProfileRes.data.user.image);
+                setIsLoading(false);
             } catch (err) {
                 console.log(err);
             }
         };
         getUserProfile();
     }, []);
-
-    // useEffect(() => {
-    // 수정 기능
-    //     if (postId) {
-    //         let postId = "63a8e26217ae6665810627fb"
-    //         const url = BaseURL + `/post/detail/${postId}`;
-            
-    //         const getUserPost = async function () {
-    //         try {
-    //             const postRes = await axios.get(
-    //                 url,
-    //             {
-    //                 "headers": {
-    //                 "Authorization": `Bearer ${userToken}`,
-    //                 "Content-type": "application/json",
-    //             },
-    //             },
-    //         );
-    //             setImageFileList(postRes.data.post.image.split(","));
-    //             textarea.current.value=(postRes.data.post.content);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //         };
-    //         getUserPost();
-    //     }
-    // }, [postId, userToken]);
-    
 
 
     const handleResizeHeight = () => {
@@ -84,7 +51,6 @@ export default function Upload() {
     };
 
     const handleRemoveImg = (e) =>{
-        // URL.revokeObjectURL(imageFileList[e.target.id]);
         setImageFileList(imageFileList.filter(x => x !== imageFileList[e.target.id]));
     };
 
@@ -143,23 +109,14 @@ export default function Upload() {
                 
                 const imgUrl = await uploadImg();
                 console.log(imgUrl);
-                const url = BaseURL + "/post";
                 try {
-                    await axios.post(
-                        url,
-                        {
-                            post: {
-                                content: textarea.current.value,
-                                image: imgUrl,
-                            },
+                    await customAuthAxios.post(`/post`,{
+                        post: {
+                            content: textarea.current.value,
+                            image: imgUrl,
                         },
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${userToken}`,
-                                'Content-type': 'application/json',
-                            },
-                        }
-                        );
+                    } );
+                    
                         navigate(`/profile/${userId}`)
                         
                 }catch(err) {
@@ -167,8 +124,10 @@ export default function Upload() {
                 }
             };
         }
-    
-    return (
+    if (isLoading) {
+        return <Loading />
+    } else {
+        return (
         <>
                 <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
                 <div className={style.wrap_upload}>
@@ -204,5 +163,6 @@ export default function Upload() {
                 </label>
             </div>
         </>
-    );
+        );
+    }
 }
