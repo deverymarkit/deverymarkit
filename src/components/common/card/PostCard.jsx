@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import "./slick/slick.css"
 import "./slick/slick-theme.css"
@@ -20,19 +20,31 @@ import ModalPortal from "../modal/ModalPortal";
 import Modal from "../modal/Modal";
 import MessageModal from "../modal/MessageModal";
 
-export default function PostCard({ id, post }) {
+export default function PostCard({ post }) {
 
     const [isLike, setIsLike] = useState(post.hearted);
     const [likeCount, setLikeCount] = useState(post.heartCount);
+    const location = useLocation();
     //토큰 가져오기
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-    const userId = loginInfo._id;        
+    const userId = loginInfo._id;  
+    const accountname = loginInfo.accountname;   
     // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
     const userType = (post.author._id === userId)? "post" : "your";
-
     const navigate = useNavigate();
+    
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen || modalSecondOpen){
+            document.body.style.overflow ="hidden";
+            document.body.style.paddingRight = "15px";
+        }else{
+            document.body.style.overflow ="";
+            document.body.style.paddingRight = "";
+        }
+    }, [modalOpen, modalSecondOpen])
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
             state: {
@@ -95,24 +107,29 @@ export default function PostCard({ id, post }) {
     };
     const handleProductDetail = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
-        if (event.target.name === "수정") {console.log("수정");}
+        if (event.target.name === "수정") {
+            navigate(`/postmodify/${post.id}`);
+        }
         else if (event.target.name === "삭제") {
             setModalSecondOpen(true);
             setModalOpen(false);
             }
-        else if (event.target.name === "신고하기"){} 
+        else if (event.target.name === "신고하기"){setModalOpen(false)} 
     }
     // 포스트 삭제 이벤트
     const handlePostDelete = async () => {
             try {
                 const postDeleteRes = await customAuthAxios.delete(`/post/${post.id}`);
                 setModalSecondOpen(false);
+                if(location.pathname.split("/")[1]==="post"){
+                    navigate(`/profile/${accountname}`);
+                }
             } catch (err) {
                 console.error(err);
             }
     }
     return (
-        <article key={post.id} className={style.article_post_card}>
+        <article className={style.article_post_card}>
             <div className={style.cont_post_author}>
                 <ProfileCard profileImg={post.author.image} profileState="post" profileName={post.author.username} profileCont={post.author.accountname} handleBtn={handleProfile}/>
             </div>
@@ -132,9 +149,9 @@ export default function PostCard({ id, post }) {
                 <p className={style.post_contents}  onClick={handlePostDetail}>{post.content}</p>
                 <div className={style.box_btn}>
                     <img src={isLike ? heartFillIcon : heartIcon} alt="좋아요" className={style.btn_like} onClick={handleLikeToggle}/>
-                    <span className={style.span_count}>{likeCount}</span>
-                    <img src={messageIcon} alt="댓글" />
-                    <span className={style.span_count}>{post.comments.length}</span>
+                    <span className={style.span_count} >{likeCount}</span>
+                    <img src={messageIcon} alt="댓글" onClick={handlePostDetail}/>
+                    <span className={style.span_count} onClick={handlePostDetail}>{post.comments.length}</span>
                 </div>
                 <span className={style.span_post_date}>
                     {

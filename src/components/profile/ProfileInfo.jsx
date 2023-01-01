@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import MyProfileBtn from "../button/MyProfileBtn";
 import YourProfileBtn from "../button/YourProfileBtn";
-import BASE_URL from "../common/BaseURL";
 import style from "./profileInfo.module.css";
 
 export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
@@ -40,7 +39,10 @@ export default function UserInfo({ profileInfo, setProfileInfo, profileType }) {
                 <span className={style.span_user_id}>@{accountname}</span>
                 <span className={style.span_user_intro}>{intro}</span>
                 <div className={style.box_btn}>
-                    { profileType === "your" ? <YourProfileBtn accountname={accountname} isfollow={isfollow} setProfileInfo={setProfileInfo}/> : <MyProfileBtn /> }
+                    { 
+                        profileType === "your" ? ( 
+                        <YourProfileBtn accountname={accountname} isfollow={isfollow} setProfileInfo={setProfileInfo}/> ) : ( <MyProfileBtn /> )
+                    } 
                 </div>
             </div>
         </section>
