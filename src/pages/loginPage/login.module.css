@@ -7,6 +7,15 @@
     }
 }
 
+@keyframes layout {
+    from {
+        height: 100vh;
+    }
+    to {
+        height: 75vh;
+    }
+}
+
 .main_login {
     display: flex;
     flex-direction: column;
@@ -14,16 +23,14 @@
     background-color: #0f0b19;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-    height: 90vh;
+    height: 75vh;
+    animation: layout 2s;
 }
 
 .img_login {
     border: 2px solid white;
     animation: fadein 2s;
 }
-
-
-
 
 .logo_login {
     width: 100vw;
@@ -36,19 +43,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
+    margin-top: 50px;
+    animation: fadein 3s;
 }
 
 .ul_login {
     display: flex;
 }
 
-.email {
-    color: red;
-}
-
 .btn_login {
-    color: #c4c4c4;
+    color: black;
     cursor: pointer;
 }
 
@@ -58,11 +62,11 @@
     content: "";
     width: 1px;
     height: 10px;
-    background-color: #c4c4c4;
+    background-color: black;
 
 }
 
 .btn_join {
-    color: #c4c4c4;
+    color: black;
     cursor: pointer;
 }

@@ -10,7 +10,8 @@
 }
 
 .post_contents {
-    font-weight: 400;
+    white-space: normal;
+    word-break: break-all;
     font-size: 14px;
     line-height: 18px;
     color: var(--text-accent-color);
