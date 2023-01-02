@@ -81,11 +81,11 @@ export default function ChatList() {
                 <div className={style.div_chat}></div>
                 {chat.map(
                     (x,idx)=>
-                    <li className={style.wrap_chat} onClick = {moveChatingRoom} id={idx} >
+                    <li key={idx} className={style.wrap_chat} onClick = {moveChatingRoom} id={idx} >
                         <div  className={style.cont_img} >
                             <img className={style.profile_img} src={x.img} alt="프로필 이미지" />
                         </div>
-                        <div className={idx!==2 && `${style.icon}`}></div>
+                        <div className={idx!==2 ? `${style.icon}` : ``}></div>
                         <div className={style.cont_chat}>
                             <p className={style.name_chat}>{x.name}</p>
                             <div className={style.cont_span}>
