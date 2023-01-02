@@ -9,13 +9,6 @@
 
 }
 
-.span_productModify {
-    /* position: relative;
-    top: 50px;
-    left: 50vh; */
-    /* margin: 78px 0 18px 0 ; */
-}
-
 .cont_Img {
     position: relative;
 }
@@ -32,7 +25,6 @@
     border-radius: 10px;
     object-fit: cover;
 }
-
 
 .img_uploadImg {
     position: absolute;
