@@ -27,14 +27,12 @@ export default function Upload() {
 
     useEffect(() => {
         // 프로필 이미지 
-
         const getUserProfile = async () => {
-            const url = BaseURL + "/user/myinfo";
-
-            try {
-                const ProfileRes = await customAuthAxios.get(`/user/myinfo`);
-                setProfileImg(ProfileRes.data.user.image);
-                setIsLoading(false);
+        const url = BaseURL + "/user/myinfo";
+        try {
+            const ProfileRes = await customAuthAxios.get(`/user/myinfo`);
+            setProfileImg(ProfileRes.data.user.image);
+            setIsLoading(false);
             } catch (err) {
                 console.log(err);
             }
@@ -42,11 +40,9 @@ export default function Upload() {
         getUserProfile();
     }, []);
 
-
     const handleResizeHeight = () => {
         textarea.current.style.height = "auto";
         textarea.current.style.height = `${textarea.current.scrollHeight}px`;
-        
         textarea.current.value? setIsValue(true) : setIsValue(false);
     };
 
@@ -58,8 +54,6 @@ export default function Upload() {
     const uploadImg = async () => {
         let formData = new FormData();
         const url = BaseURL + "/image/uploadfiles";
-
-        
         const imgFiles = imageFileList;
         for (let i = 0; i < imgFiles.length; i++) {
             const file = imgFiles[i];
@@ -74,13 +68,11 @@ export default function Upload() {
                 const imgUrls = PostUpdata
                             .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
                             .join(",");
-            
                 return imgUrls;
             }catch(err) {
                 console.log(err)
             }
     };
-
 
     const storeImage = async ({ target }) => {
         // file 을 "image" 변수에 저장. 이 때 image는 Array!
@@ -92,38 +84,35 @@ export default function Upload() {
         // imgae 배열의 길이만큼 for문을 돌려주고 배열에 요소를 imageList에 push해준다.
         for (let i = 0; i < image.length; i++) {
             // imageList.push(URL.createObjectURL(image[i]));
-            imageList.push(image[i]);
-            
+            imageList.push(image[i]);            
         }
         // 이렇게 만들어진 imageList 배열을 set!
             setImageFileList(imageList);
-            
         } else{
             alert("사진은 3개 이하로 업로드가능합니다.");
         }
-        // uploadImg();
     };
-        // 업로드 기능
-        const handleSaveBtn = async (e) =>{
-            if(IsValue){
+    // 업로드 기능
+    const handleSaveBtn = async (e) =>{
+        if(IsValue){
+            
+            const imgUrl = await uploadImg();
+            try {
+                await customAuthAxios.post(`/post`,{
+                    post: {
+                        content: textarea.current.value,
+                        image: imgUrl,
+                    },
+                } );
                 
-                const imgUrl = await uploadImg();
-                console.log(imgUrl);
-                try {
-                    await customAuthAxios.post(`/post`,{
-                        post: {
-                            content: textarea.current.value,
-                            image: imgUrl,
-                        },
-                    } );
+                    navigate(`/profile/${userId}`)
                     
-                        navigate(`/profile/${userId}`)
-                        
-                }catch(err) {
-                    console.log(err)
-                }
-            };
-        }
+            }catch(err) {
+                console.log(err)
+            }
+        };
+    }
+    
     if (isLoading) {
         return <Loading />
     } else {
