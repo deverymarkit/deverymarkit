@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-
 import style from "./productModify.module.css";
 import uploadImg from "../../assets/imgs/upload-img.svg";
 import defalutImg from "../../assets/imgs/product-none.png";
@@ -9,7 +8,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import BASE_URL from "../../components/common/BaseURL";
 import { customAuthAxios } from "../../api/customAxios";
 import { customImgAxios } from "../../api/customAxios";
-import Loading from "../Loading";
 
 
 export default function ProductModify() {
@@ -48,7 +46,6 @@ export default function ProductModify() {
                 setProductPrice(productRes.data.product.price);
                 setChangePrice(productRes.data.product.price)
                 setProductUrl(productRes.data.product.link);
-                setIsLoading(false)
             } catch (error) {
                 console.log(error);
             }
@@ -199,10 +196,7 @@ export default function ProductModify() {
         }
     }
 
-    if(isLoading) {
-        return <Loading />
-    } else {
-        return(
+    return (
         <>
             <Header type = "modification" handleHeaderBtn={handleSetProduct} IsValue={IsValue}/>
                 <span className={style.span_productModify} >이미지 등록</span>
@@ -280,5 +274,4 @@ export default function ProductModify() {
             </section>
         </>
     )
-        }
 }
