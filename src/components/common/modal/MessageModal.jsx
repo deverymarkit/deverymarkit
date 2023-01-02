@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import style from "./messageModal.module.css";
 
-export default function MessageModal({type, modalOpen, setModalOpen, handleModal}) {
+export default function MessageModal({type, setModalOpen, handleModal}) {
 
     const pages = {
         "profile":{
@@ -51,10 +51,8 @@ export default function MessageModal({type, modalOpen, setModalOpen, handleModal
         <div className={style.back_modal}l>
             <div className={style.wrap_messageModal} ref={modalRef} >
                 <p className={style.p_messageModal} >{pages[type].txt}</p>
-                
                     <button className={`${style.btn_messageModal} ${style.first_btn_messageModal}`} onClick= {closeModal}>{pages[type].btn[0]}</button>
                     <button className={style.btn_messageModal} onClick= {handleModal}>{pages[type].btn[1]}</button>
-                
             </div>
         </div>
     )

@@ -3,16 +3,6 @@ import style from "./modal.module.css"
 
 export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
 
-    // 스크롤 막기 기능
-    // useEffect(() => {
-    //     document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`
-    //     return () => {
-    //         const scrollY = document.body.style.top
-    //         document.body.style.cssText = `position: ""; top: "";`
-    //         window.scrollTo(0, parseInt(scrollY || '0') * -1)
-    //     }
-    // }, [])
-    
     const pages = {
         "profile":{
             btn : ["설정 및 개인정보", "로그아웃"]
@@ -70,8 +60,8 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
                     <div  className={style.bar_modal}></div>
                 </button>
                 {   
-                    pages[type].btn.map((x)=>
-                        <button name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
+                    pages[type].btn.map((x, i)=>
+                        <button key={i} name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
                     )
                 }
             </div>

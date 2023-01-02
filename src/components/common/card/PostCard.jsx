@@ -102,7 +102,6 @@ export default function PostCard({ post }) {
 
      // 모달창 노출
     const showModal = (e) => {
-        console.log(post.id);
         setModalOpen(true);
     };
     const handleProductDetail = (event) => {
@@ -166,14 +165,14 @@ export default function PostCard({ post }) {
                             modalOpen={modalOpen}
                             setModalOpen={setModalOpen} 
                             handleHeaderBtn={showModal}
-                            handleModal={handleProductDetail} />}    
+                            handleModal ={handleProductDetail} />}    
                 {modalSecondOpen &&
                     <MessageModal  
                             type="post" 
                             modalOpen={modalSecondOpen}
                             setModalOpen={setModalSecondOpen} 
                             handleHeaderBtn={showModal}
-                            handleModal={handlePostDelete} />} 
+                            handleModal ={handlePostDelete} />} 
             </ModalPortal>    
         </article>
     )
