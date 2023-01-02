@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import BASE_URL from "../../components/common/BaseURL";
+import { customAuthAxios } from "../../api/customAxios";
 import ProfileCard from "../../components/common/card/ProfileCard";
 import Header from "../../components/common/header/Header";
 import style from "./followersFollowing.module.css";
@@ -14,22 +13,13 @@ export default function FollowerFollowing() {
         navigate(`/profile/${postauthor}`)
     }
 
-    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
-    const token = loginInfo.token;
     const { accountname, followtype } = useParams();
-
     const [followList, setFollowList] = useState([]);
 
     const getFollowList = async () => {
-        const url = BASE_URL + `/profile/${accountname}/${followtype}/?limit=100&skip=0`;
 
         try {
-            const followRes = axios.get(url, {
-                "headers": {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-type": "application/json"
-                }
-            })
+            const followRes = customAuthAxios.get(`/profile/${accountname}/${followtype}/?limit=100&skip=0`);
             const result = await followRes;
             setFollowList(result.data);
         } catch(err) {
@@ -39,7 +29,6 @@ export default function FollowerFollowing() {
 
     useEffect(() => {
         getFollowList();
-        
     }, []);
 
     return (
@@ -51,7 +40,7 @@ export default function FollowerFollowing() {
                     <ol>
                     {
                         followList.map((data) =>
-                            <ProfileCard 
+                            <ProfileCard key={data._id}
                                 profileImg={data.image} 
                                 profileState="follow" 
                                 profileName={data.username} 
