@@ -12,6 +12,9 @@ import style from './chatList.module.css'
 
 export default function ChatList() {
     const navigate = useNavigate();
+    //Id 가져오기
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const accountname = loginInfo.accountname; 
     // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
@@ -53,7 +56,9 @@ export default function ChatList() {
     }, [modalOpen, modalSecondOpen])
 
     const handleProfileDetail = (event) => {
-        if (event.target.name === "설정 및 개인정보") setModalOpen(false);
+        if (event.target.name === "설정 및 개인정보") {
+            navigate(`/profile/${accountname}`);
+            setModalOpen(false);}
         else if (event.target.name === "로그아웃") {
             setModalSecondOpen(true);
             setModalOpen(false);
