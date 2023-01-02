@@ -5,11 +5,14 @@ import defalutImg from "../../assets/imgs/product-none.png";
 import axios from "axios";
 import Header from "../../components/common/header/Header.jsx";
 import { useParams, useNavigate } from "react-router-dom";
-import BaseURL from "../../components/common/BaseURL";
 import BASE_URL from "../../components/common/BaseURL";
+import { customAuthAxios } from "../../api/customAxios";
+import { customImgAxios } from "../../api/customAxios";
 
 
 export default function ProductModify() {
+
+    const [isLoading, setIsLoading] = useState(true);
     const [productImg, setProductImg] = useState();
     const [nameWarning, setNameWarning] = useState("");
     const [priceWarning, setPriceWarning] = useState("");
@@ -18,6 +21,7 @@ export default function ProductModify() {
     const [productPrice, setProductPrice] = useState("");
     const [changePrice, setChangePrice] = useState("");
     const [productUrl, setProductUrl] = useState("");
+    const [view, setView] = useState("");
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 인풋벨류있는지 유무
     const inputRef = useRef();
     const { productId } = useParams();
@@ -31,19 +35,12 @@ export default function ProductModify() {
     useEffect(() => {
 
         if (productId) {
-            const url = BaseURL + `/product/detail/${productId}`;
+            const url = BASE_URL + `/product/detail/${productId}`;
             
             const getUserProduct = async function () {
             try {
-                const productRes = await axios.get(
-                    url,
-                {
-                    "headers": {
-                    "Authorization": `Bearer ${userToken}`,
-                    "Content-type": "application/json",
-                },
-                },
-            );
+                const productRes =await customAuthAxios.get(`/product/detail/${productId}`);
+                
                 setProductImg(productRes.data.product.itemImage);
                 setProductName(productRes.data.product.itemName);
                 setProductPrice(productRes.data.product.price);
@@ -73,8 +70,7 @@ export default function ProductModify() {
         if (regex.test(productUrl) ) setUrlWarning("")
 
         productImg && (productName.length >= 2 && productName.length <= 15) && (changePrice >= 1 )&& (regex.test(productUrl) ) ? setIsValue(true) : setIsValue(false) 
-
-    }, [productImg, productName, changePrice, productUrl, regex])
+    }, [productName, changePrice, productUrl, regex])
 
     const inputPriceFormat = (str) => {
         console.log("s", str);
@@ -123,18 +119,13 @@ export default function ProductModify() {
     if(IsValue){
 
         if(productId){
-            const url = BaseURL + `/product/${productId}`;
+            const url = BASE_URL + `/product/${productId}`;
             try {
-                const productRes = await axios.put(url, { 
+                const productRes =await customAuthAxios.put(`/product/${productId}`, { 
                     "product": {
                         ...productData
-                    }},{
-                    "headers": {
-                        "Authorization" : `Bearer ${userToken}`,
-                        "Content-type" : "application/json"
-                    }}
-                    
-                ,)
+                    }});
+
                 navigate(-1);
     
                 const productUpdata = (await productRes).data
@@ -146,7 +137,7 @@ export default function ProductModify() {
             }
     }
     else{
-        const url = BaseURL + `/product`;
+        const url = BASE_URL + `/product`;
     
     
         try {
@@ -188,21 +179,17 @@ export default function ProductModify() {
 
     // axios
     const getImgUrl = async (image) => {
-        const url = BaseURL + `/image/uploadfile`;
+        const url = BASE_URL + `/image/uploadfile`;
         const formData = new FormData();
         formData.append('image', image);
+        setView("pending");
         try {
-            const imgRes = axios.post( url, formData,
-            {
-                "headers": {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
+            const imgRes = await customImgAxios.post("/image/uploadfile", formData
+            );
             const imgUrl = (await imgRes).data.filename;
-
+            console.log(imgUrl);
             setProductImg(BASE_URL + `/${imgUrl}`)
-
-//            setProductImg(url + `${imgUrl}`)
+            setView("fulfilled");
 
         } catch(err) {
             console.log(err)
@@ -225,8 +212,9 @@ export default function ProductModify() {
                     <img className={style.img_uploadImg} src={uploadImg} alt="" onClick={handleInputRef}/>
                 
                     
+                    
                 </div>
-
+                {view === "pending" ? <p>이미지 업로드 중</p>  : ""}
 
                 <form className={style.form_productModify}>
                     <label 
