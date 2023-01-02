@@ -40,9 +40,11 @@
     font-size: 14px;
     white-space: normal;
 }
-.profile_none {
-    width: 42px;
+.profile_img {
     height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-right: 12px;
 }
 .chat_time {
@@ -53,7 +55,7 @@
     margin-right: 6px;
 }
 .input_div {
-    width: 390px;
+    width : 100vw;
     display: flex;
     justify-content: start;
     position: absolute;
@@ -71,10 +73,15 @@
 .inp_txt {
     flex-grow: 1;
     font-size: 14px;
-    color: #c4c4c4;
     border: 0;
     margin: 15px 0 15px 0;
     padding-left: 8px;
+    border-radius: 7px;
+    background-color: rgba(0, 29, 36, 0.1);
+}
+.inp_txt:focus {
+    /* 색깔 미정 */
+    outline-color: grey;
 }
 .btn_submit {
     font-size: 14px;

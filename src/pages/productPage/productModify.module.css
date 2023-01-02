@@ -36,6 +36,8 @@
 
 .img_uploadImg {
     position: absolute;
+    width: 36px;
+    height: 36px;
     bottom: 12px;
     right: 12px;
     cursor: pointer;

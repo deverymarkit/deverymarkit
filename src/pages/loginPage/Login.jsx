@@ -4,7 +4,6 @@ import style from "./login.module.css"
 
 export default function Login() {
     const navigate = useNavigate()
-    
 
     return (
         <>

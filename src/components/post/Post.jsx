@@ -29,8 +29,8 @@ export default function Post({ profileInfo }) {
     
     useEffect(()=>{
         getPostList();
-    }, [profileInfo.accountname])
-   
+    }, [profileInfo.accountname, postList])
+
     return (
         <>
             {
