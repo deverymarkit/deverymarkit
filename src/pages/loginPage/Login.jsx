@@ -11,13 +11,13 @@ export default function Login() {
             <h1 className={style.logo_login}>
                 <img className={style.img_login} src="devery_logo.png" alt="데브리마켓"/>
             </h1>
-            <section className={style.cont_login}>
+        </main>
+        <section className={style.cont_login}>
                 <ul className={style.ul_login}>
                     <li><button className={style.btn_login} onClick={() => {navigate("/loginemail")}}>이메일로 로그인</button></li>
                     <li><button className={style.btn_join} onClick={() => {navigate("/signup")}}>회원가입</button></li>
                 </ul>
-            </section>
-        </main>
+        </section>
         </>
     )
 }
