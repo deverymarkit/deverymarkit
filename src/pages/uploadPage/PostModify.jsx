@@ -7,10 +7,9 @@ import UploadImg from "../../assets/imgs/upload-img.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
 import Header from "../../components/common/header/Header";
 import ProfileCard from "../../components/common/card/ProfileCard";
-import axios from "axios";
-import BaseURL from "../../components/common/BaseURL";
+import BASE_URL from "../../components/common/BaseURL";
 import { customAuthAxios } from "../../api/customAxios";
-import { customImgAxios } from "../../api/customAxios.js"
+import { customImgAxios } from "../../api/customAxios";
 import Loading from "../Loading";
 
 
@@ -40,18 +39,20 @@ export default function PostModify() {
                 try {
                     const res = await customAuthAxios.get(`/post/${postid}`);
                 setPostText(res.data.post.content);
-                setFileName(res.data.post.image.split(","));
                 setIsLoading(false)
+                setFileName(res.data.post.image.split(","));
                 if (res.data.post.image == "") {
                 } else {
                     setPreviewImgUrl([...res.data.post.image.split(",")]);
                 }
+                
                 setView("fulfilled");
                 } catch (err) {
                 setView("rejected");
                 }
             }
             getPost();
+
             }, []);
             useEffect (()=>{
         (postText) ? setIsValue(true) : setIsValue(false);
@@ -115,11 +116,11 @@ export default function PostModify() {
                 if(fileName){
                     setFileName([
                     ...fileName,
-                    BaseURL +"/"+ res.data[0].filename,
+                    BASE_URL +"/"+ res.data[0].filename,
                     ]);
                 }else{
                     setFileName([
-                        BaseURL +"/"+ res.data[0].filename,
+                        BASE_URL +"/"+ res.data[0].filename,
                     ]);    
                 }
                 console.log(fileName);
@@ -142,7 +143,6 @@ export default function PostModify() {
             reader.onload = () => {
                 setPreviewImgUrl([...previewImgUrl, reader.result]);
             };
-            console.log("성공");
             setView("fulfilled")
             setIsActive(true);
             }
@@ -194,7 +194,7 @@ export default function PostModify() {
                 return(
             <>
                     <Header type="upload"  IsValue={IsValue} handleHeaderBtn = {handleSubmit}/>
-                    {view === "fulfilled" && (
+                    
                     <div className={style.wrap_upload}>
                         <div className={style.cont_content}>
                             <ProfileCard profileState="upload" profileImg={profileImg}/>
@@ -211,6 +211,7 @@ export default function PostModify() {
                         </div>
                         {/* <img src={imgUrl} alt="" /> */}
                         <UploadPhoto type = "modi" imageFileList={previewImgUrl} handleRemoveImg={deletePreview}/>
+                        {view === "pending" ? <p>이미지 업로드 중</p>  : ""}
                         <input
                             className="ir"
                             type="file"
@@ -227,12 +228,9 @@ export default function PostModify() {
                             src={UploadImg}
                             alt="업로드 버튼"
                         />
-                    </label>
+                    </label> 
                 </div>
-                )}
-                {view === "pending" && 
-                <Loading />
-            } 
+                )
             </>)
     
         
