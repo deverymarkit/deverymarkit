@@ -20,7 +20,7 @@ export default function BasicProfileImg({ type, profileImg }) {
 
     return (
         <div className={style[imgType]}>
-            <img className={style.profile_img} src={profileImg} onError={handleImgError}  alt="프로필 이미지" />
+            <img className={style.profile_img} src={profileImg} onError={handleImgError} alt="프로필 이미지" />
         </div>
     )
 }

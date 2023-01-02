@@ -102,12 +102,10 @@ export default function Comment({ post, getPost }) {
     }
 
     const handleKeyPress = (e) => {
-        //if (e.key === "Enter" && e.shiftKey) {
-        //    setNowComment(prev => prev + `\n`);
-        //} else 
         if (e.key === "Enter") {
-            handleRegisterComment();
+            if (e.nativeEvent.isComposing === false)
             e.preventDefault();
+            handleRegisterComment();
         }
     }
 
@@ -124,7 +122,7 @@ export default function Comment({ post, getPost }) {
                 </div>
                 <div className={style.box_commentInput}>
                     <BasicProfileImg type="comment_list" profileImg={loginAccountImage}/>
-                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." value={nowComment} onChange={handleTypingComment} onKeyDown={handleKeyPress}/>
+                    <input className={style.inp_comment} type="text" placeholder="댓글 입력하기..." value={nowComment} onChange={handleTypingComment} onKeyPress={handleKeyPress}/>
                     <button type="button" className={style.btn_commentInput} onClick={handleRegisterComment}>게시</button>
                 </div>
             </>
