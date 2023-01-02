@@ -41,6 +41,8 @@ export default function PostModify() {
             setPostText(res.data.post.content);
             setIsLoading(false)
             setFileName(res.data.post.image.split(","));
+            textRef.current.style.height = "auto";
+            textRef.current.style.height = textRef.current.scrollHeight + "px";
             if (res.data.post.image !== "") 
             {
                 setPreviewImgUrl([...res.data.post.image.split(",")]);
@@ -54,13 +56,16 @@ export default function PostModify() {
     }, []);
     
     useEffect (()=>{
-        (postText) ? setIsValue(true) : setIsValue(false);
+        if(postText)  {
+            setIsValue(true)
+            handleResizeHeight();
+        }
+        else setIsValue(false);
     },[postText])
 
     function handleResizeHeight() {
-    textRef.current.style.height = "auto";
-    textRef.current.style.height = textRef.current.scrollHeight + "px";
-    textRef.current.value? setIsValue(true) : setIsValue(false);
+        textRef.current.style.height = "auto";
+        textRef.current.style.height = textRef.current.scrollHeight + "px";
     }
     
     function handleText(e) {
