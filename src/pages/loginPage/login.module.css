@@ -7,6 +7,15 @@
     }
 }
 
+@keyframes layout {
+    from {
+        height: 100vh;
+    }
+    to {
+        height: 75vh;
+    }
+}
+
 .main_login {
     display: flex;
     flex-direction: column;
@@ -15,6 +24,7 @@
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     height: 75vh;
+    animation: layout 2s;
 }
 
 .img_login {
@@ -34,6 +44,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    animation: fadein 3s;
 }
 
 .ul_login {
