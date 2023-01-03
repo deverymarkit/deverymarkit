@@ -56,6 +56,8 @@ export default function ProductModify() {
             }
             };
             getUserProduct();
+        }else{
+            setIsLoading(false);
         }
     }, [productId, userToken]);
     
