@@ -197,7 +197,9 @@ export default function PostModify() {
                 </div>
                 {/* <img src={imgUrl} alt="" /> */}
                 <UploadPhoto type = "modi" imageFileList={previewImgUrl} handleRemoveImg={deletePreview}/>
-                {view === "pending" ? <p>이미지 업로드 중</p>  : ""}
+                {view === "pending" ?<marquee   className={style.p_uploadImg}
+                                                scrollamount="10">이미지 업로드 중</marquee>  : ""}
+
                 <input
                     className="ir"
                     type="file"
@@ -216,7 +218,7 @@ export default function PostModify() {
                     />
                 </label> 
             </div>
-            )
+            
         </>)
     }
 }

@@ -199,7 +199,8 @@ export default function ProductModify() {
                     onChange={handleGetImgUrl}/>
                     <img className={style.img_uploadImg} src={uploadImg} alt="" onClick={handleInputRef}/>
                 </div>
-                {view === "pending" ? <p>이미지 업로드 중</p>  : ""}
+                {view === "pending" ?<marquee   className={style.p_uploadImg}
+                                                scrollamount="10">이미지 업로드 중</marquee>  : ""}
 
                 <form className={style.form_productModify}>
                     <label 

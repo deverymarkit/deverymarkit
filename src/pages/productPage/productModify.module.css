@@ -5,8 +5,7 @@
     flex-direction: column;
     align-items: center;
     margin: 110px auto;
-    
-
+    position: relative;
 }
 
 .cont_Img {
@@ -87,4 +86,10 @@
     margin: -25px auto 15px;
     text-align: left;
     color: #EB5757;
+}
+
+.p_uploadImg {
+    position: absolute;
+    color: grey;
+    top: 250px;
 }
