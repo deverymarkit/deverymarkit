@@ -3,35 +3,13 @@ import style from "./modal.module.css"
 
 export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
 
-    // 스크롤 막기 기능
-    // useEffect(() => {
-    //     document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`
-    //     return () => {
-    //         const scrollY = document.body.style.top
-    //         document.body.style.cssText = `position: ""; top: "";`
-    //         window.scrollTo(0, parseInt(scrollY || '0') * -1)
-    //     }
-    // }, [])
-    
     const pages = {
-        "profile":{
-            btn : ["설정 및 개인정보", "로그아웃"]
-            },
-        "post":{
-            btn : ["삭제", "수정"]
-            },
-        "product":{
-            btn : ["수정", "삭제", "웹사이트에서 보기"]
-            },
-        "myComment":{
-            btn : ["삭제하기"]
-            },
-        "your":{
-            btn : ["신고하기"]
-            },
-        "chat": {
-            btn : ["채팅창 나가기"]
-            }
+        "profile": ["설정 및 개인정보", "로그아웃"],
+        "post": ["삭제", "수정"],
+        "product": ["수정", "삭제", "웹사이트에서 보기"],
+        "myComment": ["삭제하기"],
+        "your": ["신고하기"],
+        "chat": ["채팅창 나가기"]
     }
     
     // 모달 끄기 
@@ -64,14 +42,14 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
     });
 
     return (
-        <div className={style.back_modal}l>
-            <div className={`${modalOpen ? style.wrap_modal : style.wrap_modalClose}`} ref={modalRef} >
+        <div className={style.back_modal}>
+            <div className={`${modalOpen}` ? `${style.wrap_modal}` : `${style.wrap_modalClose}`} ref={modalRef} >
                 <button className={style.cancelBar_modal} onClick= {closeModal}> 
-                    <div  className={style.bar_modal}></div>
+                    <div className={style.bar_modal}></div>
                 </button>
                 {   
-                    pages[type].btn.map((x)=>
-                        <button name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
+                    pages[type].map((x, i)=>
+                        <button key={i} name={x} className={style.btn_modal} onClick={handleModal}>{x}</button>
                     )
                 }
             </div>

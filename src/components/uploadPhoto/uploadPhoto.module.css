@@ -18,7 +18,7 @@
 .wrap_img {
     display: flex;
     overflow-x: scroll;
-    margin-top: 10px;
+    margin: 15px 0;
 }
 
 .scroll_img {
