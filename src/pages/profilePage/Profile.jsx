@@ -95,11 +95,6 @@ export default function Profile() {
         getProfileInfo();
     }, [accountname])
 
-    /**
-     * 1. undefined방지를 위한 loading, error state관리 필요
-     * 2. localstorage정보가 없으면 접근할 수 없는 페이지 입니다. 필요
-     */
-
     if(isLoading) {
         return <Loading />
     }else if (isError){
