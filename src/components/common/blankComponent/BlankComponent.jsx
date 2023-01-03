@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import style from "./blankComponent.module.css";
-import bulbBlackImg from "../../../assets/imgs/bulb_black.png";
-import page404WhiteImg from "../../../assets/imgs/page404-black.png";
-import loading from "../../../assets/imgs/loading.jpg"
+import bulbBlackImg from "../../assets/imgs/bulb_black.png";
+import page404WhiteImg from "../../assets/imgs/page404-black.png";
+import loading from "../../assets/imgs/loading.png"
 
-export default function BlankComponent({type}) {
+export default function BlankComponent({type, errorMsg}) {
     const navigate = useNavigate();
     const pages = {
         "home":{
@@ -18,7 +18,7 @@ export default function BlankComponent({type}) {
             },
         "page404":{
             src : page404WhiteImg,
-            txt : "페이지를 찾을 수 없습니다. :(",
+            txt : errorMsg ? errorMsg : "페이지를 찾을 수 없습니다. :(",
             btn : "이전 페이지",
             onClick : ()=>{
                 navigate(-1);
