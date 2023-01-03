@@ -38,18 +38,9 @@ export default function PostCard({ post }) {
     useEffect(()=>{
         //스크롤 금지 
         if(modalOpen || modalSecondOpen){
-            document.body.style.cssText = `
-            position: fixed; 
-            top: -${window.scrollY}px;
-            overflow-y: scroll;
-            width: 100%;`;
-        return () => {
-            const scrollY = document.body.style.top;
-            document.body.style.cssText = '';
-            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-        };
+            document.body.style.overflow ="hidden"
         }else{
-
+            document.body.style.overflow =""
         }
     }, [modalOpen, modalSecondOpen])
     

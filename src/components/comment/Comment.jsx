@@ -105,10 +105,8 @@ export default function Comment({ post, getPost }) {
 
     const handleUpdateComment = async () => {
         setIsLoading(true);
-        getNewCommentList();
-        setSkipNumber(0)
         getPost();
-        console.log("돼나");
+        getNewCommentList();
     };
 
     const handleKeyPress = (e) => {

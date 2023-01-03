@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./basicProfileImg.module.css";
-import basicImg from "../../assets/imgs/ellipse.png"
+import basicImg from "../../../assets/imgs/profile-none.png"
 
 export default function BasicProfileImg({ type, profileImg }) {
 

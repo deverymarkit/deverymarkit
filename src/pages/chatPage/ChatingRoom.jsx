@@ -33,6 +33,7 @@ export default function ChatingRoom() {
             document.body.style.paddingRight = "";
         }
     }, [modalOpen])
+    
     const chat = [{
         img: profileImg,
         name: "전자제품 농장",

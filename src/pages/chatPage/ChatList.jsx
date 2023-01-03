@@ -57,8 +57,9 @@ export default function ChatList() {
 
     const handleProfileDetail = (event) => {
         if (event.target.name === "설정 및 개인정보") {
-            navigate(`/profile/${accountname}`);
-            setModalOpen(false);}
+            navigate(`/profilemodify`);
+            setModalOpen(false);
+        }
         else if (event.target.name === "로그아웃") {
             setModalSecondOpen(true);
             setModalOpen(false);

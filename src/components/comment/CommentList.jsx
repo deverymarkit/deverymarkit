@@ -37,11 +37,11 @@ export default function CommentList({ commentList, handleUpdateComment }) {
         setModalOpen(true);
     };
     
-    const handleCommentModal = (event) => {
+    const handleCommentModal =  (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "삭제하기") {
             handleCommentDelete();
-            handleUpdateComment();
+            
         }
         else if (event.target.name === "신고하기"){
             handleCommentReport();
@@ -54,7 +54,7 @@ export default function CommentList({ commentList, handleUpdateComment }) {
             console.log(postid);
             console.log(commentId);
             const commentDeleteRes = await customAuthAxios.delete(`/post/${postid}/comments/${commentId}`);
-            
+            await handleUpdateComment();
             setModalOpen(false)
 
             } catch (err) {
