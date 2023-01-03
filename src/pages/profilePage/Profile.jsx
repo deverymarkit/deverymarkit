@@ -12,6 +12,7 @@ import Product from "../../components/product/Product";
 import Post from "../../components/post/Post";
 import Loading from "../Loading";
 import style from "./profile.module.css";
+import Page404 from "../Page404";
 
 export default function Profile() {
 
@@ -21,6 +22,8 @@ export default function Profile() {
     const { accountname } = useParams();
     
     const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
     const [profileInfo, setProfileInfo] = useState("");
     const navigate = useNavigate();
     // 모달 관리 변수
@@ -60,8 +63,10 @@ export default function Profile() {
             setProfileInfo(result.data.profile);
             setIsLoading(false);
         } catch (err) {
-            console.error(err);
+            setErrorMsg(err.response.data.message)
             setIsLoading(false);
+            console.error(err);
+            setIsError(true);
         }
     }
     
@@ -98,7 +103,10 @@ export default function Profile() {
 
     if(isLoading) {
         return <Loading />
-    } else {
+    }else if (isError){
+        return <Page404 errorMsg={errorMsg}/>
+    } 
+    else {
         return (
             <>
                 <Header type="profile" handleHeaderBtn={showModal}/>

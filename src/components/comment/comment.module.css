@@ -50,6 +50,11 @@
     white-space: pre-wrap;
 }
 
+.inp_comment:focus {
+    /* 색깔 미정 */
+    outline-color: grey;
+}
+
 .btn_commentInput {
     cursor: pointer;
 }
