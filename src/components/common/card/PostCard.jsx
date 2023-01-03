@@ -38,13 +38,21 @@ export default function PostCard({ post }) {
     useEffect(()=>{
         //스크롤 금지 
         if(modalOpen || modalSecondOpen){
-            document.body.style.overflow ="hidden";
-            document.body.style.paddingRight = "15px";
+            document.body.style.cssText = `
+            position: fixed; 
+            top: -${window.scrollY}px;
+            overflow-y: scroll;
+            width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
         }else{
-            document.body.style.overflow ="";
-            document.body.style.paddingRight = "";
+
         }
     }, [modalOpen, modalSecondOpen])
+    
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
             state: {
@@ -100,12 +108,11 @@ export default function PostCard({ post }) {
         arrows: false
     }
 
-     // 모달창 노출
+    // 모달창 노출
     const showModal = (e) => {
-        console.log(post.id);
         setModalOpen(true);
     };
-    const handleProductDetail = (event) => {
+    const handlePostModal = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "수정") {
             navigate(`/postmodify/${post.id}`);
@@ -114,8 +121,11 @@ export default function PostCard({ post }) {
             setModalSecondOpen(true);
             setModalOpen(false);
             }
-        else if (event.target.name === "신고하기"){setModalOpen(false)} 
+        else if (event.target.name === "신고하기"){
+            handlePostReport();
+            setModalOpen(false)} 
     }
+    
     // 포스트 삭제 이벤트
     const handlePostDelete = async () => {
             try {
@@ -128,6 +138,18 @@ export default function PostCard({ post }) {
                 console.error(err);
             }
     }
+    
+    // 포스트 신고 이벤트
+    const handlePostReport = async () => {
+        try {
+            const postReportRes = await customAuthAxios.post(`/post/${post.id}/report`);
+            setModalSecondOpen(false);
+            console.log("신고됨");
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <article className={style.article_post_card}>
             <div className={style.cont_post_author}>
@@ -165,15 +187,14 @@ export default function PostCard({ post }) {
                     <Modal  type={userType} 
                             modalOpen={modalOpen}
                             setModalOpen={setModalOpen} 
-                            handleHeaderBtn={showModal}
-                            handleModal={handleProductDetail} />}    
+                            handleModal ={handlePostModal} />}    
                 {modalSecondOpen &&
                     <MessageModal  
                             type="post" 
                             modalOpen={modalSecondOpen}
                             setModalOpen={setModalSecondOpen} 
                             handleHeaderBtn={showModal}
-                            handleModal={handlePostDelete} />} 
+                            handleModal ={handlePostDelete} />} 
             </ModalPortal>    
         </article>
     )

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import style from "./home.module.css"
-import BlankComponent from "../../components/blankComponent/BlankComponent";
+import BlankComponent from "../../components/common/blankComponent/BlankComponent";
 import Header from "../../components/common/header/Header";
 import PostCard from "../../components/common/card/PostCard";
 import { useNavigate } from "react-router-dom";

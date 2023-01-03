@@ -12,6 +12,9 @@ import style from './chatList.module.css'
 
 export default function ChatList() {
     const navigate = useNavigate();
+    //Id 가져오기
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const accountname = loginInfo.accountname; 
     // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
@@ -53,7 +56,9 @@ export default function ChatList() {
     }, [modalOpen, modalSecondOpen])
 
     const handleProfileDetail = (event) => {
-        if (event.target.name === "설정 및 개인정보") setModalOpen(false);
+        if (event.target.name === "설정 및 개인정보") {
+            navigate(`/profile/${accountname}`);
+            setModalOpen(false);}
         else if (event.target.name === "로그아웃") {
             setModalSecondOpen(true);
             setModalOpen(false);
@@ -81,11 +86,11 @@ export default function ChatList() {
                 <div className={style.div_chat}></div>
                 {chat.map(
                     (x,idx)=>
-                    <li className={style.wrap_chat} onClick = {moveChatingRoom} id={idx} >
+                    <li key={idx} className={style.wrap_chat} onClick = {moveChatingRoom} id={idx} >
                         <div  className={style.cont_img} >
                             <img className={style.profile_img} src={x.img} alt="프로필 이미지" />
                         </div>
-                        <div className={idx!==2 && `${style.icon}`}></div>
+                        <div className={idx!==2 ? `${style.icon}` : ``}></div>
                         <div className={style.cont_chat}>
                             <p className={style.name_chat}>{x.name}</p>
                             <div className={style.cont_span}>

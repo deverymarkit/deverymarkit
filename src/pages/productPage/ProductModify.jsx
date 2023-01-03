@@ -35,8 +35,6 @@ export default function ProductModify() {
     useEffect(() => {
 
         if (productId) {
-            const url = BASE_URL + `/product/detail/${productId}`;
-            
             const getUserProduct = async function () {
             try {
                 const productRes =await customAuthAxios.get(`/product/detail/${productId}`);
@@ -73,9 +71,7 @@ export default function ProductModify() {
     }, [productName, changePrice, productUrl, regex])
 
     const inputPriceFormat = (str) => {
-        console.log("s", str);
         setChangePrice(+str.split(",").reduce((curr, acc) => curr + acc, ""));
-        console.log("s", changePrice);
 
         const comma = (str) => {
             str = String(str);
@@ -110,7 +106,6 @@ export default function ProductModify() {
             "link": productUrl,
             "itemImage": productImg
         }
-        console.log(productImg);
         saveData(productData);
     }
 
@@ -130,7 +125,6 @@ export default function ProductModify() {
     
                 const productUpdata = (await productRes).data
     
-                // console.log(productUpdata);
             } catch(err) { 
                 const error = err.response.data
                 setUrlWarning(error.message);
@@ -154,9 +148,6 @@ export default function ProductModify() {
             navigate(-1);     
             const productUpdata = (await productRes).data
     
-            // console.log(productUpdata);
-    
-    
         } catch(err) { 
             const error = err.response.data
             setUrlWarning(error.message);
@@ -179,16 +170,14 @@ export default function ProductModify() {
 
     // axios
     const getImgUrl = async (image) => {
-        const url = BASE_URL + `/image/uploadfile`;
         const formData = new FormData();
         formData.append('image', image);
         setView("pending");
         try {
             const imgRes = await customImgAxios.post("/image/uploadfile", formData
             );
-            const imgUrl = (await imgRes).data.filename;
-            console.log(imgUrl);
-            setProductImg(BASE_URL + `/${imgUrl}`)
+            const imgUrl = imgRes.data.filename;
+            setProductImg(`${BASE_URL}/${imgUrl}`)
             setView("fulfilled");
 
         } catch(err) {
@@ -203,73 +192,68 @@ export default function ProductModify() {
             <section className={style.cont_productModify}>
                 <div className={`${style.cont_Img} ${style.product}`}>
                     <img src={ productImg? productImg : defalutImg} className={`${style.img_modification} ${style.product}`} alt="상품 사진"></img>
-
                     <input type="file" 
                     className={style.inp_file} 
                     ref={inputRef}
                     accept="image/*" 
                     onChange={handleGetImgUrl}/>
                     <img className={style.img_uploadImg} src={uploadImg} alt="" onClick={handleInputRef}/>
-                
-                    
-                    
                 </div>
-                {view === "pending" ? <p>이미지 업로드 중</p>  : ""}
+                {view === "pending" ?<marquee   className={style.p_uploadImg}
+                                                scrollamount="10">이미지 업로드 중</marquee>  : ""}
 
                 <form className={style.form_productModify}>
                     <label 
-                    htmlFor='productName' 
-                    className={style.label_productModify}
+                        htmlFor='productName' 
+                        className={style.label_productModify}
                     >
                     상품명
                     </label>
 
                     <input 
-                    type="text" 
-                    id="productName"
-                    name="productName"
-                    className={style.input_productModify} 
-                    placeholder="2~15자 이내여야 합니다."
-                    value={productName}
-                    onChange={handleCheckInput}>
+                        type="text" 
+                        id="productName"
+                        name="productName"
+                        className={style.input_productModify} 
+                        placeholder="2~15자 이내여야 합니다."
+                        value={productName}
+                        onChange={handleCheckInput}>
                     </input>
                     <p className={style.p_warning}>{nameWarning}</p>
 
                     <label 
-                    htmlFor='productPrice' 
-                    className={style.label_productModify}>
-                    가격
+                        htmlFor='productPrice' 
+                        className={style.label_productModify}>
+                        가격
                     </label>
 
                     <input 
-                    type="text" 
-                    id="productPrice"
-                    name="productPrice"
-                    className={style.input_productModify}
-                    placeholder="숫자만 입력 가능합니다."
-                    value={productPrice.toLocaleString()}
-                    onChange={handleCheckInput}>
+                        type="text" 
+                        id="productPrice"
+                        name="productPrice"
+                        className={style.input_productModify}
+                        placeholder="숫자만 입력 가능합니다."
+                        value={productPrice.toLocaleString()}
+                        onChange={handleCheckInput}>
                     </input>
                     <p className={style.p_warning}>{priceWarning}</p>
 
                     <label 
-                    htmlFor='productUrl' 
-                    className={style.label_productModify}>
-                    판매 링크
+                        htmlFor='productUrl' 
+                        className={style.label_productModify}>
+                        판매 링크
                     </label>
 
                     <input 
-                    type="text" 
-                    id="productUrl"
-                    name="productUrl"
-                    className={style.input_productModify} 
-                    placeholder="URL을 입력해 주세요."
-                    value={productUrl}
-                    onChange={handleCheckInput}>
+                        type="text" 
+                        id="productUrl"
+                        name="productUrl"
+                        className={style.input_productModify} 
+                        placeholder="URL을 입력해 주세요."
+                        value={productUrl}
+                        onChange={handleCheckInput}>
                     </input>
                     <p className={style.p_warning}>{urlWarning}</p>
-
-                
                 </form>
             </section>
         </>
