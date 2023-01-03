@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import style from "./blankComponent.module.css";
-import bulbBlackImg from "../../assets/imgs/bulb_black.png";
-import page404WhiteImg from "../../assets/imgs/page404-black.png";
-import loading from "../../assets/imgs/loading.png"
+import bulbBlackImg from "../../../assets/imgs/bulb_black.png";
+import page404WhiteImg from "../../../assets/imgs/page404-black.png";
+import loading from "../../../assets/imgs/loading.png"
 
 export default function BlankComponent({type, errorMsg}) {
     const navigate = useNavigate();
