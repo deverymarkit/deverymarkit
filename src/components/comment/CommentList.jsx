@@ -1,13 +1,77 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import ProfileCard from "../common/card/ProfileCard";
 import style from "./comment.module.css";
 import moreIcon from "../../assets/imgs/icon-more-vertical.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ModalPortal from "../common/modal/ModalPortal";
+import Modal from "../common/modal/Modal";
+import { customAuthAxios } from "../../api/customAxios";
 
-export default function CommentList({ commentList }) {
+export default function CommentList({ commentList, handleUpdateComment }) {
 
     const navigate = useNavigate();
+    // 모달 관리 변수
+    const [modalOpen, setModalOpen] = useState(false);
+    const [commentId , setCommentId] = useState("");
+    const {postid} = useParams();
+    const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
+    const userId = loginInfo._id;  
+    const [userType, setUserType] = useState("");
+
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen){
+            document.body.style.overflow ="hidden"
+        }else{
+            document.body.style.overflow =""
+        }
+    }, [modalOpen])
+    
+    // 모달창 노출
+    const showModal = (e) => {
+        const userType = (e.target.dataset.author === userId)? "myComment" : "your";
+        setUserType(userType);
+        setCommentId(e.target.dataset.id);
+
+        setModalOpen(true);
+    };
+    
+    const handleCommentModal = (event) => {
+        // Input을 체크해서 state를 변경하는 함수.
+        if (event.target.name === "삭제하기") {
+            handleCommentDelete();
+            handleUpdateComment();
+        }
+        else if (event.target.name === "신고하기"){
+            handleCommentReport();
+        }
+    }
+
+    // 댓글 삭제 이벤트
+    const handleCommentDelete = async () => {
+        try {
+            console.log(postid);
+            console.log(commentId);
+            const commentDeleteRes = await customAuthAxios.delete(`/post/${postid}/comments/${commentId}`);
+            
+            setModalOpen(false)
+
+            } catch (err) {
+                console.error(err);
+            }
+    }
+
+    // 댓글 신고 이벤트
+    const handleCommentReport = async () => {
+        try {
+            const commentReportRes = await customAuthAxios.delete(`/post/${postid}/comments/${commentId}/report`);
+            setModalOpen(false)
+
+            } catch (err) {
+                console.error(err);
+            }
+    }
 
     const handleProfile = (param) => {
         navigate(`/profile/${param}`);
@@ -43,12 +107,20 @@ export default function CommentList({ commentList }) {
                             <li key={data.id}>
                                 <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={commentCreateDate}  handleBtn={() => {handleProfile(data.author.accountname)}}/>
                                 <p className={style.p_now_comment}>{data.content}</p>            
-                                <img src={moreIcon} className={style.btn_comment_plus} alt="더보기 버튼"/>
+                                <img src={moreIcon} data-id={data.id} data-author={data.author._id}  className={style.btn_comment_plus} alt="더보기 버튼" onClick={showModal}/>
+                                
                             </li>
                         )
                     })
                 }
             </ol>
+            <ModalPortal>
+                {modalOpen && 
+                    <Modal  type={userType} 
+                            modalOpen={modalOpen}
+                            setModalOpen={setModalOpen} 
+                            handleModal ={handleCommentModal} />}    
+            </ModalPortal>    
         </>
     )
 }
