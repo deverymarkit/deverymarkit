@@ -1,0 +1,29 @@
+.box_profile_post,
+.box_profile_list,
+.box_profile_comment {
+    border-radius: 50%;
+}
+
+.box_profile_post {
+    width: 42px;
+    height: 42px;
+}
+
+.box_profile_list {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.box_profile_comment {
+    width: 36px;
+    height: 36px;
+}
+
+.profile_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
