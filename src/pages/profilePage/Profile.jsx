@@ -38,21 +38,21 @@ export default function Profile() {
     const routeTo = (route) => {
         navigate(route)
     }
+
+    useEffect(()=>{
+        //스크롤 금지 
+        if(modalOpen || modalSecondOpen){
+            document.body.style.overflow ="hidden"
+        }else{
+            document.body.style.overflow =""
+        }
+    }, [modalOpen, modalSecondOpen])
+
     // 모달창 노출
     const showModal = (e) => {
         setModalOpen(true);
         console.log(e.currentTarget.dataset.link)
     };
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen || modalSecondOpen){
-            document.body.style.overflow ="hidden";
-            document.body.style.paddingRight = "15px";
-        }else{
-            document.body.style.overflow ="";
-            document.body.style.paddingRight = "";
-        }
-    }, [modalOpen, modalSecondOpen])
 
     const getProfileInfo = async () => {
         try {
@@ -66,11 +66,14 @@ export default function Profile() {
     }
     
     const handleProfileDetail = (event) => {
-        if (event.target.name === "설정 및 개인정보") setModalOpen(false);
+        if (event.target.name === "설정 및 개인정보") {
+            navigate(`/profilemodify`);
+            setModalOpen(false);
+        }
         else if (event.target.name === "로그아웃") {
             setModalSecondOpen(true);
             setModalOpen(false);
-            }
+        }
     }
 
      // 로그아웃 이벤트
