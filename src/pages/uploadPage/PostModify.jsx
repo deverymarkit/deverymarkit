@@ -11,7 +11,7 @@ import BASE_URL from "../../components/common/BaseURL";
 import { customAuthAxios } from "../../api/customAxios";
 import { customImgAxios } from "../../api/customAxios";
 import Loading from "../Loading";
-
+import Page404 from "../Page404";
 
 export default function PostModify() {
 
@@ -33,6 +33,10 @@ export default function PostModify() {
     const {postid} = useParams();
     const textRef = useRef();
     const fileRef = useRef();
+    const [post, setPost] = useState();
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
     //기존 포스트 데이터 요청
     useEffect(() => {
     async function getPost() {
@@ -49,7 +53,11 @@ export default function PostModify() {
             }     
             setView("fulfilled");
         } catch (err) {
-        setView("rejected");
+            setView("rejected");
+            setErrorMsg(err.response.data.message)
+            setIsLoading(false);
+            console.error(err);
+            setIsError(true);
         }
     }
         getPost();
@@ -177,7 +185,10 @@ export default function PostModify() {
 
     if(isLoading) {
         return <Loading />
-    } else {
+    }else if (isError){
+        return <Page404 errorMsg={errorMsg}/>
+    }  
+    else {
         return(
         <>
             <Header type="upload"  IsValue={IsValue} handleHeaderBtn = {handleSubmit}/>
