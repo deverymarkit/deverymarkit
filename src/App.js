@@ -1,10 +1,10 @@
-import './App.css';
+import Router from "./routes/Router";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+export default function App() {
+	return (
+		<div className="App">
+			<Router />
+		</div>
+	)
 }
-
-export default App;

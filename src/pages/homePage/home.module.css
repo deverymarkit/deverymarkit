@@ -1,0 +1,12 @@
+.wrap_posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-top: 1px solid #E0E0E0;
+}
+
+.ol_post {
+    width: 390px;
+    padding: 60px 20px;
+}

@@ -1,0 +1,71 @@
+/* commentList 
+ * 하트, 댓글 이미지 가져오고 글자 크기 조절해야함
+ * 댓글 내용 해야함
+ */
+.box_comment {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    margin: 0 auto;
+    padding: 16px 16px 48px 16px;
+    /*border-radius: 7px;*/
+    /*box-shadow: 0px 0px 5px 1px rgb(76 76 76 / 20%);*/
+}
+
+.cont_comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.cont_comment li {
+    position: relative;
+}
+
+.box_commentInput {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 48px;
+    min-width: 390px;
+    padding: 0 16px;
+    border-top: 1px solid var(--solid-color);
+    background-color: #FFF;
+    z-index: 2;
+}
+
+.inp_comment {
+    /*border:0;*/
+    margin-left: 9px;
+    margin-right: 9px;
+    flex-grow: 1;
+    border: none;
+    resize: none;
+    /*margin-top: 12px;*/
+    padding: 8px;
+    /*margin-left: 13px;*/
+    border-radius: 7px;
+    background-color: rgba(0, 29, 36, 0.1);
+    white-space: pre-wrap;
+}
+
+.btn_commentInput {
+    cursor: pointer;
+}
+
+.p_now_comment {
+    margin-left: 46px;
+    margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333333;
+}
+
+.btn_comment_plus {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    cursor: pointer;
+}

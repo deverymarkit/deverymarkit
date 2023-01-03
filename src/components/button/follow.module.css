@@ -1,0 +1,20 @@
+.btn_isfollow {
+    flex-shrink: 0;
+    width: 56px;
+    height: 28px;
+    margin-left: auto;
+    margin-top: 11px;
+    background-color: #FFF;
+    border-radius: 26px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    border: 1px solid var(--solid-color);
+    color: var(--text-default-color);
+    cursor: pointer;
+}
+
+.btn_isfollow.un {
+    background-color: var(--devery-main-color);
+    color: #FFFFFF;
+}

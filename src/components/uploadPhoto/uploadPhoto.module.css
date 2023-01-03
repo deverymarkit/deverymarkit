@@ -1,0 +1,36 @@
+.cont_img {
+    position: relative;
+    margin-right: 8px;
+    width: 168px;
+}
+
+.img_preview {
+    display:block;
+    border-radius: 10px;
+    width: 168px;
+    height: 126px;
+    overflow: hidden;
+    object-fit: cover;
+
+
+}
+
+.wrap_img {
+    display: flex;
+    overflow-x: scroll;
+    margin: 15px 0;
+}
+
+.scroll_img {
+    overflow: hidden;
+}
+
+.btn_remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 6px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}

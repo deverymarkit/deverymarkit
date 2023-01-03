@@ -1,0 +1,6 @@
+.sect_basicheader {
+    position: fixed;
+    height: 48px;
+    width: 100vw;
+    border-bottom: 1px solid rgba(76, 76, 76, 0.2);
+}

@@ -1,0 +1,73 @@
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes layout {
+    from {
+        height: 100vh;
+    }
+    to {
+        height: 75vh;
+    }
+}
+
+.main_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0f0b19;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    height: 75vh;
+    animation: layout 2s;
+}
+
+.img_login {
+    width: 150px;
+    height: 150px;
+    animation: fadein 2s;
+}
+
+.logo_login {
+    width: 100vw;
+    text-align: center;
+    padding-top: 180px;
+    flex-grow: 1;
+}
+
+.cont_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    animation: fadein 3s;
+}
+
+.ul_login {
+    display: flex;
+}
+
+.btn_login {
+    color: black;
+    cursor: pointer;
+}
+
+.btn_login::after {
+    display: inline-block;
+    margin-left: 12px;
+    content: "";
+    width: 1px;
+    height: 10px;
+    background-color: black;
+
+}
+
+.btn_join {
+    color: black;
+    cursor: pointer;
+}

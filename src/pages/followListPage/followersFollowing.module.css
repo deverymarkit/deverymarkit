@@ -1,0 +1,13 @@
+.wrap_follow {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    padding: 20px;
+}
+
+.cont_follow {
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    margin-top: 74px;
+}

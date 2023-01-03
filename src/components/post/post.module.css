@@ -1,0 +1,115 @@
+.wrap_posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF;
+    border-top: 1px solid #E0E0E0;
+    padding-bottom: 60px;
+}
+
+
+.cont_display_btn {
+    display: flex;
+    justify-content: flex-start;
+    width: 390px;
+    padding: 10px;
+    border-bottom : 0.5px solid var(--solid-color);
+}
+
+.btn_album {
+    margin-left: 16px;
+}
+
+.btn_list,
+.btn_album {
+    cursor: pointer;
+}
+
+.btn_list.on {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-list-on.svg);
+    background-position: center;
+}
+
+.btn_album.on {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-album-on.svg);
+    background-position: center;
+}
+
+.btn_list.off {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-list-off.svg);
+    background-position: center;
+}
+
+.btn_album.off {
+    width: 26px;
+    height: 26px;
+    background-image: url(../../assets/imgs/icon-post-album-off.svg);
+    background-position: center;
+}
+
+.ol_listview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 390px;
+    width: 100%;
+    padding: 20px 16px 30px 16px;
+    background-color: #FFF;
+}
+
+.ol_albumview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 390px;
+    width: 100%;
+    padding: 16px 16px 30px 16px;
+    background-color: #FFF;
+}
+
+.box_post {
+    width: 304px;
+    height: 228px;
+    margin-top: 16px;
+    border-radius: 10px;
+}
+
+.box_post img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.box_album_post {
+    position: relative;
+    width: 114px;
+    height: 114px;
+    /*border-radius: 7px;*/
+}
+
+.box_album_post img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    /*border-radius: inherit;*/
+    cursor: pointer;
+}
+
+.box_album_post.img_multi::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/imgs/icon-img-layers.png);
+}

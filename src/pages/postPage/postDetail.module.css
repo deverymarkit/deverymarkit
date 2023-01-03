@@ -1,0 +1,20 @@
+.wrap_post_detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: #FFF;
+}
+
+.cont_post_detail {
+    width: 390px;
+    min-width: 390px;
+    margin-top: 48px;
+    padding: 20px 16px 0px 16px;
+}
+
+.cont_post_comment {
+    width: 100%;
+    margin-top: -10px;
+    border-top: 1px solid var(--solid-color);
+}

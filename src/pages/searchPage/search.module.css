@@ -1,0 +1,32 @@
+.cont_search {
+    position: relative;
+}
+
+.cont_profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tit_user_name {
+    margin-top: 4px;
+    margin-left: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.tit_user_id {
+    display: block;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--text-default-color);
+}
+
+.ul_search {
+    padding: 60px 0px 60px;
+    width: 390px;
+    margin: 0px auto;
+}

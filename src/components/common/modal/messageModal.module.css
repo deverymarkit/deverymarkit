@@ -1,0 +1,52 @@
+.back_modal {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    background-color : rgba(0,0,0,0.2);
+    z-index : 100;
+    box-sizing: border-box;
+    display :flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap_messageModal {
+    display : grid;
+    width: 252px;
+    height: 110px;
+    border-radius: 10px;
+    background-color: #0F0B19;
+    grid-template-columns: 126px 126px;
+    grid-template-rows: 64px 46px;
+    grid-gap: 1px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+.p_messageModal {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align : center;
+    padding : 25px 0;
+    background-color: white;
+
+}
+
+.btn_messageModal {
+    background-color: white;
+
+}
+
+.btn_messageModal:hover {
+    cursor: pointer;
+}
+
+.btn_messageModal:last-child:hover  {
+    color: red;
+
+}
+

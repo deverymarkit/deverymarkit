@@ -1,0 +1,65 @@
+.item_follow {
+    display: flex;
+    overflow: hidden;
+}
+
+.cont_profile_card {
+    display: flex;
+    margin-bottom: 16px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.post_user_name,
+.search_user_name,
+.follow_user_name {
+    margin-top: 4px;
+    margin-left: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.post_user_id {
+    display: block;
+    margin-top: 2px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--text-default-color);
+}
+
+.search_user_id,
+.follow_user_desc {
+    display: block;
+    margin-top: 6px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--text-default-color);
+}
+
+.follow_user_name {
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.follow_user_desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.p_comment_name {
+    margin: 10px 10px 0 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.span_comment_date {
+    margin-top: 11px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+    color: #767676;
+}
