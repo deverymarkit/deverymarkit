@@ -8,11 +8,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import BASE_URL from "../../components/common/BaseURL";
 import { customAuthAxios } from "../../api/customAxios";
 import { customImgAxios } from "../../api/customAxios";
-
+import Loading from "../Loading";
+import Page404 from "../Page404";
 
 export default function ProductModify() {
 
     const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
     const [productImg, setProductImg] = useState();
     const [nameWarning, setNameWarning] = useState("");
     const [priceWarning, setPriceWarning] = useState("");
@@ -44,8 +47,12 @@ export default function ProductModify() {
                 setProductPrice(productRes.data.product.price);
                 setChangePrice(productRes.data.product.price)
                 setProductUrl(productRes.data.product.link);
-            } catch (error) {
-                console.log(error);
+                setIsLoading(false)
+            } catch (err) {
+                setErrorMsg(err.response.data.message)
+                setIsLoading(false);
+                console.error(err);
+                setIsError(true);
             }
             };
             getUserProduct();
@@ -185,6 +192,12 @@ export default function ProductModify() {
         }
     }
 
+    if(isLoading) {
+        return <Loading />
+    }else if (isError){
+        return <Page404 errorMsg={errorMsg}/>
+    }  
+    else {
     return (
         <>
             <Header type = "modification" handleHeaderBtn={handleSetProduct} IsValue={IsValue}/>
@@ -199,8 +212,10 @@ export default function ProductModify() {
                     onChange={handleGetImgUrl}/>
                     <img className={style.img_uploadImg} src={uploadImg} alt="" onClick={handleInputRef}/>
                 </div>
-                {view === "pending" ?<marquee   className={style.p_uploadImg}
-                                                scrollamount="10">이미지 업로드 중</marquee>  : ""}
+                {view === "pending" ?
+                    // eslint-disable-next-line jsx-a11y/no-distracting-elements
+                    <marquee   className={style.p_uploadImg}
+                                scrollamount="10">이미지 업로드 중</marquee>  : ""}
 
                 <form className={style.form_productModify}>
                     <label 
@@ -258,4 +273,5 @@ export default function ProductModify() {
             </section>
         </>
     )
+}
 }

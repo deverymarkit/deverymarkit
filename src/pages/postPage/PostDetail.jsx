@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 import { customAuthAxios } from "../../api/customAxios";
 import Header from "../../components/common/header/Header";
@@ -10,6 +10,7 @@ import Modal from '../../components/common/modal/Modal';
 import MessageModal from "../../components/common/modal/MessageModal";
 import Loading from "../Loading";
 import style from "./postDetail.module.css";
+import Page404 from "../Page404";
 
 export default function PostDetail() {
 
@@ -18,21 +19,27 @@ export default function PostDetail() {
     //Id 가져오기
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const accountname = loginInfo.accountname; 
-    const postId = location.state.id;
+    // const postId = location.state.id;
+    const {postid} = useParams();
     // 모달 관리 변수
     const [modalOpen, setModalOpen] = useState(false);
     const [modalSecondOpen, setModalSecondOpen] = useState(false);
 
     const [post, setPost] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
     const getPost = async () => {
         try {
-            const postRes = await customAuthAxios.get(`/post/${postId}`);
+            const postRes = await customAuthAxios.get(`/post/${postid}`);
             setPost(postRes.data.post);
             setIsLoading(false);
         } catch (err) {
+            setErrorMsg(err.response.data.message)
+            setIsLoading(false);
             console.error(err);
+            setIsError(true);
         }
     }
 
@@ -81,7 +88,10 @@ export default function PostDetail() {
 
     if (isLoading) {
         return <Loading />
-    } else {
+    }else if (isError){
+        return <Page404 errorMsg={errorMsg}/>
+    } 
+    else {
         return (
             <>
                 <Header type="post" handleHeaderBtn={showModal}/>
