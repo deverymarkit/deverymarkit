@@ -28,7 +28,8 @@
 }
 
 .img_login {
-    border: 2px solid white;
+    width: 150px;
+    height: 150px;
     animation: fadein 2s;
 }
 
