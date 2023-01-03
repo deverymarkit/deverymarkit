@@ -23,7 +23,6 @@ export default function ChatingRoom() {
     // 모달창 노출
     const showModal = (e) => {
         setModalOpen(true);
-        console.log(e.currentTarget.dataset.link)
     };
     useEffect(()=>{
         //스크롤 금지 
@@ -115,7 +114,6 @@ return (
                         onKeyPress={(e) => {
                             if(msg){
                                 if(e.code == 'Enter'){
-                                    console.log(msg);
                                     setMsgList([...msgList, message]);
                                     setMsg("");
                                 
@@ -126,7 +124,6 @@ return (
                     <button
                         onClick={() => {
                             if(msg){
-                                console.log(msg);
                                 setMsgList([...msgList, message]);
                                 setMsg("");
                             }

@@ -5,15 +5,7 @@
     flex-direction: column;
     align-items: center;
     margin: 110px auto;
-    
-
-}
-
-.span_productModify {
-    /* position: relative;
-    top: 50px;
-    left: 50vh; */
-    /* margin: 78px 0 18px 0 ; */
+    position: relative;
 }
 
 .cont_Img {
@@ -32,7 +24,6 @@
     border-radius: 10px;
     object-fit: cover;
 }
-
 
 .img_uploadImg {
     position: absolute;
@@ -95,4 +86,10 @@
     margin: -25px auto 15px;
     text-align: left;
     color: #EB5757;
+}
+
+.p_uploadImg {
+    position: absolute;
+    color: grey;
+    top: 250px;
 }
