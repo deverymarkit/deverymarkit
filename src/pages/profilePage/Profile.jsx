@@ -54,7 +54,6 @@ export default function Profile() {
     // 모달창 노출
     const showModal = (e) => {
         setModalOpen(true);
-        console.log(e.currentTarget.dataset.link)
     };
 
     const getProfileInfo = async () => {
