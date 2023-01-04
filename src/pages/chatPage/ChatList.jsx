@@ -1,8 +1,8 @@
 import React ,{ useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import profileImg from "../../assets/imgs/chat_profile.jpg";
-import profileImg2 from "../../assets/imgs/profile-none.png";
-import profileImg3 from "../../assets/imgs/chat_profile3.jpg";
+import profileImg2 from "../../assets/imgs/chat_profile3.jpg";
+import profileImg3 from "../../assets/imgs/bulb_black.png";
 import Header from '../../components/common/header/Header';
 import ModalPortal from '../../components/common/modal/ModalPortal';
 import Modal from '../../components/common/modal/Modal';
@@ -26,16 +26,16 @@ export default function ChatList() {
         date: "2022.12.31"    
     },
     {
-        name: "JavaScript 마스터",
-        img: profileImg2,
-        txt: "내 장점이 뭔지 알아 바로 솔직한거야",
-        date: "2022.10.02"    
-    },
-    {
         name: "전자상가",
-        img: profileImg3,
+        img: profileImg2,
         txt: "치킨 먹고싶당 떡볶이 먹고싶다",
         date: "2022.8.13"    
+    },
+    {
+        name: "JavaScript 마스터",
+        img: profileImg3,
+        txt: "내 장점이 뭔지 알아 바로 솔직한거야",
+        date: "2022.10.02"    
     }
     ]
     const routeTo = (route) => {
