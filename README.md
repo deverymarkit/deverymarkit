@@ -1,21 +1,20 @@
 # :computer: 개발자를 위한 데브리마킷
 
-🔗 **[배포URL](https://deverymarkit.vercel.app/)** <br/>
+🔗 **[배포URL](https://deverymarkit.vercel.app/)** <br/><br/>
 🔒 **서비스 이용을 위한 계정**
 <br/>
-ID :   <br/>
-PW : 
-<br/>
-
-![image]()
+- ID : deverymarkit@naver.com <br/>
+- PW : 123123
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/58455479/210468104-308fb759-2533-465f-9f00-38e0a85d63d0.jpeg"  width="1000" height="650"/>
+</p>
 
 <details>
 <summary>목차</summary>
 <div markdown="1">
-<br/>
 
 1. [프로젝트 소개](#intro)
-2. [개발환경 및 사용기술](#environments)
+2. [사용기술 및 개발환경](#environments)
 3. [역할 분담](#roles)
 4. [폴더구조](#tree)
 5. [핵심 코드](#code)
@@ -27,7 +26,7 @@ PW :
 </details>
 <br/>
 
-# <sapn id="intro"> 1. 프로젝트 소개 </span>
+# 1. <span id="intro"> 프로젝트 소개 </span>
 
 ```jsx
 👉🏻 개발자의, 개발자에 의한, 개발자를 위한 SNS 데브리마킷입니다.
@@ -63,9 +62,10 @@ PW :
 - 🔗 [디자인 시안](https://www.figma.com/file/d4CsFRGIALPvJNecvFilVu/%EC%A0%84%EC%9E%90%EC%A0%9C%ED%92%88-%EB%A7%88%EC%BC%93?node-id=39%3A1814&t=3lV2qDvsFR3EXipx-0)
 
 ## 4) 이슈 관리
-- 🔗 [GitHub Issues]() 와 🔗 [GitHub Project]() 를 사용하여 버전 관리 및 진행 상황을 공유함
+- 🔗 [GitHub Issues](https://github.com/deverymarkit/deverymarkit/issues) 와 🔗 [GitHub Project](https://github.com/deverymarkit/deverymarkit/projects?query=is%3Aopen) 를 사용하여 버전 관리 및 진행 상황을 공유
+<img src="https://user-images.githubusercontent.com/58455479/210469515-4714e13e-6791-4142-acd0-7acf311ab8af.png"  width="370" height="360"/>
+<img src="https://user-images.githubusercontent.com/58455479/210469320-3e9742ad-df41-4a79-b0f8-67fd99908235.png"  width="370" height="360"/>
 
-![image]()
 
 ## 5) Git Flow
 <br/>
@@ -76,7 +76,7 @@ PW :
 
 |김태수|이경린|배지현|최수진|
 |:---:|:---:|:---:|:---:|
-|<img src ="" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|
+|<img src ="https://user-images.githubusercontent.com/58455479/210469909-89e77bc0-3a99-44de-8b12-b23cd8dd4340.jpeg" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="https://user-images.githubusercontent.com/58455479/210470017-4a6e3efd-556b-42a9-8e20-78bc2d73b2ad.jpeg" width="170px" height="180px"/>|
 |🔗[GitHub](https://github.com/2duckchun)|🔗[GitHub](https://github.com/lgrin-byte)|🔗[GitHub](https://github.com/CocoLeahBae)|🔗[GitHub](https://github.com/ssujinchoi)|
 <br>
 
