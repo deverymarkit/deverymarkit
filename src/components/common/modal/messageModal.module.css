@@ -18,13 +18,12 @@
     width: 252px;
     height: 110px;
     border-radius: 10px;
-    background-color: #0F0B19;
+    background-color: rgb(217, 216, 216);
     grid-template-columns: 126px 126px;
     grid-template-rows: 64px 46px;
     grid-gap: 1px;
     border-radius: 10px;
     overflow: hidden;
-
 }
 
 .p_messageModal {
