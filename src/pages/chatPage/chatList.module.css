@@ -27,7 +27,7 @@
 
 .icon {
     position: absolute;
-    border: 6px solid #04CF5C;
+    border: 6px solid #58c32a;
     border-radius: 50%;
 
 }
@@ -60,5 +60,5 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 358px;
+    width: 304px;
 }

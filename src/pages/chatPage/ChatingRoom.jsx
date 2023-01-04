@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import style from "./ChatingRoom.module.css";
 import profileImg from "../../assets/imgs/chat_profile.jpg";
-import profileImg2 from "../../assets/imgs/profile-none.png";
-import profileImg3 from "../../assets/imgs/chat_profile3.jpg";
+import profileImg2 from "../../assets/imgs/chat_profile3.jpg";
+import profileImg3 from "../../assets/imgs/bulb_black.png";
 import ProfileButton from "../../assets/imgs/profile-none.png";
 import imgButton from "../../assets/imgs/img-button.png";
 import ModalPortal from "../../components/common/modal/ModalPortal";
@@ -42,16 +42,16 @@ export default function ChatingRoom() {
     },
     {
         img: profileImg2,
-        name:"JavaScript 마스터",
-        txt: "내 장점이 뭔지 알아 바로 솔직한거야",
-        date: "오후 1:37"    
-    },
-    {
-        img: profileImg3,
         name:"전자상가",
         txt: "치킨 먹고싶당 떡볶이 먹고싶다",
         date: "오전 9:02"    
-    } ]
+    },
+    {
+        img: profileImg3,
+        name:"JavaScript 마스터",
+        txt: "내 장점이 뭔지 알아 바로 솔직한거야",
+        date: "오후 1:37"    
+    }]
 
     if(hour > 12 ){
         hour = hour - 12 
