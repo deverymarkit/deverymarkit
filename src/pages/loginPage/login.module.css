@@ -24,13 +24,13 @@
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     height: 75vh;
-    animation: layout 2s;
+    animation: layout 1s;
 }
 
 .img_login {
     width: 150px;
     height: 150px;
-    animation: fadein 2s;
+    animation: fadein 1s;
 }
 
 .logo_login {
@@ -45,7 +45,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px;
-    animation: fadein 3s;
+    animation: fadein 1s;
 }
 
 .ul_login {
