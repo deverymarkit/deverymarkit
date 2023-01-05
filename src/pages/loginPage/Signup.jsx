@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import style from "./signup.module.css";
-import axios from "axios";
+import { customAxios } from "../../api/customAxios.js";
 
 export default function Signup() {
     const [inputEmail, setInputEmail] = useState("");
@@ -11,7 +11,7 @@ export default function Signup() {
     const [btnValid, setBtnValid] = useState("btn_invalid")
     const navigate = useNavigate();
 
-    const changeRoute = (email, password) => {
+    const goToProfileSetting = (email, password) => {
         navigate('/profilesetting', {
             state: {
                 email: email,
@@ -27,22 +27,18 @@ export default function Signup() {
             return
         }
 
-        const url = 'https://mandarin.api.weniv.co.kr'
         try {
-            const resEmailValid = axios.post(`${url}/user/emailvalid`, {
+            const resEmailValid = await customAxios.post("/user/emailvalid", {
                 "user": {
                     "email": emailValue,
-                },
-                "headers": {
-                    "Content-Type": "application/json"
                 }
             })
-            const emailRes = (await resEmailValid).data;
+            const emailRes = resEmailValid.data;
             if (emailRes.message === "이미 가입된 이메일 주소 입니다.") {
                 setEmailWarning(emailRes.message)
                 return
             }
-            changeRoute(emailValue, passwordValue)
+            goToProfileSetting(emailValue, passwordValue)
 
         } catch(err) {
             const error = err.response.data.message;
@@ -63,10 +59,13 @@ export default function Signup() {
 
     }, [inputEmail, inputPassword]);
 
-    // input 엘리먼트에 이벤트가 일어나는 것을 감지함.
     const handleCheckInput = (event) => {
-        if (event.target.name === "email") setInputEmail(event.target.value);
-        else if (event.target.name === "password") setInputPassword(event.target.value);
+        if (event.target.name === "email") {
+            setInputEmail(event.target.value)
+        }
+        else if (event.target.name === "password") {
+            setInputPassword(event.target.value)
+        }
     }
     
     return (

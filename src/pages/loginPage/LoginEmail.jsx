@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import style from "./loginEmail.module.css"
 import { useDispatch } from "react-redux";
 import { loginUpdate } from "../../store";
+import { customAxios } from "../../api/customAxios.js"
 
 export default function Login() {
     const [inputEmail, setInputEmail] = useState("");
@@ -13,9 +13,7 @@ export default function Login() {
     const [btnValid, isBtnValid] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const routeTo = (route) => {
-        navigate(route)
-    }
+
     // 유효성 검사를 진행합니다.
     useEffect(() => {
         if (inputEmail !== "" && inputPassword.length > 5) {
@@ -40,40 +38,37 @@ export default function Login() {
         getLogin(inputEmail, inputPassword)
     }
 
+    const setStorage = (data) => {
+        const loginInfo = {
+            ...data
+        }
+        localStorage.removeItem("loginStorage")
+        localStorage.setItem("loginStorage", JSON.stringify({...loginInfo}));
+    }
+
     const getLogin = async(email, password) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
         const userdata = {
             "email": email,
             "password": password
         }
         try {
-            const loginRes = axios.post(`${url}user/login`, {
+            const loginRes = await customAxios.post("user/login", {
                 "user": {
                     ...userdata
-                },
-                "headers": {
-                    "Content-Type": "application/json"
                 }
-            });
-            
-            const loginUserData = (await loginRes)
-
-            if (loginUserData.data.status === 422) {
-                setLoginWarning(loginUserData.data.message)
+            })
+            const loginData = loginRes.data.user
+            if (loginRes.data.status === 422) {
+                setLoginWarning(loginRes.data.message)
                 return
-            };
-            
-            if (loginUserData.data.user) {
-                dispatch(loginUpdate(loginUserData.data.user));
-                if (localStorage.getItem("loginStorage")) {
-                    localStorage.removeItem("loginStorage")
-                }
-                localStorage.setItem("loginStorage", JSON.stringify(loginUserData.data.user))
-                routeTo('/home')
             }
-
+            if (loginData) {
+                dispatch(loginUpdate(loginData));
+                setStorage(loginData)
+                navigate('/home')
+            }
         } catch(err) {
-            console.log(err);
+            console.error(err);
         }
     } 
 
@@ -128,7 +123,7 @@ export default function Login() {
             <button
             type="button" 
             className={style.btn_join}
-            onClick={() => routeTo("/signup")}>
+            onClick={() => navigate("/signup")}>
             이메일로 회원가입
             </button>
         </section>
