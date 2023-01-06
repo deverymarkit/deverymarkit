@@ -16,10 +16,11 @@
 1. [프로젝트 소개](#intro)
 2. [사용기술 및 개발환경](#environments)
 3. [역할 분담](#roles)
-4. [폴더구조](#tree)
+4. [트러블 슈팅](#trouble)
 5. [핵심 코드](#code)
-6. [트러블 슈팅](#trouble)
-7. [UI](#ui)
+6. [프로젝트 구조](#tree)
+7. [느낀 점](#feel)
+8. [UI](#ui)
 
 </div>
 
@@ -76,11 +77,19 @@
 
 |김태수|이경린|배지현|최수진|
 |:---:|:---:|:---:|:---:|
-|<img src ="https://user-images.githubusercontent.com/58455479/210469909-89e77bc0-3a99-44de-8b12-b23cd8dd4340.jpeg" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="" width="170px" height="180px"/>|<img src ="https://user-images.githubusercontent.com/58455479/210470017-4a6e3efd-556b-42a9-8e20-78bc2d73b2ad.jpeg" width="170px" height="180px"/>|
+|<img src ="https://user-images.githubusercontent.com/58455479/210469909-89e77bc0-3a99-44de-8b12-b23cd8dd4340.jpeg" width="170px" height="180px"/>|<img src ="https://user-images.githubusercontent.com/58455479/210931416-eea730ee-3ffd-42fc-964c-6be9cf709290.png" width="170px" height="180px"/>|<img src ="https://user-images.githubusercontent.com/58455479/210931530-93db8443-60b1-468c-9698-b645ec768a91.jpeg" width="170px" height="180px"/>|<img src ="https://user-images.githubusercontent.com/58455479/210470017-4a6e3efd-556b-42a9-8e20-78bc2d73b2ad.jpeg" width="170px" height="180px"/>|
 |🔗[GitHub](https://github.com/2duckchun)|🔗[GitHub](https://github.com/lgrin-byte)|🔗[GitHub](https://github.com/CocoLeahBae)|🔗[GitHub](https://github.com/ssujinchoi)|
 <br>
 
-# 4. <span id = "tree"> 폴더 구조 </span> 
+# 4. <span id = "code"> 핵심 코드 </span>
+
+### 1) customAxios
+<br/>
+
+# 5. <span id = "trouble"> 트러블 슈팅 </span>
+<br/>
+
+# 6. <span id = "tree"> 프로젝트 구조 </span> 
 ```
 📦src
  ┣ 📂api
@@ -122,15 +131,11 @@
  ```
 <br/>
 
-# 5. <span id = "code"> 핵심 코드 </span>
+# 7. <span id = "feel"> 느낀 점 </span>
 
-### 1) customAxios
 <br/>
 
-# 6. <span id = "trouble"> 트러블 슈팅 </span>
-<br/>
-
-# 7. <span id = "ui"> UI </span>
+# 8. <span id = "ui"> UI </span>
 
 
 
