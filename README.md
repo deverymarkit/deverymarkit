@@ -137,7 +137,8 @@
 <br/>
 
 # 7. <span id = "feel"> 느낀 점 </span>
-
+## 태수
+ - 가나다라
 <br/>
 
 # 8. <span id = "ui"> UI </span>
