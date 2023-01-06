@@ -69,6 +69,11 @@
 
 
 ## 5) Git Flow
+- main, develop, 개인 작업 브랜치로 git 흐름을 구성함.
+- main 브랜치에서 최종 배포 실행.
+- develop 브랜치에서 통합 개발 진행
+- 깃 컨벤션에 따라 develop에서 개발 브랜치를 생성하고 작업을 진행한 후 develop에 pull request함. 
+# 그림도 넣고, 말좀 더 수정하겠습니다. (+ 태수)
 <br/>
 
 # 3. <span id = "roles"> 역할 분담 </span>
