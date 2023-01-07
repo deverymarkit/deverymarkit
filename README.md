@@ -141,6 +141,7 @@
 <br/>
 
 # 8. <span id = "ui"> UI </span>
+<img width="70%" src="https://user-images.githubusercontent.com/92588154/211147070-cba85367-dc6a-49b9-afed-989baac64a18.gif" />
 ![image](https://user-images.githubusercontent.com/92588154/211147070-cba85367-dc6a-49b9-afed-989baac64a18.gif){: width="195" height="422"}
 
 
