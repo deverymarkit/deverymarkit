@@ -9,15 +9,14 @@ import Modal from '../../components/common/modal/Modal';
 import MessageModal from "../../components/common/modal/MessageModal";
 import Navbar from '../../components/common/navbar/Navbar';
 import style from './chatList.module.css'
+import useCustomModal from '../../hooks/useCustomModal';
 
 export default function ChatList() {
     const navigate = useNavigate();
     //Id 가져오기
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const accountname = loginInfo.accountname; 
-    // 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen,showModal] = useCustomModal();
 
     const chat = [{
         name: "전자제품 농장",
@@ -41,19 +40,8 @@ export default function ChatList() {
     const routeTo = (route) => {
         navigate(route)
     }
-    // 모달창 노출
-    const showModal = () => {
-        setModalOpen(true);
-    };
+
     
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen || modalSecondOpen){
-            document.body.style.overflow ="hidden"
-        }else{
-            document.body.style.overflow =""
-        }
-    }, [modalOpen, modalSecondOpen])
 
     const handleProfileDetail = (event) => {
         if (event.target.name === "설정 및 개인정보") {

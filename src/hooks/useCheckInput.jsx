@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useCheckInput(initState) {
+export default function useCheckInput(initState) {
 
     const [username, setUserName] = useState(initState);
     const [accountname, setAccountName] = useState(initState)
@@ -18,4 +18,3 @@ function useCheckInput(initState) {
     return [username, accountname, linkname, handleCheckInput];
 }
 
-export default useCheckInput;

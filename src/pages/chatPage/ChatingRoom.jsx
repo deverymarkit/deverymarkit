@@ -9,6 +9,7 @@ import ModalPortal from "../../components/common/modal/ModalPortal";
 import Modal from "../../components/common/modal/Modal";
 import Header from '../../components/common/header/Header';
 import { useNavigate, useParams } from "react-router-dom";
+import useCustomModal from "../../hooks/useCustomModal";
 
 export default function ChatingRoom() {
     const [msg, setMsg] = useState("");
@@ -18,21 +19,7 @@ export default function ChatingRoom() {
     let hour = date.getHours();
     let minute = date.getMinutes();
     const navigate = useNavigate();
-    // 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
-    // 모달창 노출
-    const showModal = (e) => {
-        setModalOpen(true);
-    };
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen){
-            document.body.style.overflow ="hidden";
-        }else{
-            document.body.style.overflow ="";
-            document.body.style.paddingRight = "";
-        }
-    }, [modalOpen])
+    const [modalOpen, setModalOpen, showModal] = useCustomModal();
     
     const chat = [{
         img: profileImg,
