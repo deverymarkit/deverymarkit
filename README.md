@@ -67,7 +67,6 @@
 <img src="https://user-images.githubusercontent.com/58455479/210469515-4714e13e-6791-4142-acd0-7acf311ab8af.png"  width="370" height="360"/>
 <img src="https://user-images.githubusercontent.com/58455479/210469320-3e9742ad-df41-4a79-b0f8-67fd99908235.png"  width="370" height="360"/>
 
-
 ## 5) GitHub Flow
 ![gitflow](https://user-images.githubusercontent.com/92588154/211146883-0ce5b0b4-df55-4101-ac75-af4635362a92.png)
 - main, develop, 개인 작업 브랜치로 환경 구성
