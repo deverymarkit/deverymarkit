@@ -5,6 +5,7 @@ import ModalPortal from "../common/modal/ModalPortal";
 import Modal from "../common/modal/Modal";
 import MessageModal from "../common/modal/MessageModal";
 import style from "./product.module.css";
+import useCustomModal from "../../hooks/useCustomModal";
 
 export default function Product({ accountname, profileType }) {
 
@@ -13,9 +14,7 @@ export default function Product({ accountname, profileType }) {
     const [productChoice, setProductChoice ] = useState("");
     const [productUrl, setProductUrl ] = useState("");
 
-// 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen] = useCustomModal();
 
     const getProductList = async () => {
         try {

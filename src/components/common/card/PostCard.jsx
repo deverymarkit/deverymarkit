@@ -19,6 +19,7 @@ import noImg from "../../../assets/imgs/no-picture.png";
 import ModalPortal from "../modal/ModalPortal";
 import Modal from "../modal/Modal";
 import MessageModal from "../modal/MessageModal";
+import useCustomModal from "../../../hooks/useCustomModal";
 
 export default function PostCard({ post }) {
 
@@ -29,20 +30,9 @@ export default function PostCard({ post }) {
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const userId = loginInfo._id;  
     const accountname = loginInfo.accountname;   
-    // 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal] = useCustomModal();
     const userType = (post.author._id === userId)? "post" : "your";
     const navigate = useNavigate();
-    
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen || modalSecondOpen){
-            document.body.style.overflow ="hidden"
-        }else{
-            document.body.style.overflow =""
-        }
-    }, [modalOpen, modalSecondOpen])
     
     const handlePostDetail = () => {
         navigate(`/post/${post.id}`, {
@@ -99,10 +89,6 @@ export default function PostCard({ post }) {
         arrows: false
     }
 
-    // 모달창 노출
-    const showModal = (e) => {
-        setModalOpen(true);
-    };
     const handlePostModal = (event) => {
         // Input을 체크해서 state를 변경하는 함수.
         if (event.target.name === "수정") {

@@ -13,6 +13,7 @@ import Post from "../../components/post/Post";
 import Loading from "../Loading";
 import style from "./profile.module.css";
 import Page404 from "../Page404";
+import useCustomModal from "../../hooks/useCustomModal";
 
 export default function Profile() {
 
@@ -26,9 +27,7 @@ export default function Profile() {
     const [errorMsg, setErrorMsg] = useState("");
     const [profileInfo, setProfileInfo] = useState("");
     const navigate = useNavigate();
-    // 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalSecondOpen, setModalSecondOpen] = useState(false);
+    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal] = useCustomModal();
 
     let profileType = "";
 
@@ -41,20 +40,6 @@ export default function Profile() {
     const routeTo = (route) => {
         navigate(route)
     }
-
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen || modalSecondOpen){
-            document.body.style.overflow ="hidden"
-        }else{
-            document.body.style.overflow =""
-        }
-    }, [modalOpen, modalSecondOpen])
-
-    // 모달창 노출
-    const showModal = (e) => {
-        setModalOpen(true);
-    };
 
     const getProfileInfo = async () => {
         try {
