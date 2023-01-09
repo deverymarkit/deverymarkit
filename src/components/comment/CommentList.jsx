@@ -7,27 +7,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import ModalPortal from "../common/modal/ModalPortal";
 import Modal from "../common/modal/Modal";
 import { customAuthAxios } from "../../api/customAxios";
+import useCustomModal from "../../hooks/useCustomModal";
 
 export default function CommentList({ commentList, handleUpdateComment }) {
 
     const navigate = useNavigate();
-    // 모달 관리 변수
-    const [modalOpen, setModalOpen] = useState(false);
     const [commentId , setCommentId] = useState("");
     const {postid} = useParams();
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const userId = loginInfo._id;  
     const [userType, setUserType] = useState("");
+    const [modalOpen, setModalOpen] = useCustomModal();
 
-    useEffect(()=>{
-        //스크롤 금지 
-        if(modalOpen){
-            document.body.style.overflow ="hidden"
-        }else{
-            document.body.style.overflow =""
-        }
-    }, [modalOpen])
-    
     // 모달창 노출
     const showModal = (e) => {
         const userType = (e.target.dataset.author === userId)? "myComment" : "your";

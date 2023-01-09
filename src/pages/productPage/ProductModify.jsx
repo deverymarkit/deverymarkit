@@ -67,7 +67,6 @@ export default function ProductModify() {
         if (event.target.name === "productName") setProductName(event.target.value); 
         else if (event.target.name === "productPrice") setProductPrice(inputPriceFormat(event.target.value));
         else if (event.target.name === "productUrl") setProductUrl(event.target.value);
-        
     }
 
     useEffect(() => {
