@@ -75,8 +75,8 @@
 <br/>
 
 # 3. <span id = "roles"> 역할 분담 </span>
-<img width="6752" alt="role" src="">
 <br>
+<img width="800" alt="스크린샷 2023-01-09 오후 11 33 22" src="https://user-images.githubusercontent.com/58455479/211332606-341db308-6f05-4051-a58b-db6f5fdbb572.png">
 
 |김태수|이경린|배지현|최수진|
 |:---:|:---:|:---:|:---:|
