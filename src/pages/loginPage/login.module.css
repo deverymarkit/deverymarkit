@@ -42,14 +42,17 @@
 
 .cont_login {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 20px;
     animation: fadein 1s;
+    font-size: 14px;
 }
 
-.ul_login {
+.cont_loginsignup {
     display: flex;
+
 }
 
 .btn_login {
@@ -65,9 +68,24 @@
     height: 10px;
     background-color: black;
 
+
 }
 
 .btn_join {
     color: black;
     cursor: pointer;
+}
+
+.btn_snslogin {
+    position: relative;
+    width: 280px;
+    height: 35px;
+    border: 1px solid #767676;
+    border-radius: 35px;
+    margin: 0px 0px 10px;
+}
+
+.img_snslogin {
+    position: absolute;
+    left: 12.5%;
 }
