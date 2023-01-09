@@ -78,14 +78,15 @@
 
 .btn_snslogin {
     position: relative;
-    width: 280px;
+    width: 270px;
     height: 35px;
     border: 1px solid #767676;
     border-radius: 35px;
     margin: 0px 0px 10px;
+    cursor: pointer;
 }
 
 .img_snslogin {
     position: absolute;
-    left: 12.5%;
+    left: 7%;
 }
