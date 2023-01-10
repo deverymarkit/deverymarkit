@@ -4,3 +4,23 @@
     margin: 0 auto;
     background-color: #f2f2f2;
 }
+
+.scroll_cont {
+    position: fixed;
+    right: 3%;
+    bottom: 9%;
+    z-index: 1;
+}
+
+.top_btn {
+    background-color: #dbdbdb;
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    width: 50px;
+    height: 50px;
+}
+
+.top_btn:hover {
+    cursor: pointer;
+}

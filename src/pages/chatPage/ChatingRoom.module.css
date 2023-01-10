@@ -61,7 +61,7 @@
 }
 
 .input_div {
-    width : 100vw;
+    width: 100vw;
     display: flex;
     justify-content: start;
     position: absolute;
@@ -75,6 +75,10 @@
     padding: 0;
     margin: 13px 12px 13px 16px;
     cursor: pointer;
+}
+
+.inp_file {
+    display: none;
 }
 
 .inp_txt {
