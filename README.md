@@ -6,7 +6,7 @@
 - ID : deverymarkit@naver.com <br/>
 - PW : 123123
 <p align="center">
- <img src="https://user-images.githubusercontent.com/58455479/210468104-308fb759-2533-465f-9f00-38e0a85d63d0.jpeg"  width="1000" height="650"/>
+ <img src="https://user-images.githubusercontent.com/58455479/210468104-308fb759-2533-465f-9f00-38e0a85d63d0.jpeg"  width="1000" height="610"/>
 </p>
 
 <details>
@@ -44,7 +44,7 @@
 ## 1) 개발기간 : 2022.12.09 ~ 2023.01.05
 
 ## 2) 기술
-- FrontEnd : React, React-router, Hooks, css-module, Redux-Toolkit
+- FrontEnd : `React`, `React-Router`, `Redux-Toolkit`, `Axios`, `CSS-Module`, 
 - BackEnd : 제공된 API 사용
 
 ## 3) 협업 도구
@@ -76,7 +76,7 @@
 
 # 3. <span id = "roles"> 역할 분담 </span>
 <br>
-<img width="800" alt="스크린샷 2023-01-09 오후 11 33 22" src="https://user-images.githubusercontent.com/58455479/211332606-341db308-6f05-4051-a58b-db6f5fdbb572.png">
+<img width="1000" alt="역할 분담" src="https://user-images.githubusercontent.com/58455479/211818624-f994c764-efb1-4ceb-a595-4d32b62e0a19.png">
 
 |김태수|이경린|배지현|최수진|
 |:---:|:---:|:---:|:---:|
