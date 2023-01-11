@@ -1,6 +1,7 @@
 
 import { React, useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import imageCompression from 'browser-image-compression';
 
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.png";
@@ -25,6 +26,7 @@ export default function PostModify() {
     const [isActive, setIsActive] = useState(false);
     const [postText, setPostText] = useState("");
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
+    const [resizeImage, setResizeImage] = useState();
 
     const [fileName, setFileName] = useState([]); //api에서 인코딩한 파일이름
     const [previewImgUrl, setPreviewImgUrl] = useState([]); //미리보기 이미지 src
@@ -45,8 +47,7 @@ export default function PostModify() {
             setPostText(res.data.post.content);
             setIsLoading(false)
             setFileName(res.data.post.image.split(","));
-            textRef.current.style.height = "auto";
-            textRef.current.style.height = textRef.current.scrollHeight + "px";
+
             if (res.data.post.image !== "") 
             {
                 setPreviewImgUrl([...res.data.post.image.split(",")]);
@@ -104,18 +105,32 @@ export default function PostModify() {
         if(fileName[0]===""){
             fileName.pop()
         }
-        const loadImg = e.target.files;
-        const formData = new FormData();
-        formData.append("image", loadImg[0]);
+        const loadImg = e.target.files[0];
+        imageCompression(loadImg, {
+            maxSizeMB: 0.5,
+            maxWidthOrHeight: 1920,
+        }).then((compressedFile) => {
+        const newFile = new File([compressedFile], loadImg.name, {type: loadImg.type});
+        setResizeImage(newFile);
+        })
+        
+    }
+
+    useEffect(()=>{
+        if(resizeImage){
+            const formData = new FormData();
+            formData.append("image", resizeImage);
         if (fileName.length < 3) {
-            getImgUrl(formData, loadImg);
+            getImgUrl(formData, resizeImage);
         } else {
             alert("3개 이하의 파일을 업로드 해주세요.");
         }
-    }
+            
+        }
+    },[resizeImage])
 
     //이미지 파일 인코딩된 스트링 데이터 얻기
-    async function getImgUrl(formData, loadImg) {
+    async function getImgUrl(formData, resizeImage) {
         setView("pending")
         try {
             const res = await customImgAxios.post("/image/uploadfiles", formData);
@@ -129,7 +144,7 @@ export default function PostModify() {
                     BASE_URL +"/"+ res.data[0].filename,
                 ]);    
             }
-            preview(loadImg);
+            preview(resizeImage);
             
         } catch (err) {
             console.log(err);
@@ -139,7 +154,7 @@ export default function PostModify() {
     //이미지 파일 미리보기
     function preview(loadImg) {
         const reader = new FileReader();
-        reader.readAsDataURL(loadImg[0]);
+        reader.readAsDataURL(loadImg);
         reader.onload = () => {
             setPreviewImgUrl([...previewImgUrl, reader.result]);
         };

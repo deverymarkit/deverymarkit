@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { customAuthAxios } from "../../api/customAxios";
+import imageCompression from 'browser-image-compression';
 
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.svg";
@@ -17,6 +18,7 @@ export default function Upload() {
     const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
     const textarea = useRef();
+
     const inpRef = useRef();
     const navigate = useNavigate();
     const { postId } = useParams();
@@ -57,7 +59,14 @@ export default function Upload() {
         const imgFiles = imageFileList;
         for (let i = 0; i < imgFiles.length; i++) {
             const file = imgFiles[i];
-            formData.append('image', file);
+            const resizeImg =await imageCompression(file, {
+                maxSizeMB: 0.5,
+                maxWidthOrHeight: 1920,
+            }).then((compressedFile) => {
+            const newFile = new File([compressedFile], file.name, {type: file.type});
+            return newFile
+            });
+            formData.append('image', resizeImg);
         }
         try {
             const postRes = await axios.post(
@@ -130,6 +139,7 @@ export default function Upload() {
                             ref={textarea}
                             required
                         />
+                        
                     </div>
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
                     <input
