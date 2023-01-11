@@ -14,13 +14,14 @@ import Loading from "../Loading";
 import style from "./profile.module.css";
 import Page404 from "../Page404";
 import useCustomModal from "../../hooks/useCustomModal";
+import useCustomTopBtn from "../../hooks/useCustomTopBtn";
 
 export default function Profile() {
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const loginAccountName = loginInfo.accountname;
 
     const { accountname } = useParams();
-    const [showButton, setShowButton] = useState(false);
+    const [showButton ,scrollToTop] = useCustomTopBtn();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
@@ -78,30 +79,7 @@ export default function Profile() {
         } catch (err) {
             console.error(err);
         }
-    };
-
-    // 스크롤을 최상단으로 올리는 이벤트
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
-
-    useEffect(() => {
-        const handleShowButton = () => {
-            if (window.scrollY > 300) {
-                setShowButton(true);
-            } else {
-                setShowButton(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleShowButton);
-        // return () => {
-        //     window.removeEventListener("scroll", handleShowButton)
-        // }
-    }, []);
+}
 
     useEffect(() => {
         getProfileInfo();
@@ -127,13 +105,9 @@ export default function Profile() {
                     />
                     <Post profileInfo={profileInfo} profileType={profileType} />
                 </main>
-                {showButton && (
-                    <aside className={style.scroll_cont}>
-                        <button className={style.top_btn} onClick={scrollToTop}>
-                            top
-                        </button>
-                    </aside>
-                )}
+                {showButton && <aside className="scroll_cont">
+                                    <button className="top_btn" onClick={scrollToTop}>top</button>
+                                </aside>}
                 <Navbar type={profileType === "my" && "profile"} />
                 <ModalPortal>
                     {modalOpen && (

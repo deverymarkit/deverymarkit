@@ -5,6 +5,7 @@ import style from "./search.module.css";
 import Navbar from "../../components/common/navbar/Navbar";
 import axios from "axios";
 import BaseURL from "../../components/common/BaseURL";
+import useCustomTopBtn from "../../hooks/useCustomTopBtn";
 
 export default function Search() {
     const loginInfo = JSON.parse(localStorage.getItem('loginStorage'));
@@ -12,6 +13,7 @@ export default function Search() {
     const [뿌려주기, set뿌려주기] = useState([]);
     const [데이터, set데이터] = useState([]);
     const [인덱스, set인덱스] = useState(0);
+    const [showButton ,scrollToTop] = useCustomTopBtn();
     const observeRef = useRef();
 
     const handleSearchKeyword = (event) => {
@@ -93,6 +95,10 @@ export default function Search() {
                         )}
                     <li ref={observeRef} className="ir">더보기</li>
                 </ul>
+                {showButton && <aside className="scroll_cont">
+                                    <button className="top_btn" onClick={scrollToTop}>top</button>
+                                </aside>
+                }
             <Navbar type="search" />
         </>
     );

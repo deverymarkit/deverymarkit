@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import style from "./profilePhoto.module.css"
 import uploadImg from "../../assets/imgs/upload-img.png";
 import { customImgAxios } from "../../api/customAxios.js"
+import imageCompression from "browser-image-compression";
 
 export default function ProfilePhoto({setProfiledata, profiledata}) {
+    
+    const [resizeImage, setResizeImage] = useState();
     const inputRef = useRef();
     
     const handleInputRef = (e) => {
@@ -13,8 +16,22 @@ export default function ProfilePhoto({setProfiledata, profiledata}) {
 
     const handleGetImgUrl = (event) => {
         const image = event.target.files[0];
-        getImgUrl(image);
+        imageCompression(image, {
+            maxSizeMB: 0.5,
+            maxWidthOrHeight: 1920,
+        }).then((compressedFile) => {
+        const newFile = new File([compressedFile], image.name, {type: image.type});
+        setResizeImage(newFile);
+        });
+        
     }
+
+    useEffect(()=>{
+        if(resizeImage){
+            getImgUrl(resizeImage)
+        }
+    },[resizeImage])
+    
 
     const getImgUrl = async (image) => {
         const formData = new FormData();

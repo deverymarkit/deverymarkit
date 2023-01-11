@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import imageCompression from 'browser-image-compression';
 import style from "./productModify.module.css";
 import uploadImg from "../../assets/imgs/upload-img.svg";
 import defalutImg from "../../assets/imgs/product-none.png";
@@ -17,6 +18,7 @@ export default function ProductModify() {
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [productImg, setProductImg] = useState();
+    const [resizeImage, setResizeImage] = useState();
     const [nameWarning, setNameWarning] = useState("");
     const [priceWarning, setPriceWarning] = useState("");
     const [urlWarning, setUrlWarning] = useState("");
@@ -173,25 +175,39 @@ export default function ProductModify() {
 
     const handleGetImgUrl = (event) => {
         const image = event.target.files[0]
-        getImgUrl(image)
+        imageCompression(image, {
+            maxSizeMB: 0.5,
+            maxWidthOrHeight: 1920,
+        }).then((compressedFile) => {
+        const newFile = new File([compressedFile], image.name, {type: image.type});
+        setResizeImage(newFile);
+        });
+        
     }
 
-    // axios
-    const getImgUrl = async (image) => {
-        const formData = new FormData();
-        formData.append('image', image);
-        setView("pending");
-        try {
-            const imgRes = await customImgAxios.post("/image/uploadfile", formData
-            );
-            const imgUrl = imgRes.data.filename;
-            setProductImg(`${BASE_URL}/${imgUrl}`)
-            setView("fulfilled");
-
-        } catch(err) {
-            console.log(err)
+    useEffect(()=>{
+        if(resizeImage){
+            getImgUrl(resizeImage)
         }
-    }
+    },[resizeImage])
+    
+        // axios
+        const getImgUrl = async (image) => {
+            const formData = new FormData();
+            formData.append('image', image);
+            setView("pending");
+            try {
+                const imgRes = await customImgAxios.post("/image/uploadfile", formData
+                );
+                const imgUrl = imgRes.data.filename;
+                setProductImg(`${BASE_URL}/${imgUrl}`)
+                setView("fulfilled");
+    
+            } catch(err) {
+                console.log(err)
+            }
+        }
+
 
     if(isLoading) {
         return <Loading />
