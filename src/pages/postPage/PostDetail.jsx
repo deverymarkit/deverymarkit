@@ -12,6 +12,7 @@ import Loading from "../Loading";
 import style from "./postDetail.module.css";
 import Page404 from "../Page404";
 import useCustomModal from "../../hooks/useCustomModal";
+import useCustomTopBtn from "../../hooks/useCustomTopBtn";
 
 export default function PostDetail() {
 
@@ -28,6 +29,7 @@ export default function PostDetail() {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [showButton ,scrollToTop] = useCustomTopBtn();
 
     const getPost = async () => {
         try {
@@ -92,6 +94,10 @@ export default function PostDetail() {
                         <Comment post={post} getPost={getPost}/>
                     </section>
                 </main>
+                {showButton && <aside className="scroll_cont">
+                                <button className="top_btn" onClick={scrollToTop}>top</button>
+                            </aside>
+                }
                 <ModalPortal>
                     {modalOpen && 
                         <Modal  type="profile" 

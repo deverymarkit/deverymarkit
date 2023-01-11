@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/common/navbar/Navbar";
 import Loading from "../Loading";
 import { customAuthAxios } from "../../api/customAxios.js"
+import useCustomTopBtn from "../../hooks/useCustomTopBtn";
 
 export default function Home() {
     const loginInfo = JSON.parse(localStorage.getItem('loginStorage'))
     const [isLoading, setIsLoading] = useState(true);
     const [feedInfo, setFeedInfo] = useState(null);
+    const [showButton ,scrollToTop] = useCustomTopBtn();
     const navigate = useNavigate()
 
     const getFeedInfo = async () => {
@@ -50,6 +52,10 @@ export default function Home() {
                     </ol>
                 }
             </section>
+            {showButton && <aside className="scroll_cont">
+                                <button className="top_btn" onClick={scrollToTop}>top</button>
+                            </aside>
+                }
             <Navbar type={"home"}/>
             </>
         )
