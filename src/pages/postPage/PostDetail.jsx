@@ -23,13 +23,14 @@ export default function PostDetail() {
     const accountname = loginInfo.accountname; 
     // const postId = location.state.id;
     const {postid} = useParams();
-    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal] = useCustomModal();
+    const {modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal} = useCustomModal();
 
     const [post, setPost] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [showButton ,scrollToTop] = useCustomTopBtn();
+
 
     const getPost = async () => {
         try {

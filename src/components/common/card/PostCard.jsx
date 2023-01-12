@@ -30,7 +30,7 @@ export default function PostCard({ post }) {
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const userId = loginInfo._id;  
     const accountname = loginInfo.accountname;   
-    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal] = useCustomModal();
+    const {modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal} = useCustomModal();
     const userType = (post.author._id === userId)? "post" : "your";
     const navigate = useNavigate();
     
@@ -120,8 +120,8 @@ export default function PostCard({ post }) {
     const handlePostReport = async () => {
         try {
             const postReportRes = await customAuthAxios.post(`/post/${post.id}/report`);
+            alert("신고됐습니다. 운영진이 확인 후 삭제하겠습니다.");
             setModalSecondOpen(false);
-            console.log("신고됨");
         } catch (err) {
             console.error(err);
         }

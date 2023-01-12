@@ -11,7 +11,7 @@ export default function Modal({type, modalOpen, setModalOpen, handleModal}) {
         "your": ["신고하기"],
         "chat": ["채팅창 나가기"]
     }
-    
+
     // 모달 끄기 
     const closeModal = () => {
         setModalOpen(false);

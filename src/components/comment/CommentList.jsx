@@ -17,16 +17,14 @@ export default function CommentList({ commentList, handleUpdateComment }) {
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const userId = loginInfo._id;  
     const [userType, setUserType] = useState("");
-    const [modalOpen, setModalOpen] = useCustomModal();
+    const {modalOpen, setModalOpen, showModal} = useCustomModal();
 
-    // 모달창 노출
-    const showModal = (e) => {
+    const ModalTypeCheck = (e) => {
         const userType = (e.target.dataset.author === userId)? "myComment" : "your";
         setUserType(userType);
         setCommentId(e.target.dataset.id);
-
-        setModalOpen(true);
-    };
+        showModal()
+    }
     
     const handleCommentModal =  (event) => {
         // Input을 체크해서 state를 변경하는 함수.
@@ -36,6 +34,7 @@ export default function CommentList({ commentList, handleUpdateComment }) {
         }
         else if (event.target.name === "신고하기"){
             handleCommentReport();
+            alert("신고됐습니다. 운영진이 확인 후 삭제하겠습니다.");
         }
     }
 
@@ -98,7 +97,7 @@ export default function CommentList({ commentList, handleUpdateComment }) {
                             <li key={data.id}>
                                 <ProfileCard profileImg={data.author.image} profileState="comment" profileName={data.author.username} profileCont={commentCreateDate}  handleBtn={() => {handleProfile(data.author.accountname)}}/>
                                 <p className={style.p_now_comment}>{data.content}</p>            
-                                <img src={moreIcon} data-id={data.id} data-author={data.author._id}  className={style.btn_comment_plus} alt="더보기 버튼" onClick={showModal}/>
+                                <img src={moreIcon} data-id={data.id} data-author={data.author._id}  className={style.btn_comment_plus} alt="더보기 버튼" onClick={ModalTypeCheck}/>
                                 
                             </li>
                         )

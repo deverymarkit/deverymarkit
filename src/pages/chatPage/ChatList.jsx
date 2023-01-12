@@ -16,7 +16,7 @@ export default function ChatList() {
     //Id 가져오기
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const accountname = loginInfo.accountname; 
-    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen,showModal] = useCustomModal();
+    const {modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen,showModal} = useCustomModal();
 
     const chat = [{
         name: "전자제품 농장",
