@@ -20,7 +20,7 @@ export default function ChatingRoom() {
     let hour = date.getHours();
     let minute = date.getMinutes();
     const navigate = useNavigate();
-    const [modalOpen, setModalOpen, showModal] = useCustomModal();
+    const {modalOpen, setModalOpen, showModal} = useCustomModal();
 
     const chat = [
         {

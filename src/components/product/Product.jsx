@@ -14,7 +14,7 @@ export default function Product({ accountname, profileType }) {
     const [productChoice, setProductChoice ] = useState("");
     const [productUrl, setProductUrl ] = useState("");
 
-    const [modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen] = useCustomModal();
+    const {modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen} = useCustomModal();
 
     const getProductList = async () => {
         try {

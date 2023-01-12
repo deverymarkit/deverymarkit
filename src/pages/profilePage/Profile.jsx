@@ -27,13 +27,13 @@ export default function Profile() {
     const [errorMsg, setErrorMsg] = useState("");
     const [profileInfo, setProfileInfo] = useState("");
     const navigate = useNavigate();
-    const [
+    const {
         modalOpen,
         modalSecondOpen,
         setModalOpen,
         setModalSecondOpen,
         showModal,
-    ] = useCustomModal();
+    } = useCustomModal();
 
     let profileType = "";
 
