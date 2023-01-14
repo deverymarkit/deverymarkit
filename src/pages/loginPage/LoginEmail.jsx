@@ -39,11 +39,14 @@ export default function Login() {
     }
 
     const setStorage = (data) => {
-        const loginInfo = {
-            ...data
-        }
         localStorage.removeItem("loginStorage")
-        localStorage.setItem("loginStorage", JSON.stringify({...loginInfo}));
+        localStorage.setItem("loginStorage", JSON.stringify({
+            accountname: data.accountname,
+            image: data.image,
+            intro: data.intro,
+            token: data.token,
+            username: data.username
+        }));
     }
 
     const getLogin = async(email, password) => {
