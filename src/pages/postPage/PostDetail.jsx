@@ -84,7 +84,7 @@ export default function PostDetail() {
     else {
         return (
             <>
-                <Header type="post" handleHeaderBtn={showModal}/>
+                <Header type="moreBtnPage" handleHeaderBtn={showModal}/>
                 <main className={style.wrap_post_detail}>
                     <section className={style.cont_post_detail}>
                         <h2 className="ir">게시글 상세보기</h2>

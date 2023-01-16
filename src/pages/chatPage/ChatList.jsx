@@ -70,7 +70,7 @@ export default function ChatList() {
 
     return (
         <div className={style.wrap_top_chatList}>
-            <Header type="post" handleHeaderBtn={showModal}/>
+            <Header type="moreBtnPage" handleHeaderBtn={showModal}/>
             <div className={style.wrap_chatList}>
                 <div className={style.div_chat}></div>
                 {chat.map(

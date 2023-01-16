@@ -7,35 +7,94 @@ import searchIcon from "../../../assets/imgs/icon-search.png";
 
 export default function Header({ type, IsValue, handleHeaderBtn}) {
     const navigate = useNavigate();
-    const pages = {
-        "upload":{
-            btn : "업로드"
-            },
-        "modification":{
-            btn : "저장"
-            }
-    }
 
     const handleBackBtn = () => {
         navigate(-1);
     }
 
     return (
+        // <section className={`${style.cont_header} ${type === "follower" && style.folloewers} ${type === "following" && style.folloewers}`} >
+        //     {type !== "home" && <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>}
+        //     {type === "chat" && <p className={style.p_chat}>{IsValue}</p>}
+        //     {(type === "upload" || type === "modification") && <button className={`${style.btn_save} ${ IsValue && style.active_btn}`} onClick={handleHeaderBtn} >{pages[type].btn}</button>}
+        //     {(type === "profile" || type === "post" || type === "chat") && <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />}
+        //     {type === "home" && (
+        //         <>
+        //             <p>데브리마킷</p>
+        //             <img src={searchIcon} alt="검색버튼" onClick={() => {navigate('/search')}} />
+        //         </>
+        //     )
+        //     }
+        //     {type === "follower" && <p>follower</p>}
+        //     {type === "following" && <p>following</p>}
+        //     {type === "search" && <input className={style.input_header} type="text" placeholder="계정 검색" onChange={handleHeaderBtn}/>}
+        // </section>
         <section className={`${style.cont_header} ${type === "follower" && style.folloewers} ${type === "following" && style.folloewers}`} >
-            {type !== "home" && <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>}
-            {type === "chat" && <p className={style.p_chat}>{IsValue}</p>}
-            {(type === "upload" || type === "modification") && <button className={`${style.btn_save} ${ IsValue && style.active_btn}`} onClick={handleHeaderBtn} >{pages[type].btn}</button>}
-            {(type === "profile" || type === "post" || type === "chat") && <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />}
-            {type === "home" && (
+        {     
+            {
+            home : (
                 <>
                     <p>데브리마킷</p>
                     <img src={searchIcon} alt="검색버튼" onClick={() => {navigate('/search')}} />
                 </>
+            ),
+            profile : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />
+                </>
+            ),
+            chat : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />
+                </>
+            ),
+            post : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <img src={moreIcon} alt="더보기버튼" onClick={handleHeaderBtn} />
+                </>
+            ),
+            upload : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <button className={`${style.btn_save} ${ IsValue && style.active_btn}`} onClick={handleHeaderBtn} >업로드</button>
+                </>
+            ),
+            modification : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <button className={`${style.btn_save} ${ IsValue && style.active_btn}`} onClick={handleHeaderBtn} >저장</button>
+                </>
+            ),
+            chat : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <p className={style.p_chat}>{IsValue}</p>
+                </>
+            ), 
+            search : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <input className={style.input_header} type="text" placeholder="계정 검색" onChange={handleHeaderBtn}/>
+                </>
+            ),
+            follower :(
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <p>follower</p>
+                </>
+            ),
+            following : (
+                <>
+                    <img className={style.btn_back} src={backIcon} alt="뒤로 가기" onClick={handleBackBtn}/>
+                    <p>following</p>
+                </>
             )
-            }
-            {type === "follower" && <p>follower</p>}
-            {type === "following" && <p>following</p>}
-            {type === "search" && <input className={style.input_header} type="text" placeholder="계정 검색" onChange={handleHeaderBtn}/>}
+
+            }[type]
+        } 
         </section>
     )
 }
