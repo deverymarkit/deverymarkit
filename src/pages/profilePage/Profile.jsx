@@ -92,7 +92,7 @@ export default function Profile() {
     } else {
         return (
             <>
-                <Header type="profile" handleHeaderBtn={showModal} />
+                <Header type="moreBtnPage" handleHeaderBtn={showModal} />
                 <main className={style.main_profile}>
                     <UserInfo
                         profileInfo={profileInfo}
