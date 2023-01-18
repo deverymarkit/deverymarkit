@@ -1,6 +1,5 @@
 .wrap_upload {
     position: relative;
-    text-align: center;
     width: 390px;
     margin: 0 auto;
     padding: 20px 16px 16px;
@@ -33,9 +32,25 @@
     width: 50px;
     height: 50px;
     position: fixed;
-    bottom: 0px;
     bottom: 0;
     right: 0;
     margin: 0 16px 16px 0;
     cursor: pointer;
+}
+
+.btn_code {
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 78px 16px 0;
+    cursor: pointer;
+    background-color: rgba(0, 29, 36, 0.1);
+    border-radius: 50%;
+}
+
+.code_select {
+    margin: 20px 0;
 }
