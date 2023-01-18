@@ -3,6 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import "./slick/slick.css"
 import "./slick/slick-theme.css"
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { python } from '@codemirror/lang-python';
+import { html } from '@codemirror/lang-html';
+import { sql } from '@codemirror/lang-sql';
 
 
 import { customAuthAxios } from "../../../api/customAxios";
@@ -32,6 +37,17 @@ export default function PostCard({ post }) {
     const accountname = loginInfo.accountname;   
     const {modalOpen, modalSecondOpen, setModalOpen, setModalSecondOpen, showModal} = useCustomModal();
     const userType = (post.author._id === userId)? "post" : "your";
+    const [postJson,setPostJson] = useState("");
+    const [postContent, setPostContent]=useState(post.content);
+
+    useEffect(()=>{
+        // 코드에디터가 사용 유무 체크
+        if ((post.content.includes("editorOpen"))){
+            const postJson = JSON.parse(post.content);
+            setPostJson(true)
+            setPostContent(postJson.content)
+        }
+    },[])
     const navigate = useNavigate();
     
     const handlePostDetail = () => {
@@ -145,7 +161,7 @@ export default function PostCard({ post }) {
                 ) : null
             }
             <div className={style.cont_post_content}>
-                <p className={style.post_contents}  onClick={handlePostDetail}>{post.content}</p>
+                <p className={style.post_contents}  onClick={handlePostDetail}>{postContent}</p>
                 <div className={style.box_btn}>
                     <img src={isLike ? heartFillIcon : heartIcon} alt="좋아요" className={style.btn_like} onClick={handleLikeToggle}/>
                     <span className={style.span_count} >{likeCount}</span>
@@ -157,6 +173,16 @@ export default function PostCard({ post }) {
                         new Intl.DateTimeFormat("ko", { dateStyle: "long" }).format(new Date(post.createdAt))
                     }
                 </span>
+                {postJson &&  
+                        <div>
+                            <CodeMirror
+                                value={JSON.parse(post.content).code}
+                                height="200px"
+                                width="340px"
+                                readOnly= "true"
+                                // extensions={JSON.parse(post.content).codeType}
+                            />
+                        </div>}
             </div>
             <img src={moreIcon} className={style.btn_more} alt="더보기" onClick={showModal}/>
             <ModalPortal>
@@ -176,3 +202,4 @@ export default function PostCard({ post }) {
         </article>
     )
 }
+

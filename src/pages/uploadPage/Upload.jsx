@@ -2,9 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { customAuthAxios } from "../../api/customAxios";
 import imageCompression from 'browser-image-compression';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { python } from '@codemirror/lang-python';
+import { html } from '@codemirror/lang-html';
+import { sql } from '@codemirror/lang-sql';
 
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.svg";
+import CodeImg from "../../assets/imgs/coding.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
 import Header from "../../components/common/header/Header";
 import ProfileCard from "../../components/common/card/ProfileCard";
@@ -17,15 +23,20 @@ export default function Upload() {
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
     const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
-    const textarea = useRef();
-
+    const textarea = useRef("");
     const inpRef = useRef();
+    const select = useRef();
     const navigate = useNavigate();
-    const { postId } = useParams();
+    const { postid } = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [editorOpen, setEditorOpen] = useState(false);
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
     const userToken = loginInfo.token;
     const userId = loginInfo.accountname;
+    const [codeType, setCodeType] = useState();
+    const [content, setContent] = useState("");
+    const [text, setText] = useState("");
+    const [ res , getRes ] = useState("");
 
     useEffect(() => {
         // 프로필 이미지 
@@ -42,7 +53,8 @@ export default function Upload() {
         getUserProfile();
     }, []);
 
-    const handleResizeHeight = () => {
+    const handleResizeHeight = (e) => {
+        setText(e.target.value);
         textarea.current.style.height = "auto";
         textarea.current.style.height = `${textarea.current.scrollHeight}px`;
         textarea.current.value? setIsValue(true) : setIsValue(false);
@@ -101,15 +113,36 @@ export default function Upload() {
             alert("사진은 3개 이하로 업로드가능합니다.");
         }
     };
+
+    const getContent = () => {
+        if(editorOpen){
+            setContent(
+                JSON.stringify({   
+                    content : text,
+                    editorOpen : editorOpen,
+                    codeType : codeType,
+                    code : res
+                })
+            )
+        }else{
+            setContent(text)
+        }
+    }
+
+    useEffect(()=>{
+        getContent();
+    },[text, editorOpen, select, res])
+
     // 업로드 기능
     const handleSaveBtn = async (e) =>{
         if(IsValue){
             
             const imgUrl = await uploadImg();
+
             try {
                 await customAuthAxios.post(`/post`,{
                     post: {
-                        content: textarea.current.value,
+                        content: content,
                         image: imgUrl,
                     },
                 } );
@@ -121,6 +154,48 @@ export default function Upload() {
             }
         };
     }
+//코드에디터
+
+    const onChange = React.useCallback((value, viewUpdate) => {
+        getRes(value)
+    }, []); 
+
+    const handleEditor = ()=>{
+        editorOpen ? setEditorOpen(false) : setEditorOpen(true)
+        setCodeType()
+    }
+
+    const handleCodeChange = (e)=>{
+        switch(e.target.value) {
+            case 'html':  
+            setCodeType(
+                [html({jsx: true })]
+                );
+                break;
+            case 'javascript': 
+            setCodeType(
+                [javascript({jsx: true })]
+                );
+                break;
+            case 'sql': 
+            setCodeType(
+                [sql({jsx: true })]
+                );
+                break;
+            case 'python': 
+                setCodeType(
+                    [python({jsx: true })]
+                    );
+                    break;   
+            case 'default': 
+            setCodeType(
+                
+                );
+                break;     
+            default:
+                break;
+        }
+    }
     
     if (isLoading) {
         return <Loading />
@@ -128,7 +203,7 @@ export default function Upload() {
         return (
         <>
                 <Header type="upload" IsValue = {IsValue} handleHeaderBtn = {handleSaveBtn}/>
-                <div className={style.wrap_upload}>
+                <section className={style.wrap_upload}>
                     <div className={style.cont_content}>
                         <ProfileCard profileState="upload" profileImg={profileImg}/>
                         <textarea
@@ -139,8 +214,24 @@ export default function Upload() {
                             ref={textarea}
                             required
                         />
-                        
                     </div>
+                    {editorOpen &&  
+                        <div>
+                            <select name="selectCode" ref={select} className={style.code_select} onChange={handleCodeChange}>
+                                <option value = "default">선택</option>
+                                <option value = "html">html</option>
+                                <option value = "sql">sql</option>
+                                <option value = "javascript">javascript</option>
+                                <option value = "python">python</option>
+                            </select>
+                            <CodeMirror
+                                value=""
+                                height="200px"
+                                width='390px'
+                                extensions={codeType}
+                                onChange={onChange}
+                            />
+                        </div>}
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
                     <input
                         className="ir"
@@ -160,7 +251,13 @@ export default function Upload() {
                         alt="업로드 버튼"
                     />
                 </label>
-            </div>
+                <img
+                    onClick={handleEditor}
+                    className={style.btn_code}
+                    src={CodeImg}
+                    alt="업로드 버튼"
+                    />
+            </section>
         </>
         );
     }
