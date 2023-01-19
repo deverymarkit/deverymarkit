@@ -7,6 +7,8 @@ import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { html } from '@codemirror/lang-html';
 import { sql } from '@codemirror/lang-sql';
+import { java } from '@codemirror/lang-java';
+import { darcula, darculaInit } from '@uiw/codemirror-theme-darcula';
 
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.svg";
@@ -23,11 +25,11 @@ export default function Upload() {
     const [imageFileList, setImageFileList] = useState([]); // 이미지 리스트 
     const [imgUrl, setImgUrl] = useState(); // 이미지 서버에서 받아오기
     const [IsValue, setIsValue] = useState(false); // 저장 버튼 활성화를 위해 게시글 작성 유무
-    const textarea = useRef("");
+    const textRef = useRef("");
     const inpRef = useRef();
     const select = useRef();
     const navigate = useNavigate();
-    const { postid } = useParams();
+    const { postId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [editorOpen, setEditorOpen] = useState(false);
     const loginInfo = JSON.parse(localStorage.getItem("loginStorage"));
@@ -35,7 +37,7 @@ export default function Upload() {
     const userId = loginInfo.accountname;
     const [codeType, setCodeType] = useState();
     const [content, setContent] = useState("");
-    const [text, setText] = useState("");
+    const [postText, setPostText] = useState("");
     const [ res , getRes ] = useState("");
 
     useEffect(() => {
@@ -54,10 +56,10 @@ export default function Upload() {
     }, []);
 
     const handleResizeHeight = (e) => {
-        setText(e.target.value);
-        textarea.current.style.height = "auto";
-        textarea.current.style.height = `${textarea.current.scrollHeight}px`;
-        textarea.current.value? setIsValue(true) : setIsValue(false);
+        setPostText(e.target.value);
+        textRef.current.style.height = "auto";
+        textRef.current.style.height = `${textRef.current.scrollHeight}px`;
+        textRef.current.value? setIsValue(true) : setIsValue(false);
     };
 
     const handleRemoveImg = (e) =>{
@@ -116,22 +118,25 @@ export default function Upload() {
 
     const getContent = () => {
         if(editorOpen){
+            console.log(select.current.value);
             setContent(
                 JSON.stringify({   
-                    content : text,
+                    content : postText,
                     editorOpen : editorOpen,
-                    codeType : codeType,
+                    codeType : select.current.value,
                     code : res
                 })
             )
         }else{
-            setContent(text)
+            setContent(
+                postText,
+            )
         }
     }
 
     useEffect(()=>{
         getContent();
-    },[text, editorOpen, select, res])
+    },[postText, editorOpen, select, res])
 
     // 업로드 기능
     const handleSaveBtn = async (e) =>{
@@ -154,7 +159,8 @@ export default function Upload() {
             }
         };
     }
-//코드에디터
+
+    //코드에디터
 
     const onChange = React.useCallback((value, viewUpdate) => {
         getRes(value)
@@ -162,7 +168,6 @@ export default function Upload() {
 
     const handleEditor = ()=>{
         editorOpen ? setEditorOpen(false) : setEditorOpen(true)
-        setCodeType()
     }
 
     const handleCodeChange = (e)=>{
@@ -184,9 +189,14 @@ export default function Upload() {
                 break;
             case 'python': 
                 setCodeType(
-                    [python({jsx: true })]
-                    );
-                    break;   
+                [python({jsx: true })]
+                );
+                break;
+            case 'java': 
+                setCodeType(
+                [java({jsx: true })]
+                );
+                break;    
             case 'default': 
             setCodeType(
                 
@@ -211,25 +221,35 @@ export default function Upload() {
                             type="text"
                             placeholder="게시글 입력하기..."
                             onChange={handleResizeHeight}
-                            ref={textarea}
+                            ref={textRef}
                             required
                         />
                     </div>
                     {editorOpen &&  
                         <div>
                             <select name="selectCode" ref={select} className={style.code_select} onChange={handleCodeChange}>
-                                <option value = "default">선택</option>
+                                <option value = "default">text</option>
                                 <option value = "html">html</option>
+                                <option value = "java">java</option>
                                 <option value = "sql">sql</option>
                                 <option value = "javascript">javascript</option>
                                 <option value = "python">python</option>
                             </select>
                             <CodeMirror
                                 value=""
-                                height="200px"
+                                max-height="2000px"
                                 width='390px'
                                 extensions={codeType}
                                 onChange={onChange}
+                                theme={darculaInit({
+                                    settings: {
+                                        lineHighlight: "transparent",
+                                        caret: "#c6c6c6",
+                                        fontFamily: "monospace",
+                                        gutterBackground:"#181226"
+                                    },
+                                })
+                            }
                             />
                         </div>}
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
@@ -255,7 +275,7 @@ export default function Upload() {
                     onClick={handleEditor}
                     className={style.btn_code}
                     src={CodeImg}
-                    alt="업로드 버튼"
+                    alt="에디터 버튼"
                     />
             </section>
         </>
