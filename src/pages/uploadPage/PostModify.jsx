@@ -2,11 +2,7 @@ import { React, useState, useRef, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import imageCompression from 'browser-image-compression';
 import CodeMirror from '@uiw/react-codemirror';
-import { javascript } from '@codemirror/lang-javascript';
-import { python } from '@codemirror/lang-python';
-import { html } from '@codemirror/lang-html';
-import { sql } from '@codemirror/lang-sql';
-import { java } from '@codemirror/lang-java';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import { darcula, darculaInit } from '@uiw/codemirror-theme-darcula';
 
 import style from "./upload.module.css";
@@ -267,32 +263,56 @@ export default function PostModify() {
     const handleHightingCode = () => {
         
         switch(codeSelected) {
-            case 'html':
+            case 'html':  
             setCodeType(
-                [html({jsx: true })]
+                [langs.html()]
                 );
                 break;
             case 'javascript': 
             setCodeType(
-                [javascript({jsx: true })]
+                [langs.java()]
                 );
                 break;
             case 'sql': 
             setCodeType(
-                [sql({jsx: true })]
+                [langs.java()]
                 );
                 break;
             case 'python': 
                 setCodeType(
-                    [python({jsx: true })]
-                    );
-                    break;  
+                [langs.java()]
+                );
+                break;
             case 'java': 
                 setCodeType(
-                [java({jsx: true })]
+                [langs.java()]
                 );
-                        break;  
-                        
+                break;    
+            case 'typescript': 
+                setCodeType(
+                [langs.tsx()]
+                );
+                break;    
+            case 'jsx': 
+                setCodeType(
+                [langs.jsx()]
+                );
+                break;    
+            case 'c': 
+                setCodeType(
+                [langs.c()]
+                );
+                break;
+            case 'c++': 
+                setCodeType(
+                [langs.cpp()]
+                );
+                break;
+            case 'css': 
+                setCodeType(
+                [langs.css()]
+                );
+                break;            
             case 'default': 
             setCodeType(
                 
@@ -335,11 +355,16 @@ export default function PostModify() {
                         </div>
                             
                         {editorOpen && <select name="selectCode" ref={select} className={style.code_select} onChange={handleCodeChange}>
-                                            <option value = "default">text</option>
+                        <option value = "default">text</option>
                                             <option value = "html">html</option>
+                                            <option value = "css">css</option>
                                             <option value = "java">java</option>
+                                            <option value = "c">c</option>
+                                            <option value = "c++">c++</option>
                                             <option value = "sql">sql</option>
                                             <option value = "javascript">javascript</option>
+                                            <option value = "typescript">typescript</option>
+                                            <option value = "jsx">jsx</option>
                                             <option value = "python">python</option>
                                         </select>}
                     </div>
