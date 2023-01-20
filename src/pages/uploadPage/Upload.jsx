@@ -12,7 +12,6 @@ import { darcula, darculaInit } from '@uiw/codemirror-theme-darcula';
 
 import style from "./upload.module.css";
 import UploadImg from "../../assets/imgs/upload-img.svg";
-import CodeImg from "../../assets/imgs/coding.png";
 import UploadPhoto from "../../components/uploadPhoto/UploadPhoto";
 import Header from "../../components/common/header/Header";
 import ProfileCard from "../../components/common/card/ProfileCard";
@@ -225,16 +224,25 @@ export default function Upload() {
                             required
                         />
                     </div>
-                    {editorOpen &&  
+                    <div className={style.code_cont}>
                         <div>
-                            <select name="selectCode" ref={select} className={style.code_select} onChange={handleCodeChange}>
-                                <option value = "default">text</option>
-                                <option value = "html">html</option>
-                                <option value = "java">java</option>
-                                <option value = "sql">sql</option>
-                                <option value = "javascript">javascript</option>
-                                <option value = "python">python</option>
-                            </select>
+                            <span>코드 에디터</span>
+                                <label className={style.code_label}>
+                                <input  role="switch" type="checkbox" onClick={handleEditor}/>
+                            </label>
+                        </div>
+                            
+                        {editorOpen && <select name="selectCode" ref={select} className={style.code_select} onChange={handleCodeChange}>
+                                            <option value = "default">text</option>
+                                            <option value = "html">html</option>
+                                            <option value = "java">java</option>
+                                            <option value = "sql">sql</option>
+                                            <option value = "javascript">javascript</option>
+                                            <option value = "python">python</option>
+                                        </select>}
+
+                    </div>
+                    {editorOpen &&  
                             <CodeMirror
                                 value=""
                                 max-height="2000px"
@@ -251,7 +259,7 @@ export default function Upload() {
                                 })
                             }
                             />
-                        </div>}
+                        }
                     <UploadPhoto imageFileList={imageFileList} handleRemoveImg={handleRemoveImg}/>
                     <input
                         className="ir"
@@ -271,12 +279,6 @@ export default function Upload() {
                         alt="업로드 버튼"
                     />
                 </label>
-                <img
-                    onClick={handleEditor}
-                    className={style.btn_code}
-                    src={CodeImg}
-                    alt="에디터 버튼"
-                    />
             </section>
         </>
         );
