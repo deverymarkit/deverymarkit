@@ -6,11 +6,7 @@ import Slider from "react-slick";
 import "./slick/slick.css";
 import "./slick/slick-theme.css";
 import CodeMirror from "@uiw/react-codemirror";
-import { createTheme } from "@uiw/codemirror-themes";
-import { javascript } from "@codemirror/lang-javascript";
-import { python } from "@codemirror/lang-python";
-import { html } from "@codemirror/lang-html";
-import { sql } from "@codemirror/lang-sql";
+import { langs } from '@uiw/codemirror-extensions-langs';
 import { darcula, darculaInit } from '@uiw/codemirror-theme-darcula';
 
 import { tags as t } from "@lezer/highlight";
@@ -163,21 +159,61 @@ export default function PostCard({ post }) {
 
     const handleCodeChange = (type) => {
         switch (type) {
-            case "html":
-                setCodeType([html({ jsx: true })]);
+            case 'html':  
+            setCodeType(
+                [langs.html()]
+                );
                 break;
-            case "javascript":
-                setCodeType([javascript({ jsx: true })]);
+            case 'javascript': 
+            setCodeType(
+                [langs.java()]
+                );
                 break;
-            case "sql":
-                setCodeType([sql({ jsx: true })]);
+            case 'sql': 
+            setCodeType(
+                [langs.java()]
+                );
                 break;
-            case "python":
-                setCodeType([python({ jsx: true })]);
+            case 'python': 
+                setCodeType(
+                [langs.java()]
+                );
                 break;
-            case "default":
-                setCodeType();
+            case 'java': 
+                setCodeType(
+                [langs.java()]
+                );
+                break;    
+            case 'typescript': 
+                setCodeType(
+                [langs.tsx()]
+                );
+                break;    
+            case 'jsx': 
+                setCodeType(
+                [langs.jsx()]
+                );
+                break;    
+            case 'c': 
+                setCodeType(
+                [langs.c()]
+                );
                 break;
+            case 'c++': 
+                setCodeType(
+                [langs.cpp()]
+                );
+                break;
+            case 'css': 
+                setCodeType(
+                [langs.css()]
+                );
+                break;            
+            case 'default': 
+            setCodeType(
+                
+                );
+                break;     
             default:
                 break;
         }
