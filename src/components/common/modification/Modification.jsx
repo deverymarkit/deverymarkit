@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function Modification({ type, mode, profileImg, setProfileImg, username, accountname,handleCheckInput}) {
     
-    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png";
+    const defalutImg = "https://api.mandarin.weniv.co.kr/Ellipse.png";
 
     const [usernameWarning, setUsernameWarning] = useState('');
     const [accountWarning, setAccountWarning] = useState('');
@@ -84,7 +84,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
 
     // axios
     const profileModify = async (userData) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
+        const url = 'https://api.mandarin.weniv.co.kr/';
         try {
             const signUpRes = axios.put(`${url}user`, {
                 "user": {
@@ -107,7 +107,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
 
     // axios
     const signUp = async (totalUser) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
+        const url = 'https://api.mandarin.weniv.co.kr/';
         try {
             const signUpRes = axios.post(`${url}user`, {
                 "user": {
@@ -128,7 +128,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
     }
 
     const getLogin = async (email, password) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
+        const url = 'https://api.mandarin.weniv.co.kr/';
         const userdata = {
             "email": email,
             "password": password
@@ -177,7 +177,7 @@ export default function Modification({ type, mode, profileImg, setProfileImg, us
 
     // axios
     const getImgUrl = async (image) => {
-        const url = 'https://mandarin.api.weniv.co.kr/';
+        const url = 'https://api.mandarin.weniv.co.kr/';
         const formData = new FormData();
         formData.append('image', image);
         try {

@@ -84,7 +84,7 @@ export default function Upload() {
                 );
                 const PostUpdata = (await postRes).data;
                 const imgUrls = PostUpdata
-                            .map((file) => 'https://mandarin.api.weniv.co.kr/' + file.filename)
+                            .map((file) => 'https://api.mandarin.weniv.co.kr/' + file.filename)
                             .join(",");
                 return imgUrls;
             }catch(err) {
