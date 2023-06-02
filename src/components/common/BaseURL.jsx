@@ -1,3 +1,3 @@
-const BASE_URL = "https://mandarin.api.weniv.co.kr";
+const BASE_URL = "https://api.mandarin.weniv.co.kr";
 
 export default BASE_URL;

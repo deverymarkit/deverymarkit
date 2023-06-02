@@ -12,7 +12,7 @@ export default function ProfileSetting() {
     const dispatch = useDispatch();
     const location = useLocation();
     const {email, password} = {...location.state};
-    const defalutImg = "https://mandarin.api.weniv.co.kr/Ellipse.png";
+    const defalutImg = "https://api.mandarin.weniv.co.kr/Ellipse.png";
     const [profiledata, setProfiledata] = useState({
         "username": "",
         "email": email,

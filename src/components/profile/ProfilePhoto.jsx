@@ -39,7 +39,7 @@ export default function ProfilePhoto({setProfiledata, profiledata}) {
         try {
             const imgRes = customImgAxios.post(`/image/uploadfile`, formData)
             const imgUrl = (await imgRes).data.filename
-            setProfiledata({...profiledata, "image": `https://mandarin.api.weniv.co.kr/${imgUrl}`})
+            setProfiledata({...profiledata, "image": `https://api.mandarin.weniv.co.kr/${imgUrl}`})
         } catch(err) {
             console.log(err)
         }
