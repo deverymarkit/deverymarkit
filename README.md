@@ -1,6 +1,6 @@
 # :computer: 개발자를 위한 데브리마킷
 
-🔗 **[배포URL](https://deverymarkit.vercel.app/)** <br/><br/>
+🔗 **[배포URL](https://deverymarkit-q7y17lqz4-deverymarkit.vercel.app/)** <br/><br/>
 🔒 **서비스 이용을 위한 계정**
 <br/>
 - ID : deverymarkit@naver.com <br/>
