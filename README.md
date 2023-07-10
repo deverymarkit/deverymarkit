@@ -59,8 +59,6 @@
 
 - 🔗 [Notion](https://likelion.notion.site/24-3acfedb74b414bf28029e7f734475d50)
 - 🔗 [회의록](https://likelion.notion.site/abeb3ff76c44463ea7684800316c2fa3)
-- 🔗 [컨벤션]()
-- 🔗 [디자인 시안](https://www.figma.com/file/d4CsFRGIALPvJNecvFilVu/%EC%A0%84%EC%9E%90%EC%A0%9C%ED%92%88-%EB%A7%88%EC%BC%93?node-id=39%3A1814&t=3lV2qDvsFR3EXipx-0)
 
 ## 4) 이슈 관리
 - 🔗 [GitHub Issues](https://github.com/deverymarkit/deverymarkit/issues) 와 🔗 [GitHub Project](https://github.com/deverymarkit/deverymarkit/projects?query=is%3Aopen) 를 사용하여 버전 관리 및 진행 상황을 공유
@@ -84,15 +82,7 @@
 |🔗[GitHub](https://github.com/2duckchun)|🔗[GitHub](https://github.com/lgrin-byte)|🔗[GitHub](https://github.com/CocoLeahBae)|🔗[GitHub](https://github.com/ssujinchoi)|
 <br>
 
-# 4. <span id = "code"> 핵심 코드 </span>
-
-### 1) customAxios
-<br/>
-
-# 5. <span id = "trouble"> 트러블 슈팅 </span>
-<br/>
-
-# 6. <span id = "tree"> 프로젝트 구조 </span> 
+# 4. <span id = "tree"> 프로젝트 구조 </span> 
 ```
 📦src
  ┣ 📂api
@@ -134,7 +124,7 @@
  ```
 <br/>
 
-# 7. <span id = "feel"> 느낀 점 </span>
+# 5. <span id = "feel"> 느낀 점 </span>
 ## 김태수
  - 프로젝트 팀장 역할을 수행하면서 마감 일정에 대한 압박을 느껴보았고, 팀 내 소통에 대한 자아성찰과 효과적인 개발을 위한 기술 도입에 많은 고민을 했던 것 같습니다.
  - 프로젝트 팀의 작업이 중간에 막히지 않도록 컴포넌트 흐름이나 개발 순서를 꾸준히 업데이트 했고, 기술적인 부분에서도 팀 차원에서 효과적인 업무가 가능하도록 유효성 검사, 무한 스크롤, 이미지 업로드 등을 선제적으로 도입해서 팀원들에게 설명해주었습니다. 전체적으로 프로젝트 마무리가 잘 되었다는 것에 뿌듯합니다.
@@ -154,7 +144,7 @@
 
 <br/>
 
-# 8. <span id = "ui"> UI </span>
+# 6. <span id = "ui"> UI </span>
 ### 스플래시 화면
 <img width="25%" src="https://user-images.githubusercontent.com/92588154/216489965-38c58fd8-495d-4b70-829d-7a0745a3331d.gif" />
 
